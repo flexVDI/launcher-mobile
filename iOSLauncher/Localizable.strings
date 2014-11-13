@@ -1,0 +1,24 @@
+/* 
+  Localizable.strings
+  iOSLauncher
+
+  Created by Sergio Lopez on 11/11/14.
+  Copyright (c) 2014 Flexible Software Solutions S.L. All rights reserved.
+*/
+
+"ask_server_data" = "Por favor, introduzca los datos del servidor";
+
+"login_username_empty" = "Por favor, introduzca su nombre de usuario";
+"login_pass_empty" = "Por favor, introduzca su contraseña";
+
+"login_serverip_empty" = "Por favor, introduzca el nombre del servidor";
+"login_serverport_empty" = "Por favor, introduzca el puerto del servidor";
+"main_server_error" = "No fue posible establecer una conexión con el servidor";
+"main_server_status_nok" = "Oh oh, no es posible conectarse al servidor desde este dispositivo.";
+
+"settings_save_success" = "La configuración ha sido guardada con éxito";
+
+"connection_failed" = "No fue posible establecer la conexión";
+"reconnection" = "Reconectando, por favor espere";
+"reconnection_failed" = "No fue posible reestablecer la conexión";
+"wait_for_network" = "Esperando a que se reestablezca la red";
