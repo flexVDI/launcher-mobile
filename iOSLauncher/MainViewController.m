@@ -941,6 +941,7 @@ MainViewController *mainViewController;
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self showLabel:NSLocalizedString(@"reconnection_failed", nil)];
+            [self clearCredentials];
             sleep(3);
             global_state.guest_height = 0;
             global_state.guest_width = 0;
@@ -1039,6 +1040,7 @@ MainViewController *mainViewController;
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self showLabel:NSLocalizedString(@"reconnection_failed", nil)];
+                [self clearCredentials];
                 sleep(3);
                 global_state.guest_height = 0;
                 global_state.guest_width = 0;
