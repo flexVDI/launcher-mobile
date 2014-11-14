@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "globals.h"
 #import "spice.h"
+#import "draw.h"
 
 @implementation AppDelegate
 
@@ -27,6 +28,7 @@
 {
     NSLog(@"applicationDidEnterBackground");
     if (engine_spice_is_connected()) {
+        engine_save_main_texture();
         engine_spice_disconnect();
     }
 }

@@ -22,3 +22,4 @@
 "reconnection" = "Reconectando, por favor espere";
 "reconnection_failed" = "No fue posible reestablecer la conexión";
 "wait_for_network" = "Esperando a que se reestablezca la red";
+"wait_for_desktop" = "Su escritorio está siendo preparado...";

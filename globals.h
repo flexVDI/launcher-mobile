@@ -10,6 +10,8 @@
 #include "spice.h"
 
 typedef struct _global_state_t {
+    char *save_path;
+    
     int conn_state;
     int display_state;
     spice_conn_data_t *conn_data;

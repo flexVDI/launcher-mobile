@@ -989,8 +989,8 @@ MainViewController *mainViewController;
                 reconnectionState = R_NONE;
                 [self launcherConnect:nil];
                 
-                sleep(1);
                 while (reconnectionState != R_SPICE) {
+                    sleep(1);
                     if (reconnectionState == R_LAUNCHER_WAIT) {
                         sleep(3);
                         reconnectionState = R_NONE;
@@ -1129,6 +1129,7 @@ void native_resolution_change(int changing) {
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
     [self launcherConnect:connection];
+    [connection cancel];
 }
 
 -(void)launcherConnect:(NSURLConnection *) connection
@@ -1184,18 +1185,12 @@ void native_resolution_change(int changing) {
         [request setValue:[NSString stringWithFormat:@"%d", body.length] forHTTPHeaderField:@"Content-Length"];
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         
+        reconnectionState = R_LAUNCHER;
         NSURLConnection *connectionDesktop =[[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:NO];
         NSLog(@"antes de connectionDesktop start");
-        reconnectionState = R_LAUNCHER;
-        if ([NSThread isMainThread]) {
-            NSLog(@"isMainThread");
-            [connectionDesktop start];
-        } else {
-            NSLog(@"NOT isMainThread");
-            [connectionDesktop scheduleInRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
-            [connectionDesktop start];
-        }
-
+        
+        [connectionDesktop scheduleInRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+        [connectionDesktop start];
     } else if (reconnectionState == R_LAUNCHER) {
         NSDictionary *responseDesktopDict = [NSJSONSerialization JSONObjectWithData:serverAnswer options:kNilOptions error:nil];
         serverAnswer = nil;
@@ -1226,18 +1221,14 @@ void native_resolution_change(int changing) {
             reconnectionState = R_SPICE;
         } else if ([status isEqualToString:@"Pending"]) {
             NSLog(@"status Pending");
-            //reconnectionState = R_LAUNCHER_WAIT;
-            reconnectionState = R_NONE;
-            [self launcherConnect:connection];
+            reconnectionState = R_LAUNCHER_WAIT;
         } else {
             NSLog(@"status NOK");
             reconnectionState = R_FAILED;
         }
     }
     
-    connection = nil;
-    
-    NSLog(@"despues de todo");
+    NSLog(@"despues de todo=%d", reconnectionState);
 }
 
 @end

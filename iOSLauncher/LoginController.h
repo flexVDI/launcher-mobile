@@ -29,6 +29,7 @@ enum connectionStates {
 @property (strong, nonatomic) NSString *spiceAddress;
 @property (strong, nonatomic) NSString *spicePassword;
 @property (strong, nonatomic) NSString *spicePort;
+@property (strong, nonatomic) NSString *launcherDesktop;
 @property (assign, nonatomic) BOOL useHttps;
 @property (assign, nonatomic) BOOL enableRetina;
 @property (assign, nonatomic) BOOL enableWebSockets;

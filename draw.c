@@ -8,6 +8,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include <limits.h>
+#include <sys/stat.h>
+#include <errno.h>
 
 #include "globals.h"
 #include "draw.h"
@@ -295,6 +297,7 @@ int engine_draw(int max_width, int max_height)
     if (global_state.conn_state == AUTOCONNECT) {
         global_state.conn_state = DISCONNECTED;
         global_state.display_state = DISCONNECTED;
+        engine_load_main_texture(max_width, max_height);
         native_connection_change(DISCONNECTED);
     }
     
@@ -343,3 +346,97 @@ int engine_draw_disconnected(int max_width, int max_height)
     
     return 0;
 }
+
+void engine_set_save_location(const char *path)
+{
+    if (global_state.save_path != NULL) {
+        free(global_state.save_path);
+    }
+    
+    global_state.save_path = malloc(strlen(path));
+    strcpy(global_state.save_path, path);
+}
+
+void engine_save_main_texture(void) {
+    FILE *output_fd;
+    char *bitmap = global_state.spice_display_buffer;
+    int size = global_state.guest_width * global_state.guest_height * 4;
+    
+    GLUE_DEBUG("trying to save main texture to: %s\n", global_state.save_path);
+    
+    if (!bitmap) {
+        GLUE_DEBUG("bitmap is null, not saving texture\n");
+        return;
+    }
+    
+    if (size == 0 || size > 16 * 1024 * 1024) {
+        GLUE_DEBUG("invalid texture size\n");
+        return;
+    }
+    
+    output_fd = fopen(global_state.save_path, "w+");
+    if (output_fd == NULL) {
+        GLUE_DEBUG("can't open output file: %s\n", strerror(errno));
+        return;
+    }
+    
+    if (fwrite(bitmap, size, 1, output_fd) != 1) {
+        GLUE_DEBUG("can't write to output file: %s\n", strerror(errno));
+        fclose(output_fd);
+        return;
+    }
+    
+    GLUE_DEBUG("main texture successfully saved: %s\n", global_state.save_path);
+    
+    fflush(output_fd);
+    fclose(output_fd);
+}
+
+void engine_load_main_texture(int max_width, int max_height) {
+    FILE *input_fd;
+    int max_size = max_width * max_height * 4;
+    struct stat *input_stat = malloc(sizeof(struct stat));
+    char *bitmap;
+    
+    GLUE_DEBUG("trying to load main texture from: %s\n", global_state.save_path);
+    
+    if (stat(global_state.save_path, input_stat) != 0) {
+        GLUE_DEBUG("can't open input file: %s\n", strerror(errno));
+        free(input_stat);
+        return;
+    }
+    
+    if (input_stat->st_size != max_size) {
+        GLUE_DEBUG("invalid size for input texture\n");
+        free(input_stat);
+        return;
+    }
+    
+    input_fd = fopen(global_state.save_path, "r");
+    if (input_fd == NULL) {
+        GLUE_DEBUG("can't open input file\n");
+        free(input_stat);
+        return;
+    }
+    
+    if (global_state.spice_display_buffer != NULL) {
+        free(global_state.spice_display_buffer);
+    }
+    
+    bitmap = global_state.spice_display_buffer = malloc(max_size);
+    
+    if (fread(bitmap, max_size, 1, input_fd) != 1) {
+        GLUE_DEBUG("can't read texture from file\n");
+        free(input_stat);
+        free(global_state.spice_display_buffer);
+        fclose(input_fd);
+    }
+    
+    create_main_texture(bitmap, max_width, max_height);
+    
+    GLUE_DEBUG("success reading file\n");
+    
+    fclose(input_fd);
+    free(input_stat);
+}
+
