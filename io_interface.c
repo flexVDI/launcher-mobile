@@ -19,13 +19,8 @@ static int check_keyboard_widget(io_event_t* event_in)
         k_start_x = (95 - (((48 * 100) / global_state.width) * 4.0)) / 100.0;
         k_start_y = ((48 * 100) / global_state.height) / 40.0;
     } else {
-        if (global_state.width == 480) {
-            k_start_x = (95 - (((48 * 100) / global_state.width) * 4.0)) / 65.0;
-            k_start_y = ((48 * 100) / global_state.height) / 80.0;
-        } else {
-            k_start_x = (95 - (((48 * 100) / global_state.width) * 4.0)) / 50.0;
-            k_start_y = ((48 * 100) / global_state.height) / 80.0;
-        }
+        k_start_x = (95 - (((48 * 100) / global_state.width) * 2.0)) / 100.0;
+        k_start_y = ((48 * 100) / global_state.height) / 80.0;
     }
     
     keyb_start_x = (global_state.width / 2) + (global_state.width / 2 * k_start_x);

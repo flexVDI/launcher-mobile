@@ -292,6 +292,12 @@ int engine_draw(int max_width, int max_height)
     int width = max_width;
     int height = max_height;
     
+    if (global_state.conn_state == AUTOCONNECT) {
+        global_state.conn_state = DISCONNECTED;
+        global_state.display_state = DISCONNECTED;
+        native_connection_change(DISCONNECTED);
+    }
+    
     if (global_state.display_state != CONNECTED) {
         return engine_draw_disconnected(max_width, max_height);
     }

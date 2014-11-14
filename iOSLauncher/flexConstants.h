@@ -13,6 +13,10 @@
 #define kFlexKeyServerPort @"ServerPort"
 #define kFlexKeyServerSecure @"ServerSecure"
 #define kFlexKeyServerDomain @"ServerDomain"
+#define kFlexKeyLauncherUser @"LauncherUser"
+#define kFlexKeyLauncherPassword @"LauncherPassword"
+#define kFlexKeyLauncherDesktop @"LauncherDesktop"
+#define kFlexKeyLauncherDevID @"LauncherDevID"
 #define kFlexKeyEnableWebSockets @"EnableWebSockets"
 #define kFlexKeyEnableRetina @"EnableRetina"
 

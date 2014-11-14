@@ -10,7 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "MainView.h"
 
-@interface MainViewController : UIViewController<UITableViewDelegate, UITableViewDataSource, MenuDelegate>
+@interface MainViewController : UIViewController<UITableViewDelegate, UITableViewDataSource, NSURLConnectionDelegate,MenuDelegate>
 {
     CGPoint lastMovementPosition;
 @private
@@ -34,11 +34,23 @@
     Boolean keybVisible;
     
     int connDesiredState;
+    int reconnectionState;
+    NSMutableData *serverAnswer;
 }
+
+enum reconnectionStates {
+    R_NONE,
+    R_LAUNCHER,
+    R_LAUNCHER_WAIT,
+    R_SPICE,
+    R_FAILED
+};
+
 @property (retain, nonatomic) IBOutlet UITableView *tblMenu;
 @property (retain, nonatomic) IBOutlet UILabel *lblMessage;
 @property (strong, nonatomic) NSString *ip;
 @property (strong, nonatomic) NSString *port;
 @property (strong, nonatomic) NSString *pass;
+@property (nonatomic) BOOL enableWebSockets;
 @end
 

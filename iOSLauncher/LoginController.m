@@ -54,8 +54,38 @@
     NSString* serverIP = [[NSUserDefaults standardUserDefaults] stringForKey:kFlexKeyServerIP];
     if(!serverIP || serverIP.length==0){
         [self performSegueWithIdentifier:@"loginToConfig" sender:self];
+    } else {
+        NSString* launcherUser = [[NSUserDefaults standardUserDefaults] stringForKey:kFlexKeyLauncherUser];
+        if(!launcherUser || launcherUser.length==0){
+            return;
+        }
+        NSString* launcherPassword = [[NSUserDefaults standardUserDefaults] stringForKey:kFlexKeyLauncherPassword];
+        if(!launcherPassword || launcherPassword.length==0){
+            return;
+        }
+        NSString* launcherDesktop = [[NSUserDefaults standardUserDefaults] stringForKey:kFlexKeyLauncherDesktop];
+        if(!launcherDesktop || launcherDesktop.length==0){
+            launcherDesktop = @"";
+        }
+        NSString* launcherDevID = [[NSUserDefaults standardUserDefaults] stringForKey:kFlexKeyLauncherDevID];
+        if(!launcherDevID || launcherDevID.length==0){
+            return;
+        }
+        
+        self.enableWebSockets = [[NSUserDefaults standardUserDefaults] boolForKey:kFlexKeyEnableWebSockets];
+        self.enableRetina = [[NSUserDefaults standardUserDefaults] boolForKey:kFlexKeyEnableRetina];
+        
+        /* Autoreconnection */
+        if (self.enableRetina) {
+            global_state.content_scale = 2;
+        } else {
+            global_state.content_scale = 1;
+        }
+        
+        global_state.conn_state = AUTOCONNECT;
+        
+        [self performSegueWithIdentifier:@"loginToView" sender:self];
     }
-
 }
 - (BOOL)prefersStatusBarHidden {
     return YES;
@@ -90,7 +120,8 @@
          display.pass = @"";//self.pass.text;*/
         
         mainViewController.ip = self.spiceAddress;
-        mainViewController.port =self.spicePort;
+        mainViewController.port = self.spicePort;
+        mainViewController.enableWebSockets = self.enableWebSockets;
         mainViewController.pass = self.spicePassword;
         _viewBackTable.hidden=TRUE;
         _tblDesktop.hidden=TRUE;
@@ -374,6 +405,12 @@
             NSLog(@"message %@", message);
             
             if([status isEqualToString:@"OK"]){
+                /* Save user credentials for reconnection */
+                NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+                [prefs setObject:_txtUser.text forKey:kFlexKeyLauncherUser];
+                [prefs setObject:_txtPassword.text forKey:kFlexKeyLauncherPassword];
+                [prefs setObject:_deviceID.text forKey:kFlexKeyLauncherDevID];
+                
                 self.spiceAddress=[responseDesktopDict objectForKey:@"spice_address"];
                 self.spicePassword=[responseDesktopDict objectForKey:@"spice_password"];
                 self.spicePort=[responseDesktopDict objectForKey:@"spice_port"];
@@ -450,6 +487,10 @@
     self.selectedDesktop=indexPath.row;
     NSLog(@"didSelectRowAtIndexPath self.selectedDesktop %d",self.selectedDesktop);
     NSString *desktop=[self.desktopsKeys objectAtIndex:self.selectedDesktop];
+    
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    [prefs setObject:desktop forKey:kFlexKeyLauncherDesktop];
+
     NSLog(@"didSelectRowAtIndexPath desktopsKeys %@",[self.desktopsKeys objectAtIndex:self.selectedDesktop]);
     NSLog(@"didSelectRowAtIndexPath desktops%@",[self.desktops objectAtIndex:self.selectedDesktop]);
     _activityIndicator.hidden=FALSE;

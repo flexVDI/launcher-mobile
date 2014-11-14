@@ -45,6 +45,7 @@ global_state_t global_state;
 
 #define DISCONNECTED 0x0
 #define CONNECTED 0x1
+#define AUTOCONNECT 0x2
 
 #define GLUE_DEBUG(fmt, ...) printf(fmt, ## __VA_ARGS__);
 

@@ -10,6 +10,7 @@
 #import "DesktopTableViewCell.h"
 #import "Toast+UIView.h"
 #import "Reachability.h"
+#import "flexConstants.h"
 #import "io_interface.h"
 #import "spice.h"
 #import "draw.h"
@@ -91,6 +92,7 @@ MainViewController *mainViewController;
 - (void)closeConnection
 {
     NSLog(@"closeConnection\n");
+    [self clearCredentials];
     connDesiredState = DISCONNECTED;
     engine_spice_disconnect();
 }
@@ -911,6 +913,13 @@ MainViewController *mainViewController;
     _lblMessage.hidden = true;
 }
 
+-(void)clearCredentials
+{
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kFlexKeyLauncherUser];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kFlexKeyLauncherPassword];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kFlexKeyLauncherDesktop];
+}
+
 -(void)waitForNetwork
 {
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -947,6 +956,7 @@ MainViewController *mainViewController;
             /* User asked us to close this session */
             global_state.guest_height = 0;
             global_state.guest_width = 0;
+            [self clearCredentials];
             [self dismissViewControllerAnimated:YES completion:nil];
             return;
         }
@@ -976,24 +986,54 @@ MainViewController *mainViewController;
                 sleep(1);
                 NSLog(@"Reconnecting to %@:%@ with password \"%@\"", self.ip, self.port, self.pass);
                 
-                if (engine_spice_connect() == 0) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [self hideLabel];
-                        engine_set_main_opacity(1.0);
-                        engine_set_keyboard_opacity(0.2);
-                    });
-                    return;
+                reconnectionState = R_NONE;
+                [self launcherConnect:nil];
+                
+                sleep(1);
+                while (reconnectionState != R_SPICE) {
+                    if (reconnectionState == R_LAUNCHER_WAIT) {
+                        sleep(3);
+                        reconnectionState = R_NONE;
+                        [self launcherConnect:nil];
+                    } else if (reconnectionState == R_FAILED) {
+                        if (connDesiredState != CONNECTED) {
+                            return;
+                        }
+                        NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+                        
+                        if (networkStatus == NotReachable) {
+                            [self waitForNetwork];
+                            return;
+                        } else {
+                            /* Break loop to reach error bellow. */
+                            break;
+                        }
+                    }
                 }
                 
-                if (connDesiredState != CONNECTED) {
-                    return;
-                }
-                
-                NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
-                
-                if (networkStatus == NotReachable) {
-                    [self waitForNetwork];
-                    return;
+                if (reconnectionState == R_SPICE) {
+                    if (engine_spice_connect() == 0) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self hideLabel];
+                            engine_set_main_opacity(1.0);
+                            engine_set_keyboard_opacity(0.2);
+                        });
+                        return;
+                    }
+                    
+                    if (connDesiredState != CONNECTED) {
+                        return;
+                    }
+                    
+                    NetworkStatus networkStatus = [networkReachability currentReachabilityStatus];
+                    
+                    if (networkStatus == NotReachable) {
+                        [self waitForNetwork];
+                        return;
+                    }
+                } else {
+                    /* Launcher connection failed, break loop. */
+                    break;
                 }
             }
             
@@ -1031,6 +1071,173 @@ void native_resolution_change(int changing) {
         engine_set_main_opacity(1.0);
         [mainViewController hideLabel];
     }
+}
+
+#pragma mark -
+#pragma mark Fetch loads from url
+- (NSCachedURLResponse *)connection:(NSURLConnection *)connection willCacheResponse:(NSCachedURLResponse *)cachedResponse {
+    NSLog(@"willCacheResponse");
+    return nil;
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+    
+    NSLog(@"didReceiveResponse");
+    NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+    int statusCode = [httpResponse statusCode];
+    
+    if (statusCode != 200){
+        NSLog(@"no es 200  ");
+        
+        reconnectionState = R_FAILED;
+        
+        NSLog(@"statusCode %d  ",statusCode);
+        [connection cancel];
+    }
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+{
+    NSLog(@"didReceiveData");
+    
+    if (serverAnswer == nil) {
+        serverAnswer = [[NSMutableData alloc] init];
+    }
+    
+    [serverAnswer appendData:data];
+}
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
+{
+    NSLog(@"didFailWithError");
+
+    serverAnswer = nil;
+    connection = nil;
+    reconnectionState = R_FAILED;
+}
+
+- (void)connection:(NSURLConnection *)connection willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
+{
+    NSLog(@"willSendRequestForAuthenticationChallenge");
+    NSURLProtectionSpace *protectionSpace = [challenge protectionSpace];
+    NSURLCredential *credential = [NSURLCredential credentialForTrust:[protectionSpace serverTrust]];
+    [[challenge sender] useCredential:credential forAuthenticationChallenge:challenge];
+}
+
+#pragma mark -
+#pragma mark Process load data
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+    [self launcherConnect:connection];
+}
+
+-(void)launcherConnect:(NSURLConnection *) connection
+{
+    if (reconnectionState == R_NONE) {
+        NSLog(@"R_NONE");
+        
+        NSString* launcherUser = [[NSUserDefaults standardUserDefaults] stringForKey:kFlexKeyLauncherUser];
+        if(!launcherUser || launcherUser.length==0){
+            reconnectionState = R_FAILED;
+            return;
+        }
+        NSString* launcherPassword = [[NSUserDefaults standardUserDefaults] stringForKey:kFlexKeyLauncherPassword];
+        if(!launcherPassword || launcherPassword.length==0){
+            reconnectionState = R_FAILED;
+            return;
+        }
+        NSString* launcherDesktop = [[NSUserDefaults standardUserDefaults] stringForKey:kFlexKeyLauncherDesktop];
+        if(!launcherDesktop || launcherDesktop.length==0){
+            launcherDesktop = @"";
+        }
+        NSString* launcherDevID = [[NSUserDefaults standardUserDefaults] stringForKey:kFlexKeyLauncherDevID];
+        if(!launcherDevID || launcherDevID.length==0){
+            reconnectionState = R_FAILED;
+            return;
+        }
+        NSString* serverIP = [[NSUserDefaults standardUserDefaults] stringForKey:kFlexKeyServerIP];
+        if(!serverIP || serverIP.length==0){
+            reconnectionState = R_FAILED;
+            return;
+        }
+        NSString* serverPort = [[NSUserDefaults standardUserDefaults] stringForKey:kFlexKeyServerPort];
+        if(!serverPort || serverPort.length==0){
+            reconnectionState = R_FAILED;
+            return;
+        }
+        
+        NSString* serverProto =nil;
+        serverProto = @"https";
+        
+        NSString *strUrlDesktop = [NSString stringWithFormat:@"%@://%@:%@/vdi/desktop", serverProto,serverIP,serverPort];
+        
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:strUrlDesktop]];
+        [request setHTTPMethod:@"POST"];
+        
+        NSString *body = [NSString stringWithFormat:
+                          @"{\"hwaddress\": \"%@\", \"username\": \"%@\", \"password\": \"%@\", \"desktop\": \"%@\"}", launcherDevID, launcherUser, launcherPassword, launcherDesktop];
+        
+        NSLog(@"body %@",body);
+        
+        NSData *postData = [body dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
+        [request setHTTPBody:postData];
+        [request setValue:[NSString stringWithFormat:@"%d", body.length] forHTTPHeaderField:@"Content-Length"];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        
+        NSURLConnection *connectionDesktop =[[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:NO];
+        NSLog(@"antes de connectionDesktop start");
+        reconnectionState = R_LAUNCHER;
+        if ([NSThread isMainThread]) {
+            NSLog(@"isMainThread");
+            [connectionDesktop start];
+        } else {
+            NSLog(@"NOT isMainThread");
+            [connectionDesktop scheduleInRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+            [connectionDesktop start];
+        }
+
+    } else if (reconnectionState == R_LAUNCHER) {
+        NSDictionary *responseDesktopDict = [NSJSONSerialization JSONObjectWithData:serverAnswer options:kNilOptions error:nil];
+        serverAnswer = nil;
+        
+        NSLog(@"response todo  %@",responseDesktopDict);
+        NSString *status=[responseDesktopDict objectForKey:@"status"];
+        NSString *message=[responseDesktopDict objectForKey:@"message"];
+        NSLog(@"status  %@",status);
+        NSLog(@"message %@", message);
+        
+        if([status isEqualToString:@"OK"]){
+            self.ip=[responseDesktopDict objectForKey:@"spice_address"];
+            self.pass=[responseDesktopDict objectForKey:@"spice_password"];
+            self.port=[responseDesktopDict objectForKey:@"spice_port"];
+            
+            NSString *wsport;
+            if (self.enableWebSockets) {
+                wsport = @"443";
+            } else {
+                wsport = @"-1";
+            }
+            
+            engine_spice_set_connection_data([self.ip UTF8String],
+                                             [self.port UTF8String],
+                                             [wsport UTF8String],
+                                             [self.pass UTF8String]);
+            
+            reconnectionState = R_SPICE;
+        } else if ([status isEqualToString:@"Pending"]) {
+            NSLog(@"status Pending");
+            //reconnectionState = R_LAUNCHER_WAIT;
+            reconnectionState = R_NONE;
+            [self launcherConnect:connection];
+        } else {
+            NSLog(@"status NOK");
+            reconnectionState = R_FAILED;
+        }
+    }
+    
+    connection = nil;
+    
+    NSLog(@"despues de todo");
 }
 
 @end

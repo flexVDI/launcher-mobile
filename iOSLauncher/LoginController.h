@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LoginController : UIViewController<UITextFieldDelegate,UITableViewDelegate, UITableViewDataSource>
+@interface LoginController : UIViewController<UITextFieldDelegate,UITableViewDelegate, UITableViewDataSource,NSURLConnectionDelegate>
 {
  @private
     NSMutableData *serverAnswer;
