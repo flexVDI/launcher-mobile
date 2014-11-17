@@ -17,10 +17,10 @@ static int check_keyboard_widget(io_event_t* event_in)
     
     if (global_state.content_scale == 2) {
         k_start_x = (95 - (((48 * 100) / global_state.width) * 4.0)) / 100.0;
-        k_start_y = ((48 * 100) / global_state.height) / 40.0;
+        k_start_y = (((48 * 100) / global_state.height) / 40.0) + global_state.keyboard_offset;
     } else {
         k_start_x = (95 - (((48 * 100) / global_state.width) * 2.0)) / 100.0;
-        k_start_y = ((48 * 100) / global_state.height) / 80.0;
+        k_start_y = (((48 * 100) / global_state.height) / 80.0) + global_state.keyboard_offset;
     }
     
     keyb_start_x = (global_state.width / 2) + (global_state.width / 2 * k_start_x);

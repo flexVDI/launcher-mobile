@@ -861,6 +861,9 @@ MainViewController *mainViewController;
     if (!keybVisible) {
         [keybView becomeFirstResponder];
         keybVisible = true;
+        if (global_state.width > global_state.height) {
+            engine_set_keyboard_offset(0.2);
+        }
         engine_set_keyboard_opacity(1.0);
     }
 }
@@ -870,6 +873,7 @@ MainViewController *mainViewController;
     if (keybVisible) {
         [keybView resignFirstResponder];
         keybVisible = false;
+        engine_set_keyboard_offset(0.0);
         engine_set_keyboard_opacity(0.2);
     }
 }

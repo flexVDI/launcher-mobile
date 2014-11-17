@@ -37,6 +37,7 @@ typedef struct _global_state_t {
     int button_mask;
     int keyboard_visible;
     float keyboard_opacity;
+    float keyboard_offset;
     float main_opacity;
 } global_state_t;
 

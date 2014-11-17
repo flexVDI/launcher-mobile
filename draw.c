@@ -197,13 +197,15 @@ static void render_keyboard_texture()
 {
     float keyb_start = 95 - (((48 * 100) / global_state.width) * 2.0) *
         global_state.content_scale;
-    float keyb_start_y = (((48 * 100) / global_state.height) / 80.0) *
-        global_state.content_scale;
+    float keyb_base_y = ((((48 * 100) / global_state.height) / 80.0) *
+                         global_state.content_scale);
+    float keyb_start_y = keyb_base_y + global_state.keyboard_offset;
+    float keyb_end_y = (0 - keyb_base_y) + global_state.keyboard_offset;
     
     GLfloat square[] = { keyb_start / 100.0,  keyb_start_y, 0.0,
                          0.95, keyb_start_y, 0.0,
-                         keyb_start / 100.0, -keyb_start_y, 0.0,
-                         0.95, -keyb_start_y, 0.0};
+                         keyb_start / 100.0, keyb_end_y, 0.0,
+                         0.95, keyb_end_y, 0.0};
 
     GLfloat texCoords[] = {0.0, 1.0,
                            1.0, 1.0,
@@ -281,6 +283,13 @@ void engine_init_screen()
 void engine_set_keyboard_opacity(float opacity)
 {
     global_state.keyboard_opacity = opacity;
+}
+
+void engine_set_keyboard_offset(float offset)
+{
+    if (offset < 0.5) {
+        global_state.keyboard_offset = offset;
+    }
 }
 
 void engine_set_main_opacity(float opacity)
