@@ -684,64 +684,109 @@ MainViewController *mainViewController;
         return;
     }
     
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        CGPoint pan_center = [sender locationInView:self.view];
-        int button;
+    CGPoint pan_center = [sender locationInView:self.view];
+    float multiplicator;
+    int button;
+    
+    CGPoint gestureVelocity = [sender velocityInView:self.view];
+    //        NSLog(@"gestureVelocity.x = %f\n", gestureVelocity.x);
+    //        NSLog(@"gestureVelocity.y = %f\n", gestureVelocity.y);
+    NSLog(@"doublePanLastPoint.y = %f\n", doublePanLastPoint.y);
+    NSLog(@"pan_center.y = %f\n", pan_center.y);
+    
+
+    if (doublePanOrientation == -1) {
+        if (fabs(gestureVelocity.x) > fabs(gestureVelocity.y)) {
+            doublePanOrientation = SCROLL_HORIZONTAL;
+            doublePanLastPoint.x = pan_center.x;
+        } else {
+            doublePanOrientation = SCROLL_VERTICAL;
+            doublePanLastPoint.y = pan_center.y;
+        }
+
+        doublePanAccumMovement = 0;
+    } else if (doublePanOrientation == SCROLL_HORIZONTAL) {
+        if (gestureVelocity.x > 100) {
+            multiplicator = 2.0;
+        } else if (gestureVelocity.x > 200) {
+            multiplicator = 3.0;
+        } else {
+            multiplicator = 1.0;
+        }
         
-        CGPoint gestureVelocity = [sender velocityInView:self.view];
-        NSLog(@"gestureVelocity.x = %f\n", gestureVelocity.x);
-        NSLog(@"gestureVelocity.y = %f\n", gestureVelocity.y);
+        doublePanAccumMovement += (fabs(doublePanLastPoint.x - pan_center.x)) * multiplicator;
+        doublePanLastPoint.x = pan_center.x;
+    } else {
+        if (gestureVelocity.y > 100) {
+            multiplicator = 2.0;
+        } else if (gestureVelocity.y > 200) {
+            multiplicator = 3.0;
+        } else {
+            multiplicator = 1.0;
+        }
         
-//        if (doublePanVelocity == -1) {
-//            doublePanEvents = 0;
-//            if (fabs(gestureVelocity.y) < 100) {
-                doublePanVelocity = 400;
-//            } else if (fabs(gestureVelocity.y) > 200) {
-//                doublePanVelocity = 50;
-//            } else {
-//                doublePanVelocity = 100;
-//            }
-//        } else {
-            doublePanEvents += (int) fabs(gestureVelocity.y);
-//        }
-        
-        NSLog(@"doublePanVelocity = %d\n", doublePanVelocity);
-        NSLog(@"doublePanVelocity = %d\n", doublePanEvents);
-        
-        if (gestureVelocity.y != 0.0 && doublePanEvents > doublePanVelocity) {
-            doublePanEvents = 0;
-            doublePanVelocity = -1;
+        doublePanAccumMovement += (fabs(doublePanLastPoint.y - pan_center.y)) * multiplicator;
+        doublePanLastPoint.y = pan_center.y;
+    }
+    
+    NSLog(@"doublePanAccumMovement = %d\n", doublePanAccumMovement);
+    
+    int events = doublePanAccumMovement / 10;
+    
+    if (events) {
+        doublePanAccumMovement = 0;
+        if (doublePanOrientation == SCROLL_HORIZONTAL) {
+            if (gestureVelocity.x < 0.0) {
+                button = 5;
+            } else {
+                button = 4;
+            }
+        } else {
             if (gestureVelocity.y < 0.0) {
                 button = 5;
             } else {
                 button = 4;
             }
-            
-            io_event_t io_event;
-            
-            io_event.type = IO_EVENT_MOVED;
-            io_event.position[0] = pan_center.x * global_state.content_scale;
-            io_event.position[1] = pan_center.y * global_state.content_scale;
-            io_event.button = button;
-            IO_PushEvent(&io_event);
-            
-            io_event.type = IO_EVENT_BEGAN;
-            io_event.position[0] = pan_center.x * global_state.content_scale;
-            io_event.position[1] = pan_center.y * global_state.content_scale;
-            io_event.button = button;
-            IO_PushEvent(&io_event);
-            
-            io_event.type = IO_EVENT_ENDED;
-            io_event.position[0] = pan_center.x * global_state.content_scale;
-            io_event.position[1] = pan_center.y * global_state.content_scale;
-            io_event.button = button;
-            IO_PushEvent(&io_event);
         }
         
-        if ([sender state] == UIGestureRecognizerStateEnded) {
-            doublePanVelocity = -1;
-        }
-    });
+        //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            int i;
+            
+            if (doublePanOrientation == SCROLL_HORIZONTAL) {
+                engine_spice_keyboard_event(0x2A, 1);
+            }
+            
+            for (i = 0; i < events; i++) {
+                io_event_t io_event;
+                
+                io_event.type = IO_EVENT_MOVED;
+                io_event.position[0] = pan_center.x * global_state.content_scale;
+                io_event.position[1] = pan_center.y * global_state.content_scale;
+                io_event.button = button;
+                IO_PushEvent(&io_event);
+                
+                io_event.type = IO_EVENT_BEGAN;
+                io_event.position[0] = pan_center.x * global_state.content_scale;
+                io_event.position[1] = pan_center.y * global_state.content_scale;
+                io_event.button = button;
+                IO_PushEvent(&io_event);
+                
+                io_event.type = IO_EVENT_ENDED;
+                io_event.position[0] = pan_center.x * global_state.content_scale;
+                io_event.position[1] = pan_center.y * global_state.content_scale;
+                io_event.button = button;
+                IO_PushEvent(&io_event);
+            }
+            
+            if (doublePanOrientation == SCROLL_HORIZONTAL) {
+                engine_spice_keyboard_event(0x2A, 0);
+            }
+        //});
+    }
+    
+    if ([sender state] == UIGestureRecognizerStateEnded) {
+        doublePanOrientation = -1;
+    }
 }
 
 -(void)handlePinch:(UIPinchGestureRecognizer *)pinchGestureRecognizer {

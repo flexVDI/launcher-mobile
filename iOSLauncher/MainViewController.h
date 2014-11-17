@@ -27,6 +27,9 @@
     Boolean dragging;
     double lastTapTimestamp;
     NSDate *lastTapDate;
+    CGPoint doublePanLastPoint;
+    int doublePanOrientation;
+    int doublePanAccumMovement;
     int doublePanEvents;
     int doublePanVelocity;
     
@@ -37,6 +40,11 @@
     int reconnectionState;
     NSMutableData *serverAnswer;
 }
+
+enum scrollOrientation {
+    SCROLL_HORIZONTAL,
+    SCROLL_VERTICAL
+};
 
 enum reconnectionStates {
     R_NONE,

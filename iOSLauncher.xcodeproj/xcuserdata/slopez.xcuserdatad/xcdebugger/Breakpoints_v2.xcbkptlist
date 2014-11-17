@@ -234,11 +234,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iOSLauncher/MainViewController.m"
-            timestampString = "437904745.502823"
+            timestampString = "437907804.605987"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "969"
-            endingLineNumber = "969"
+            startingLineNumber = "1014"
+            endingLineNumber = "1014"
             landmarkName = "-connectionChange:"
             landmarkType = "5">
          </BreakpointContent>
@@ -282,11 +282,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iOSLauncher/MainViewController.m"
-            timestampString = "437904745.502823"
+            timestampString = "437907804.605987"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "957"
-            endingLineNumber = "957"
+            startingLineNumber = "1002"
+            endingLineNumber = "1002"
             landmarkName = "-connectionChange:"
             landmarkType = "5">
          </BreakpointContent>
@@ -376,11 +376,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iOSLauncher/MainViewController.m"
-            timestampString = "437904745.502823"
+            timestampString = "437907804.605987"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1067"
-            endingLineNumber = "1067"
+            startingLineNumber = "1112"
+            endingLineNumber = "1112"
             landmarkName = "@implementation MainViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -392,11 +392,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iOSLauncher/MainViewController.m"
-            timestampString = "437904745.502823"
+            timestampString = "437907804.605987"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "959"
-            endingLineNumber = "959"
+            startingLineNumber = "1004"
+            endingLineNumber = "1004"
             landmarkName = "-connectionChange:"
             landmarkType = "5">
          </BreakpointContent>
@@ -616,11 +616,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iOSLauncher/MainViewController.m"
-            timestampString = "437904745.502823"
+            timestampString = "437907804.605987"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "911"
-            endingLineNumber = "911"
+            startingLineNumber = "956"
+            endingLineNumber = "956"
             landmarkName = "-showLabel:"
             landmarkType = "5">
          </BreakpointContent>
@@ -884,15 +884,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iOSLauncher/MainViewController.m"
-            timestampString = "437652106.59778"
+            timestampString = "437907804.605987"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "711"
-            endingLineNumber = "711"
+            startingLineNumber = "736"
+            endingLineNumber = "736"
             landmarkName = "-handleDoublePan:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1266,11 +1266,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iOSLauncher/MainViewController.m"
-            timestampString = "437904745.502823"
+            timestampString = "437907804.605987"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1135"
-            endingLineNumber = "1135"
+            startingLineNumber = "1180"
+            endingLineNumber = "1180"
             landmarkName = "@implementation MainViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -1282,11 +1282,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iOSLauncher/MainViewController.m"
-            timestampString = "437904745.502823"
+            timestampString = "437907804.605987"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1193"
-            endingLineNumber = "1193"
+            startingLineNumber = "1238"
+            endingLineNumber = "1238"
             landmarkName = "-launcherConnect:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1298,11 +1298,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iOSLauncher/MainViewController.m"
-            timestampString = "437904745.502823"
+            timestampString = "437907804.605987"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1141"
-            endingLineNumber = "1141"
+            startingLineNumber = "1186"
+            endingLineNumber = "1186"
             landmarkName = "-launcherConnect:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1314,11 +1314,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iOSLauncher/MainViewController.m"
-            timestampString = "437904745.502823"
+            timestampString = "437907804.605987"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "998"
-            endingLineNumber = "998"
+            startingLineNumber = "1043"
+            endingLineNumber = "1043"
             landmarkName = "-connectionChange:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1394,12 +1394,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "iOSLauncher/MainViewController.m"
-            timestampString = "437904745.502823"
+            timestampString = "437907804.605987"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "995"
-            endingLineNumber = "995"
+            startingLineNumber = "1040"
+            endingLineNumber = "1040"
             landmarkName = "-connectionChange:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "iOSLauncher/MainViewController.m"
+            timestampString = "437908063.436871"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "728"
+            endingLineNumber = "728"
+            landmarkName = "-handleDoublePan:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

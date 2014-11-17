@@ -109,12 +109,16 @@ void IO_PushEvent(io_event_t* event_in){
             break;
         case IO_EVENT_BEGAN:
             engine_spice_button_event(mouse_fix[0], mouse_fix[1], event_in->button, 1);
-            nanosleep(&sleeptime, NULL);
+            if (event_in->button == 1) {
+                nanosleep(&sleeptime, NULL);
+            }
             //sleep(1);
             break;
         case IO_EVENT_ENDED:
             engine_spice_button_event(mouse_fix[0], mouse_fix[1], event_in->button, 0);
-            nanosleep(&sleeptime, NULL);
+            if (event_in->button == 1) {
+                nanosleep(&sleeptime, NULL);
+            }
             //sleep(1);
             break;
     }
