@@ -12,6 +12,8 @@ void engine_set_keyboard_offset(float offset);
 
 void engine_set_main_opacity(float opacity);
 
+void engine_set_main_offset(float offset);
+
 void engine_set_save_location(const char *path);
 
 void engine_save_main_texture(void);

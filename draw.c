@@ -154,10 +154,18 @@ static void apply_offset(GLfloat *tex_coords)
 
 static void render_main_texture()
 {
-    GLfloat square[] = {-1.0,  1.0, 0.0,
-                         1.0,  1.0, 0.0,
-                        -1.0, -1.0, 0.0,
-                         1.0, -1.0, 0.0};
+    float base_high = 1.0 + global_state.main_offset;
+    float base_low = -1.0 + global_state.main_offset;
+    
+    GLfloat square[] = {-1.0,  base_high, 0.0,
+                        1.0,  base_high, 0.0,
+                        -1.0, base_low, 0.0,
+                        1.0, base_low, 0.0};
+    
+//    GLfloat square[] = {-1.0,  1.0, 0.0,
+//                         1.0,  1.0, 0.0,
+//                        -1.0, -1.0, 0.0,
+//                         1.0, -1.0, 0.0};
     GLfloat texCoords[] = {0.0, 1.0,
                            1.0, 1.0,
                            0.0, 0.0,
@@ -295,6 +303,11 @@ void engine_set_keyboard_offset(float offset)
 void engine_set_main_opacity(float opacity)
 {
     global_state.main_opacity = opacity;
+}
+
+void engine_set_main_offset(float offset)
+{
+    global_state.main_offset = offset;
 }
 
 int engine_draw(int max_width, int max_height)

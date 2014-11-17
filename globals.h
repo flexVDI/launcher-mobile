@@ -39,6 +39,7 @@ typedef struct _global_state_t {
     float keyboard_opacity;
     float keyboard_offset;
     float main_opacity;
+    float main_offset;
 } global_state_t;
 
 global_state_t global_state;

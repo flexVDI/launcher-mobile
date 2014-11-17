@@ -27,6 +27,9 @@
     Boolean dragging;
     double lastTapTimestamp;
     NSDate *lastTapDate;
+    
+    float panOffsetLastPoint;
+    
     CGPoint doublePanLastPoint;
     int doublePanOrientation;
     int doublePanAccumMovement;

@@ -580,13 +580,65 @@ MainViewController *mainViewController;
         return;
     }
     
+    CGPoint pan_center = [sender locationInView:self.view];
+    CGPoint gestureVelocity = [sender velocityInView:self.view];
+    CGPoint movement;
+    
+    if (fabs(gestureVelocity.x) > 100) {
+        movement.x = 0.03;
+    } else if (fabs(gestureVelocity.x) > 200) {
+        movement.x = 0.04;
+    } else {
+        movement.x = 0.02;
+    }
+    
+    if (fabs(gestureVelocity.y) > 100) {
+        movement.y = 0.03;
+    } else if (fabs(gestureVelocity.y) > 200) {
+        movement.y = 0.04;
+    } else {
+        movement.y = 0.02;
+    }
+
     if (global_state.zoom == 0) {
+        if (keybVisible) {
+            CGPoint gestureVelocity = [sender velocityInView:self.view];
+            float offset_limit;
+            
+            if (global_state.width > global_state.height) {
+                offset_limit = 1.0;
+            } else {
+                offset_limit = 0.9;
+            }
+            
+            if (panOffsetLastPoint == -1) {
+                panOffsetLastPoint = pan_center.y;
+            } else {
+                float pan_offset = fabs(panOffsetLastPoint - pan_center.y);
+                
+                if (pan_offset > 10) {
+                    float main_offset;
+                    
+                    if (gestureVelocity.y > 0) {
+                        main_offset = global_state.main_offset - (movement.y * 4);
+                    } else {
+                        main_offset = global_state.main_offset + (movement.y * 4);
+                    }
+                    
+                    if (main_offset > 0.0 && main_offset < offset_limit) {
+                        engine_set_main_offset(main_offset);
+                    }
+                    
+                    panOffsetLastPoint = pan_center.y;
+                }
+            }
+        }
+        
         global_state.zoom_offset_x = 0.0;
         global_state.zoom_offset_y = 0.0;
         panTarget.x = -1;
         panTarget.y = -1;
     } else {
-        CGPoint pan_center = [sender locationInView:self.view];
         float offset;
         float pan_offset_x;
         float pan_offset_y;
@@ -618,7 +670,7 @@ MainViewController *mainViewController;
         
         if (fabs(pan_offset_x) > 10) {
             if (pan_offset_x < 0) {
-                offset = global_state.zoom_offset_x - 0.04;
+                offset = global_state.zoom_offset_x - movement.x;
                 if (fabs(offset) <= global_state.zoom) {
                     global_state.zoom_offset_x = offset;
                 } else {
@@ -629,7 +681,7 @@ MainViewController *mainViewController;
                     }
                 }
             } else {
-                offset = global_state.zoom_offset_x + 0.04;
+                offset = global_state.zoom_offset_x + movement.x;
                 if (fabs(offset) <= global_state.zoom) {
                     global_state.zoom_offset_x = offset;
                 } else {
@@ -645,7 +697,7 @@ MainViewController *mainViewController;
         
         if (fabs(pan_offset_y) > 10) {
             if (pan_offset_y > 0) {
-                offset = global_state.zoom_offset_y - 0.04;
+                offset = global_state.zoom_offset_y - movement.y;
                 if (fabs(offset) <= global_state.zoom) {
                     global_state.zoom_offset_y = offset;
                 } else {
@@ -656,7 +708,7 @@ MainViewController *mainViewController;
                     }
                 }
             } else {
-                offset = global_state.zoom_offset_y + 0.04;
+                offset = global_state.zoom_offset_y + movement.y;
                 if (fabs(offset) <= global_state.zoom) {
                     global_state.zoom_offset_y = offset;
                 } else {
@@ -674,6 +726,7 @@ MainViewController *mainViewController;
     if ([sender state] == UIGestureRecognizerStateEnded) {
         panTarget.x = -1;
         panTarget.y = -1;
+        panOffsetLastPoint = -1;
     }
 }
 
@@ -918,6 +971,7 @@ MainViewController *mainViewController;
     if (keybVisible) {
         [keybView resignFirstResponder];
         keybVisible = false;
+        engine_set_main_offset(0.0);
         engine_set_keyboard_offset(0.0);
         engine_set_keyboard_opacity(0.2);
     }
