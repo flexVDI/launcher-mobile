@@ -13,6 +13,8 @@
 @interface MainViewController : UIViewController<UITableViewDelegate, UITableViewDataSource, NSURLConnectionDelegate,MenuDelegate>
 {
     CGPoint lastMovementPosition;
+    int orientationMask;
+    Boolean fixOrientation;
 @private
     UITapGestureRecognizer *tapRecognizer;
     UITapGestureRecognizer *doubleTapRecognizer;

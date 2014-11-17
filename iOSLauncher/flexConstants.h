@@ -23,4 +23,7 @@
 #define kFlexKeyConnectionAuthMode @"ConnectionAuthMode"
 #define kFlexKeyConnectionDesktop @"ConnectionDesktop"
 
+#define kFlexKeyFixOrientation @"FixOrientation"
+#define kFlexKeyOrientationMask @"OrientationMask"
+
 #endif

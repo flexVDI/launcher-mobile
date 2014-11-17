@@ -73,6 +73,12 @@
     
     NSString* serverIP = [[NSUserDefaults standardUserDefaults] stringForKey:kFlexKeyServerIP];
     if(!serverIP || serverIP.length==0){
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        int defaultOrientationMask = UIInterfaceOrientationMaskLandscapeRight | UIInterfaceOrientationMaskPortrait;
+        
+        [prefs setBool:NO forKey:kFlexKeyFixOrientation];
+        [prefs setInteger:defaultOrientationMask forKey:kFlexKeyOrientationMask];
+        
         [self performSegueWithIdentifier:@"loginToConfig" sender:self];
     } else {
         NSString* launcherUser = [[NSUserDefaults standardUserDefaults] stringForKey:kFlexKeyLauncherUser];

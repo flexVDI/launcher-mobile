@@ -38,6 +38,8 @@ MainViewController *mainViewController;
 {
     if ((self = [super initWithCoder:coder]))
     {
+        fixOrientation = [[NSUserDefaults standardUserDefaults] boolForKey:kFlexKeyFixOrientation];
+        orientationMask = [[NSUserDefaults standardUserDefaults] integerForKey:kFlexKeyOrientationMask];
         mainViewController = self;
         return self;
     }
@@ -100,6 +102,31 @@ MainViewController *mainViewController;
 - (void)changeResolution
 {
     NSLog(@"changeResolution\n");
+}
+
+-(void)fixReleaseOrientation
+{
+    NSLog(@"fixReleaseOrientation\n");
+    
+    if (fixOrientation) {
+        fixOrientation = NO;
+        orientationMask = UIInterfaceOrientationMaskLandscapeRight | UIInterfaceOrientationMaskPortrait;
+    } else {
+        fixOrientation = YES;
+        if (global_state.guest_width > global_state.guest_height) {
+            orientationMask = UIInterfaceOrientationMaskLandscapeRight;
+        } else {
+            orientationMask = UIInterfaceOrientationMaskPortrait;
+        }
+    }
+    
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    [prefs setBool:fixOrientation forKey:kFlexKeyFixOrientation];
+    [prefs setInteger:orientationMask forKey:kFlexKeyOrientationMask];
+    
+    [prefs synchronize];
+    
+    [_tblMenu reloadData];
 }
 
 - (void)sendKeyCombination:(int) keyCombo
@@ -213,7 +240,7 @@ MainViewController *mainViewController;
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 0) {
-        return 1;
+        return 2;
     } else {
         return 11;
     }
@@ -231,6 +258,14 @@ MainViewController *mainViewController;
             case 0:
                 key = @"close";
                 name = @"Cerrar sesión";
+                break;
+            case 1:
+                key = @"fixReleaseOrientation";
+                if (fixOrientation) {
+                    name = @"Liberar orientación";
+                } else {
+                    name = @"Fijar orientación";
+                }
                 break;
         }
     } else {
@@ -286,7 +321,7 @@ MainViewController *mainViewController;
                 [self closeConnection];
                 break;
             case 1:
-                [self changeResolution];
+                [self fixReleaseOrientation];
                 break;
         }
     } else {
@@ -1334,6 +1369,15 @@ void native_resolution_change(int changing) {
     }
     
     NSLog(@"despues de todo=%d", reconnectionState);
+}
+
+- (NSUInteger)supportedInterfaceOrientations {
+    return orientationMask;
+}
+
+
+- (BOOL)shouldAutorotate {
+    return YES;
 }
 
 @end
