@@ -17,6 +17,7 @@
 @property (retain, nonatomic) IBOutlet UITextField *txtPort;
 @property (retain, nonatomic) IBOutlet UIButton *btnSave;
 @property (retain, nonatomic) IBOutlet UITextField *txtIp;
+@property (retain, nonatomic) IBOutlet UILabel *lblVersion;
 - (IBAction)btnSaveAction:(id)sender;
 - (IBAction)backgroudTouched:(id)sender;
 

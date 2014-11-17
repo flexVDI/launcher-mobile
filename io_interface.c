@@ -82,6 +82,11 @@ void IO_PushEvent(io_event_t* event_in){
 
 //        printf("zoom_max_ratio_x=%f\n", zoom_max_ratio_x);
 //        printf("zoom_max_ratio_y=%f\n", zoom_max_ratio_y);
+    } else if (global_state.main_offset != 0) {
+        float offset_y = global_state.height * (global_state.main_offset / 2);
+        
+        mouse_fix[0] = event_in->position[0] * global_state.mouse_fix[0];
+        mouse_fix[1] = (event_in->position[1] * global_state.mouse_fix[1]) + offset_y;
     } else {
         mouse_fix[0] = event_in->position[0] * global_state.mouse_fix[0];
         mouse_fix[1] = event_in->position[1] * global_state.mouse_fix[1];

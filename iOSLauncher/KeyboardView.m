@@ -17,11 +17,11 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code
+        [self setAutocorrectionType:UITextAutocorrectionTypeNo];
+        [self setKeyboardType:UIKeyboardTypeASCIICapable];
     }
     return self;
 }
-
 
 -(void)insertText:(NSString *)text {
     NSLog(@"insertText: %@", text);

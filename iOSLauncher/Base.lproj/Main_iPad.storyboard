@@ -330,6 +330,13 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="BZa-MA-iv9">
+                                <rect key="frame" x="684" y="974" width="50" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.69399007229999998" green="0.71985815600000003" blue="0.71191020940000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.9215686917" green="0.9215686917" blue="0.9215686917" alpha="1" colorSpace="deviceRGB"/>
                         <connections>
@@ -340,6 +347,7 @@
                     <connections>
                         <outlet property="btnSave" destination="fsP-lH-5DR" id="XjC-Gm-fvP"/>
                         <outlet property="enableWebSockets" destination="wEW-Cw-GWx" id="z8e-Ch-tKl"/>
+                        <outlet property="lblVersion" destination="BZa-MA-iv9" id="Ddk-hp-HhT"/>
                         <outlet property="txtIp" destination="9Bm-HS-OFu" id="w3W-I6-OyM"/>
                         <outlet property="txtPort" destination="4ma-bL-GmC" id="78x-9L-qf9"/>
                     </connections>

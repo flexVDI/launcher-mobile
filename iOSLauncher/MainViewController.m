@@ -656,14 +656,17 @@ MainViewController *mainViewController;
                     
                     if (gestureVelocity.y > 0) {
                         main_offset = global_state.main_offset - (movement.y * 4);
+                        if (main_offset < 0.0) {
+                            main_offset = 0.0;
+                        }
                     } else {
                         main_offset = global_state.main_offset + (movement.y * 4);
+                        if (main_offset > offset_limit) {
+                            main_offset = offset_limit;
+                        }
                     }
-                    
-                    if (main_offset > 0.0 && main_offset < offset_limit) {
-                        engine_set_main_offset(main_offset);
-                    }
-                    
+
+                    engine_set_main_offset(main_offset);
                     panOffsetLastPoint = pan_center.y;
                 }
             }

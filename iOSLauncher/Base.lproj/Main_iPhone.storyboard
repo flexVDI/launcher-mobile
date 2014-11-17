@@ -93,7 +93,7 @@
                                 <rect key="frame" x="124" y="107" width="176" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="URL"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" id="J70-mi-eRn" userLabel="txtPassword">
                                 <rect key="frame" x="124" y="145" width="176" height="30"/>
@@ -148,7 +148,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
                             </activityIndicatorView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="AL3-C2-YCn" userLabel="tblDesktop">
-                                <rect key="frame" x="20" y="106" width="280" height="167"/>
+                                <rect key="frame" x="18" y="79" width="280" height="167"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -265,28 +265,28 @@
                                 <rect key="frame" x="101" y="88" width="207" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="URL"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" id="4ma-bL-GmC" userLabel="txtPort">
                                 <rect key="frame" x="101" y="126" width="208" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad"/>
                             </textField>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="wEW-Cw-GWx" userLabel="enableWebSockets">
-                                <rect key="frame" x="106" y="164" width="51" height="31"/>
+                                <rect key="frame" x="103" y="164" width="51" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
                                 <color key="onTintColor" red="0.27450981736183167" green="0.59607845544815063" blue="0.71764707565307617" alpha="1" colorSpace="deviceRGB"/>
                                 <color key="thumbTintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </switch>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Modo Retina" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OXK-fB-tI2">
-                                <rect key="frame" x="166" y="169" width="103" height="21"/>
+                                <rect key="frame" x="163" y="169" width="103" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="DoR-2Y-tje" userLabel="enableRetina">
-                                <rect key="frame" x="261" y="164" width="51" height="31"/>
+                                <rect key="frame" x="258" y="164" width="51" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
                                 <color key="onTintColor" red="0.27450981740000002" green="0.59607845540000004" blue="0.71764707569999997" alpha="1" colorSpace="deviceRGB"/>
                                 <color key="thumbTintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -336,6 +336,13 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OgX-Qg-OeP">
+                                <rect key="frame" x="259" y="430" width="50" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.69399007229999998" green="0.71985815600000003" blue="0.71191020940000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.9215686917" green="0.9215686917" blue="0.9215686917" alpha="1" colorSpace="deviceRGB"/>
                         <connections>
@@ -347,6 +354,7 @@
                         <outlet property="btnSave" destination="fsP-lH-5DR" id="XjC-Gm-fvP"/>
                         <outlet property="enableRetina" destination="DoR-2Y-tje" id="gSa-Tb-ltQ"/>
                         <outlet property="enableWebSockets" destination="wEW-Cw-GWx" id="z8e-Ch-tKl"/>
+                        <outlet property="lblVersion" destination="OgX-Qg-OeP" id="r4m-95-W4q"/>
                         <outlet property="txtIp" destination="9Bm-HS-OFu" id="w3W-I6-OyM"/>
                         <outlet property="txtPort" destination="4ma-bL-GmC" id="78x-9L-qf9"/>
                     </connections>

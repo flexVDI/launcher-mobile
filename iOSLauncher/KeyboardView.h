@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface KeyboardView : UIView <UIKeyInput>
+@interface KeyboardView : UITextField
 
 @end

@@ -30,6 +30,8 @@
     _txtIp.delegate = self;
     _txtPort.delegate = self;
     _txtDomain.delegate = self;
+    _lblVersion.text = @"v1.4";
+    _lblVersion.layer.cornerRadius = 8.0f;
     
     NSString* serverIP = [[NSUserDefaults standardUserDefaults] stringForKey:kFlexKeyServerIP];
     NSLog(@"serverIP %@",serverIP);
