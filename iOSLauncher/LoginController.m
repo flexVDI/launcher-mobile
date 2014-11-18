@@ -42,11 +42,14 @@
     _tblDesktop.dataSource=self;
     _tblDesktop.hidden=TRUE;
     _viewBackTable.hidden=TRUE;
+    _txtPassword.delegate = self;
+
     
 }
 - (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
+    [_txtUser becomeFirstResponder];
     NSLog(@"Sale viewWillAppear");
 }
 -(void)viewDidAppear:(BOOL)animated
@@ -246,10 +249,10 @@
 #pragma mark -
 #pragma mark UITextField methods delegate
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
-    if (theTextField == _txtUser) {
-        [_txtUser resignFirstResponder];
-    }else if (theTextField == _txtPassword) {
-        [_txtPassword resignFirstResponder];
+    if (theTextField == _txtPassword) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self connect:nil];
+        });
     }
     return YES;
 }

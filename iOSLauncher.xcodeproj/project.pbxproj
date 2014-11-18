@@ -338,9 +338,6 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Flexible Software Solutions S.L.";
 				TargetAttributes = {
-					D8FD562C1A03A77A00292158 = {
-						DevelopmentTeam = KCNDDZ7UVS;
-					};
 					D8FD56581A03A77A00292158 = {
 						TestTargetID = D8FD562C1A03A77A00292158;
 					};
@@ -546,8 +543,8 @@
 				ARCHS = armv7;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Nologin Consulting S.L. (KCNDDZ7UVS)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Nologin Consulting S.L. (KCNDDZ7UVS)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				"DYLIB_COMPATIBILITY_VERSION[sdk=*]" = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -566,7 +563,7 @@
 					"/Users/slopez/Documents/spice-mono-glue/ios_x86",
 				);
 				PRODUCT_NAME = flexVDI;
-				PROVISIONING_PROFILE = "125a391e-519b-428d-ae76-43a96955bccf";
+				PROVISIONING_PROFILE = "dcfb8510-4ce3-4afd-a14d-0001d25cbe84";
 				VALID_ARCHS = "arm64 armv7";
 				WRAPPER_EXTENSION = app;
 			};
@@ -578,8 +575,8 @@
 				ARCHS = armv7;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Nologin Consulting S.L. (KCNDDZ7UVS)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Nologin Consulting S.L. (KCNDDZ7UVS)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(USER_LIBRARY_DIR)/Developer/GStreamer/iPhone.sdk",
@@ -597,7 +594,7 @@
 					"/Users/slopez/Documents/spice-mono-glue/ios_x86",
 				);
 				PRODUCT_NAME = flexVDI;
-				PROVISIONING_PROFILE = "125a391e-519b-428d-ae76-43a96955bccf";
+				PROVISIONING_PROFILE = "dcfb8510-4ce3-4afd-a14d-0001d25cbe84";
 				VALID_ARCHS = "arm64 armv7";
 				WRAPPER_EXTENSION = app;
 			};

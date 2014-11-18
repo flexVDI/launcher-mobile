@@ -77,6 +77,11 @@ MainViewController *mainViewController;
     doublePanRecognizer.maximumNumberOfTouches = 2;
     [self.view addGestureRecognizer:doublePanRecognizer];
     
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        AudioServicesPlaySystemSound(1104);
+        AudioServicesPlaySystemSound(1104);
+    }
+    
     keybView = [[KeyboardView alloc] init];
     [self.view addSubview:keybView];
     
@@ -564,7 +569,11 @@ MainViewController *mainViewController;
     if (!dragging) {
         dragging = true;
         
-        AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            AudioServicesPlaySystemSound(1104);
+        } else {
+            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+        }
         
         io_event.type = IO_EVENT_MOVED;
         io_event.position[0] = center.x * global_state.content_scale;
@@ -997,9 +1006,6 @@ MainViewController *mainViewController;
     if (!keybVisible) {
         [keybView becomeFirstResponder];
         keybVisible = true;
-        if (global_state.width > global_state.height) {
-            engine_set_keyboard_offset(0.2);
-        }
         engine_set_keyboard_opacity(1.0);
     }
 }
@@ -1010,7 +1016,6 @@ MainViewController *mainViewController;
         [keybView resignFirstResponder];
         keybVisible = false;
         engine_set_main_offset(0.0);
-        engine_set_keyboard_offset(0.0);
         engine_set_keyboard_opacity(0.2);
     }
 }
