@@ -8,7 +8,6 @@ typedef struct _io_event_t
 	// Used to be an array of int (Worked well on windows,macosx and iphone).
 	// but Android return coordinates as float....
 	float position[2];
-	float previousPosition[2];
     int button;
 
     event_type_t type;

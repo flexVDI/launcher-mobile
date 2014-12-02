@@ -41,16 +41,18 @@ static int check_keyboard_widget(io_event_t* event_in)
 void IO_PushEvent(io_event_t* event_in){
     struct timespec sleeptime;
     double mouse_fix[2];
-
+    
     if (check_keyboard_widget(event_in)) {
-        if (event_in->type == IO_EVENT_ENDED) {
-            if (event_in->button == 4) {
+        if (event_in->button == 11) {
+            if (event_in->type == IO_EVENT_BEGAN) {
                 native_show_menu();
-            } else {
-                native_show_keyboard();
             }
+        } else if (event_in->type == IO_EVENT_ENDED) {
+            native_show_keyboard();
         }
         return;
+    } else if (event_in->button == 11) {
+        event_in->button = 1;
     }
 
     if (global_state.zoom != 0.0) {

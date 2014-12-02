@@ -24,6 +24,7 @@
         [self setKeyboardType:UIKeyboardTypeASCIICapable];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+        self.keyboardVisible = false;
     }
     return self;
 }
@@ -153,6 +154,36 @@
                 special = 0x36;
                 prekey = 0x28;
                 prekey_special = 0x36;
+            } else if (extchar == 159) {
+                keycode = 0x30;
+                special = 0x1d;
+            }
+            break;
+        case 197:
+            extchar = ctext[1];
+            NSLog(@"extchar=%d\n", extchar);
+            if (extchar == 147) {
+                /* alt + tab */
+                keycode = 0x0f;
+                special = 0x38;
+            }
+            break;
+        case 198:
+            extchar = ctext[1];
+            NSLog(@"extchar=%d\n", extchar);
+            if (extchar == 146) {
+                /* Ctrl + F */
+                keycode = 0x21;
+                special = 0x1d;
+            }
+            break;
+        case 206:
+            extchar = ctext[1];
+            NSLog(@"extchar=%d\n", extchar);
+            if (extchar == 169) {
+                /* Ctrl + Z */
+                keycode = 0x2c;
+                special = 0x1d;
             }
             break;
         case 226:
@@ -175,6 +206,10 @@
             } else if (extchar == 136 && extchar2 == 154) {
                 /* Ctrl + V */
                 keycode = 0x2f;
+                special = 0x1d;
+            } else if (extchar == 136 && extchar2 == 130) {
+                /* Ctrl + B */
+                keycode = 0x20;
                 special = 0x1d;
             }
             break;
@@ -300,6 +335,9 @@
         case '"':
             keycode = 0x03;
             special = 0x36;
+            break;
+        case '\'':
+            keycode = 0x0c;
             break;
         case '#':
             keycode = 0x04;
@@ -442,6 +480,7 @@
 }
 
 -(void)deleteBackward {
+    /* Unused since this was changed to use UITextView */
     NSLog(@"DeleteKey");
     engine_spice_keyboard_event(0x0E, 1);
     engine_spice_keyboard_event(0x0E, 0);
@@ -452,23 +491,6 @@
     return YES;
 }
 
--(BOOL)keyboardInputShouldDelete:(UITextField *)textField {
-    BOOL shouldDelete = YES;
-    
-    if ([UITextField instanceMethodForSelector:_cmd]) {
-        BOOL (*keyboardInputShouldDelete)(id, SEL, UITextField *) = (BOOL (*)(id, SEL, UITextField *))[UITextField instanceMethodForSelector:_cmd];
-        if (keyboardInputShouldDelete) {
-            shouldDelete = keyboardInputShouldDelete(self, _cmd, textField);
-        }
-    }
-    
-    if ([[[UIDevice currentDevice] systemVersion] intValue] >= 8) {
-        [self deleteBackward];
-    }
-    
-    return shouldDelete;
-}
-
 -(BOOL)canBecomeFirstResponder {
     return YES;
 }
@@ -477,10 +499,12 @@
     if (global_state.width > global_state.height) {
         engine_set_keyboard_offset(0.2);
     }
+    self.keyboardVisible = true;
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
     engine_set_keyboard_offset(0.0);
+    self.keyboardVisible = false;
 }
 
 @end

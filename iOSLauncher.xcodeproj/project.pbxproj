@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		BE1A4AD01A0D1399002983C2 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = BE1A4ACF1A0D1399002983C2 /* Reachability.m */; };
+		BE588B161A24EE4000ACED16 /* beep-timber.aif in Resources */ = {isa = PBXBuildFile; fileRef = BE588B151A24EE4000ACED16 /* beep-timber.aif */; };
 		BE5D39441A1233A7008C2094 /* config_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = BE5D39411A1233A7008C2094 /* config_icon.png */; };
 		BE5D39451A1233A7008C2094 /* flexvdi_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = BE5D39421A1233A7008C2094 /* flexvdi_icon.png */; };
 		BE5D394B1A1235DF008C2094 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BE5D394A1A1235DF008C2094 /* Localizable.strings */; };
@@ -63,6 +64,7 @@
 /* Begin PBXFileReference section */
 		BE1A4ACE1A0D1399002983C2 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		BE1A4ACF1A0D1399002983C2 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		BE588B151A24EE4000ACED16 /* beep-timber.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = "beep-timber.aif"; sourceTree = "<group>"; };
 		BE5D39411A1233A7008C2094 /* config_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = config_icon.png; sourceTree = "<group>"; };
 		BE5D39421A1233A7008C2094 /* flexvdi_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flexvdi_icon.png; sourceTree = "<group>"; };
 		BE5D394A1A1235DF008C2094 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 		BEAF3EC61A0A47B00056C6A8 /* res */ = {
 			isa = PBXGroup;
 			children = (
+				BE588B151A24EE4000ACED16 /* beep-timber.aif */,
 				BE5D394C1A1255D2008C2094 /* barra_sup.png */,
 				BE5D39411A1233A7008C2094 /* config_icon.png */,
 				BE5D39421A1233A7008C2094 /* flexvdi_icon.png */,
@@ -370,6 +373,7 @@
 				BE5D39451A1233A7008C2094 /* flexvdi_icon.png in Resources */,
 				BEAF3EC81A0A488F0056C6A8 /* keyboard.png in Resources */,
 				D8FD56481A03A77A00292158 /* Main_iPhone.storyboard in Resources */,
+				BE588B161A24EE4000ACED16 /* beep-timber.aif in Resources */,
 				BEE6190B1A13696800448F71 /* Main_iPad.storyboard in Resources */,
 				D8FD56541A03A77A00292158 /* Images.xcassets in Resources */,
 				D8FD563F1A03A77A00292158 /* InfoPlist.strings in Resources */,
@@ -481,7 +485,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Nologin Consulting S.L. (KCNDDZ7UVS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Nologin Consulting S.L. (KCNDDZ7UVS)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -499,6 +504,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "125a391e-519b-428d-ae76-43a96955bccf";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -520,7 +526,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Nologin Consulting S.L. (KCNDDZ7UVS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Nologin Consulting S.L. (KCNDDZ7UVS)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -531,6 +538,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				PROVISIONING_PROFILE = "125a391e-519b-428d-ae76-43a96955bccf";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;

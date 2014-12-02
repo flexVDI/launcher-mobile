@@ -282,7 +282,9 @@ void engine_init_screen()
     
     create_keyboard_texture(&global_state.keyboard_texture[0]);
     global_state.main_opacity = 1.0;
-    global_state.keyboard_opacity = 0.2;
+    if (global_state.keyboard_opacity == 0.0) {
+        global_state.keyboard_opacity = 0.2;
+    }
     global_state.main_texture_created = 0;
 
     //glEnable(GL_TEXTURE_2D);

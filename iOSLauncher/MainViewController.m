@@ -38,6 +38,7 @@ MainViewController *mainViewController;
 {
     if ((self = [super initWithCoder:coder]))
     {
+        keyboardRequested = [[NSUserDefaults standardUserDefaults] boolForKey:kFlexKeyKeyboardRequested];
         fixOrientation = [[NSUserDefaults standardUserDefaults] boolForKey:kFlexKeyFixOrientation];
         orientationMask = [[NSUserDefaults standardUserDefaults] integerForKey:kFlexKeyOrientationMask];
         mainViewController = self;
@@ -70,20 +71,32 @@ MainViewController *mainViewController;
     [self.view addGestureRecognizer:pinchRecognizer];
     
     panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
+    panTarget.x = -1;
+    panTarget.y = -1;
+    panOffsetLastPoint = -1;
     [self.view addGestureRecognizer:panRecognizer];
     
     doublePanRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoublePan:)];
     doublePanRecognizer.minimumNumberOfTouches = 2;
     doublePanRecognizer.maximumNumberOfTouches = 2;
+    doublePanOrientation = -1;
     [self.view addGestureRecognizer:doublePanRecognizer];
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        AudioServicesPlaySystemSound(1104);
-        AudioServicesPlaySystemSound(1104);
+        soundFileURL = CFBridgingRetain([[NSBundle mainBundle] URLForResource: @"beep-timber"
+                                                       withExtension:@"aif"]);
+        AudioServicesCreateSystemSoundID(soundFileURL, &soundFileID);
     }
     
     keybView = [[KeyboardView alloc] init];
+    [keybView setText:@"dontlookatme"];
+    [keybView setSelectedRange:NSMakeRange(6, 0)];
+    keybView.delegate = self;
     [self.view addSubview:keybView];
+    
+    if (keyboardRequested) {
+        [self enableKeyboard];
+    }
     
     _lblMessage.layer.cornerRadius = 8;
     
@@ -184,25 +197,25 @@ MainViewController *mainViewController;
             //name = @"ctrl+alt+f1";
             ctrl = true;
             alt = true;
-            keycode = 0x5b;
+            keycode = 0x3b;
             break;
         case 8:
             //name = @"ctrl+alt+f2";
             ctrl = true;
             alt = true;
-            keycode = 0x5c;
+            keycode = 0x3c;
             break;
         case 9:
             //name = @"ctrl+alt+f6";
             ctrl = true;
             alt = true;
-            keycode = 0x60;
+            keycode = 0x40;
             break;
         case 10:
             //name = @"ctrl+alt+f7";
             ctrl = true;
             alt = true;
-            keycode = 0x61;
+            keycode = 0x41;
             break;
     }
     
@@ -569,22 +582,24 @@ MainViewController *mainViewController;
     if (!dragging) {
         dragging = true;
         
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-            AudioServicesPlaySystemSound(1104);
-        } else {
-            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
-        }
+        //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+                AudioServicesPlaySystemSound(soundFileID);
+            } else {
+                AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+            }
+        //});
         
         io_event.type = IO_EVENT_MOVED;
         io_event.position[0] = center.x * global_state.content_scale;
         io_event.position[1] = center.y * global_state.content_scale;
-        io_event.button = 1;
+        io_event.button = 11;
         IO_PushEvent(&io_event);
         
         io_event.type = IO_EVENT_BEGAN;
         io_event.position[0] = center.x * global_state.content_scale;
         io_event.position[1] = center.y * global_state.content_scale;
-        io_event.button = 1;
+        io_event.button = 11;
         IO_PushEvent(&io_event);
         
         lastMovementPosition.x = center.x * global_state.content_scale;
@@ -593,7 +608,7 @@ MainViewController *mainViewController;
         io_event.type = IO_EVENT_MOVED;
         io_event.position[0] = center.x * global_state.content_scale;
         io_event.position[1] = center.y * global_state.content_scale;
-        io_event.button = 1;
+        io_event.button = 11;
         IO_PushEvent(&io_event);
         
         lastMovementPosition.x = center.x * global_state.content_scale;
@@ -612,7 +627,7 @@ MainViewController *mainViewController;
         io_event.type = IO_EVENT_ENDED;
         io_event.position[0] = center.x * global_state.content_scale;
         io_event.position[1] = center.y * global_state.content_scale;
-        io_event.button = 4; /* Special case for indicating long press */
+        io_event.button = 11;
         IO_PushEvent(&io_event);
     }
 }
@@ -645,7 +660,7 @@ MainViewController *mainViewController;
     }
 
     if (global_state.zoom == 0) {
-        if (keybVisible) {
+        if (keybView.keyboardVisible) {
             CGPoint gestureVelocity = [sender velocityInView:self.view];
             float offset_limit;
             
@@ -679,6 +694,8 @@ MainViewController *mainViewController;
                     panOffsetLastPoint = pan_center.y;
                 }
             }
+        } else {
+            [self handleDoublePan:sender];
         }
         
         global_state.zoom_offset_x = 0.0;
@@ -796,13 +813,14 @@ MainViewController *mainViewController;
     
 
     if (doublePanOrientation == -1) {
-        if (fabs(gestureVelocity.x) > fabs(gestureVelocity.y)) {
-            doublePanOrientation = SCROLL_HORIZONTAL;
-            doublePanLastPoint.x = pan_center.x;
-        } else {
+        /* Horizontal scroll is problematic with most Guests. */
+//        if (fabs(gestureVelocity.x) > fabs(gestureVelocity.y)) {
+//            doublePanOrientation = SCROLL_HORIZONTAL;
+//            doublePanLastPoint.x = pan_center.x;
+//        } else {
             doublePanOrientation = SCROLL_VERTICAL;
             doublePanLastPoint.y = pan_center.y;
-        }
+//        }
 
         doublePanAccumMovement = 0;
     } else if (doublePanOrientation == SCROLL_HORIZONTAL) {
@@ -832,6 +850,9 @@ MainViewController *mainViewController;
     NSLog(@"doublePanAccumMovement = %d\n", doublePanAccumMovement);
     
     int events = doublePanAccumMovement / 10;
+    if (events > 4) {
+        events = 4;
+    }
     
     if (events) {
         doublePanAccumMovement = 0;
@@ -994,27 +1015,33 @@ MainViewController *mainViewController;
 
 -(void)showHideKeyboard
 {
-    if (keybVisible) {
-        [self hideKeyboard];
+    if (keybEnabled) {
+        keyboardRequested = false;
+        [self disableKeyboard];
     } else {
-        [self showKeyboard];
+        keyboardRequested = true;
+        [self enableKeyboard];
     }
+    
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    [prefs setBool:keyboardRequested forKey:kFlexKeyKeyboardRequested];
+    [prefs synchronize];
 }
 
--(void)showKeyboard
+-(void)enableKeyboard
 {
-    if (!keybVisible) {
+    if (!keybEnabled) {
         [keybView becomeFirstResponder];
-        keybVisible = true;
+        keybEnabled = true;
         engine_set_keyboard_opacity(1.0);
     }
 }
 
--(void)hideKeyboard
+-(void)disableKeyboard
 {
-    if (keybVisible) {
+    if (keybEnabled) {
         [keybView resignFirstResponder];
-        keybVisible = false;
+        keybEnabled = false;
         engine_set_main_offset(0.0);
         engine_set_keyboard_opacity(0.2);
     }
@@ -1022,9 +1049,11 @@ MainViewController *mainViewController;
 
 -(void)showMenu
 {
+    /* Sometimes, TableView appears before the end of LongPress can be caputured */
+    dragging = false;
     if (_tblMenu.hidden) {
-        if (keybVisible) {
-            [self hideKeyboard];
+        if (keybView.keyboardVisible) {
+            [self disableKeyboard];
         }
         tapRecognizer.enabled = false;
         longPressRecognizer.enabled = false;
@@ -1039,6 +1068,9 @@ MainViewController *mainViewController;
 -(void)hideMenu
 {
     if (!_tblMenu.hidden) {
+        if (!keybEnabled && keyboardRequested) {
+            [self enableKeyboard];
+        }
         tapRecognizer.enabled = true;
         longPressRecognizer.enabled = true;
         pinchRecognizer.enabled = true;
@@ -1108,9 +1140,10 @@ MainViewController *mainViewController;
             return;
         }
         
-        [self hideKeyboard];
+        if (keybView.keyboardVisible) {
+            [self disableKeyboard];
+        }
         [self hideMenu];
-        engine_set_keyboard_opacity(0.2);
         engine_set_main_opacity(0.5);
         
         Reachability *networkReachability = [Reachability reachabilityForInternetConnection];
@@ -1163,7 +1196,9 @@ MainViewController *mainViewController;
                         dispatch_async(dispatch_get_main_queue(), ^{
                             [self hideLabel];
                             engine_set_main_opacity(1.0);
-                            engine_set_keyboard_opacity(0.2);
+                            if (!keybEnabled && keyboardRequested) {
+                                [self enableKeyboard];
+                            }
                         });
                         return;
                     }
@@ -1353,7 +1388,7 @@ void native_resolution_change(int changing) {
             self.ip=[responseDesktopDict objectForKey:@"spice_address"];
             self.pass=[responseDesktopDict objectForKey:@"spice_password"];
             self.port=[responseDesktopDict objectForKey:@"spice_port"];
-            
+            dragging = false;
             NSString *wsport;
             if (self.enableWebSockets) {
                 wsport = @"443";
@@ -1386,6 +1421,57 @@ void native_resolution_change(int changing) {
 
 - (BOOL)shouldAutorotate {
     return YES;
+}
+
+- (void)textViewDidChangeSelection:(UITextView *)textView
+{
+    NSLog(@"textViewDidChangeSelection");
+
+    if (textView.text.length < 12) {
+        /* User has pressed the backspace */
+        engine_spice_keyboard_event(0x0E, 1);
+        engine_spice_keyboard_event(0x0E, 0);
+        textViewRangeAutoChanged = true;
+        textView.text = @"dontlookatme";
+        textViewRangeAutoChanged = true;
+        textView.selectedRange = NSMakeRange(6, 0);
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            textView.text = @"dontlookatme";
+//            textView.selectedRange = NSMakeRange(6, 0);
+//        });
+        return;
+    }
+    
+    if (textViewRangeAutoChanged) {
+        textViewRangeAutoChanged = false;
+    } else {
+        NSRange range = textView.selectedRange;
+        NSLog(@"textViewDidChangeSelection: %d", range.location);
+        
+        if (range.location == 5) {
+            /* left-key */
+            engine_spice_keyboard_event(0x4b, 1);
+            engine_spice_keyboard_event(0x4b, 0);
+        } else if (range.location == 7) {
+            /* right-key */
+            engine_spice_keyboard_event(0x4d, 1);
+            engine_spice_keyboard_event(0x4d, 0);
+        } else if (range.location == 0) {
+            /* up-key */
+            engine_spice_keyboard_event(0x48, 1);
+            engine_spice_keyboard_event(0x48, 0);
+        } else if (range.location == 12) {
+            /* down-key */
+            engine_spice_keyboard_event(0x50, 1);
+            engine_spice_keyboard_event(0x50, 0);
+        }
+        
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            textViewRangeAutoChanged = true;
+            textView.selectedRange = NSMakeRange(6, 0);
+        });
+    }
 }
 
 @end

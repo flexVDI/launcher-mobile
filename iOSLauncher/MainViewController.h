@@ -10,11 +10,12 @@
 #import <QuartzCore/QuartzCore.h>
 #import "MainView.h"
 
-@interface MainViewController : UIViewController<UITableViewDelegate, UITableViewDataSource, NSURLConnectionDelegate,MenuDelegate>
+@interface MainViewController : UIViewController<UITableViewDelegate, UITableViewDataSource, NSURLConnectionDelegate,MenuDelegate,UITextViewDelegate>
 {
     CGPoint lastMovementPosition;
     int orientationMask;
     Boolean fixOrientation;
+    Boolean keyboardRequested;
 @private
     UITapGestureRecognizer *tapRecognizer;
     UITapGestureRecognizer *doubleTapRecognizer;
@@ -39,11 +40,16 @@
     int doublePanVelocity;
     
     KeyboardView *keybView;
-    Boolean keybVisible;
+    Boolean keybEnabled;
     
     int connDesiredState;
     int reconnectionState;
     NSMutableData *serverAnswer;
+    
+    Boolean textViewRangeAutoChanged;
+    
+    CFURLRef soundFileURL;
+    SystemSoundID soundFileID;
 }
 
 enum scrollOrientation {
@@ -65,5 +71,6 @@ enum reconnectionStates {
 @property (strong, nonatomic) NSString *port;
 @property (strong, nonatomic) NSString *pass;
 @property (nonatomic) BOOL enableWebSockets;
+
 @end
 

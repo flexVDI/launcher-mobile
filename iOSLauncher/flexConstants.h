@@ -25,5 +25,6 @@
 
 #define kFlexKeyFixOrientation @"FixOrientation"
 #define kFlexKeyOrientationMask @"OrientationMask"
+#define kFlexKeyKeyboardRequested @"KeyboardRequested"
 
 #endif

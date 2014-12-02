@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface KeyboardView : UITextField
-
+@interface KeyboardView : UITextView
+@property (nonatomic) BOOL keyboardVisible;
 @end
