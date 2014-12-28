@@ -1425,7 +1425,20 @@ void native_resolution_change(int changing) {
 
 - (void)textViewDidChangeSelection:(UITextView *)textView
 {
-    NSLog(@"textViewDidChangeSelection");
+    NSLog(@"textViewDidChangeSelection: %@", textView.text);
+    
+    NSArray *specialChars = [NSArray arrayWithObjects:@"´", @"`", @"¨", nil];
+    
+    for (NSString *schar in specialChars) {
+        NSRange range = [textView.text rangeOfString:schar];
+        if (range.location != NSNotFound) {
+            textViewRangeAutoChanged = true;
+            textView.text = @"dontlookatme";
+            textViewRangeAutoChanged = true;
+            textView.selectedRange = NSMakeRange(6, 0);
+            return;
+        }
+    }
 
     if (textView.text.length < 12) {
         /* User has pressed the backspace */

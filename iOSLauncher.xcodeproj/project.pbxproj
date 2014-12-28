@@ -7,17 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4FBFE5E61A3A80F20007BCDB /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FBFE5E21A3A80F20007BCDB /* libcrypto.a */; };
+		4FBFE5E71A3A80F20007BCDB /* libnopoll.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FBFE5E31A3A80F20007BCDB /* libnopoll.a */; };
+		4FBFE5E81A3A80F20007BCDB /* libspice-client-glib-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FBFE5E41A3A80F20007BCDB /* libspice-client-glib-2.0.a */; };
+		4FBFE5E91A3A80F20007BCDB /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FBFE5E51A3A80F20007BCDB /* libssl.a */; };
+		4FBFE5EB1A3A81040007BCDB /* spice-mono-glue.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FBFE5EA1A3A81040007BCDB /* spice-mono-glue.a */; };
 		BE1A4AD01A0D1399002983C2 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = BE1A4ACF1A0D1399002983C2 /* Reachability.m */; };
 		BE588B161A24EE4000ACED16 /* beep-timber.aif in Resources */ = {isa = PBXBuildFile; fileRef = BE588B151A24EE4000ACED16 /* beep-timber.aif */; };
 		BE5D39441A1233A7008C2094 /* config_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = BE5D39411A1233A7008C2094 /* config_icon.png */; };
 		BE5D39451A1233A7008C2094 /* flexvdi_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = BE5D39421A1233A7008C2094 /* flexvdi_icon.png */; };
 		BE5D394B1A1235DF008C2094 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BE5D394A1A1235DF008C2094 /* Localizable.strings */; };
 		BE5D394D1A1255D2008C2094 /* barra_sup.png in Resources */ = {isa = PBXBuildFile; fileRef = BE5D394C1A1255D2008C2094 /* barra_sup.png */; };
-		BE5F0C131A14AF4C0050579D /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE5F0C0E1A14AF4C0050579D /* libcrypto.a */; };
-		BE5F0C141A14AF4C0050579D /* libnopoll.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE5F0C0F1A14AF4C0050579D /* libnopoll.a */; };
-		BE5F0C151A14AF4C0050579D /* libspice-client-glib-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE5F0C101A14AF4C0050579D /* libspice-client-glib-2.0.a */; };
-		BE5F0C161A14AF4C0050579D /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE5F0C111A14AF4C0050579D /* libssl.a */; };
-		BE5F0C171A14AF4C0050579D /* spice-mono-glue.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE5F0C121A14AF4C0050579D /* spice-mono-glue.a */; };
 		BEA2334C1A0CC575007978B5 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEA2334B1A0CC575007978B5 /* MainViewController.m */; };
 		BEA2F8611A0BB94B00C2D8BF /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEA2F8601A0BB94B00C2D8BF /* LoginController.m */; };
 		BEA2F8641A0BBB2600C2D8BF /* Toast+UIView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEA2F8631A0BBB2600C2D8BF /* Toast+UIView.m */; };
@@ -41,27 +41,17 @@
 		D8FD56481A03A77A00292158 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D8FD56461A03A77A00292158 /* Main_iPhone.storyboard */; };
 		D8FD56521A03A77A00292158 /* MainView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8FD56511A03A77A00292158 /* MainView.m */; };
 		D8FD56541A03A77A00292158 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8FD56531A03A77A00292158 /* Images.xcassets */; };
-		D8FD565B1A03A77A00292158 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8FD565A1A03A77A00292158 /* XCTest.framework */; };
-		D8FD565C1A03A77A00292158 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8FD56301A03A77A00292158 /* Foundation.framework */; };
-		D8FD565D1A03A77A00292158 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8FD56341A03A77A00292158 /* UIKit.framework */; };
-		D8FD56651A03A77A00292158 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D8FD56631A03A77A00292158 /* InfoPlist.strings */; };
-		D8FD56671A03A77A00292158 /* iOSLauncherTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D8FD56661A03A77A00292158 /* iOSLauncherTests.m */; };
 		D8FD567A1A03A8BD00292158 /* draw.c in Sources */ = {isa = PBXBuildFile; fileRef = D8FD56721A03A8BD00292158 /* draw.c */; };
 		D8FD567B1A03A8BD00292158 /* io_interface.c in Sources */ = {isa = PBXBuildFile; fileRef = D8FD56751A03A8BD00292158 /* io_interface.c */; };
 		D8FD567C1A03A8BD00292158 /* spice.c in Sources */ = {isa = PBXBuildFile; fileRef = D8FD56781A03A8BD00292158 /* spice.c */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		D8FD565E1A03A77A00292158 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D8FD56251A03A77A00292158 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D8FD562C1A03A77A00292158;
-			remoteInfo = iOSLauncher;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
+		4FBFE5E21A3A80F20007BCDB /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = "../spice-mono-glue.bak/ios_armv7/libcrypto.a"; sourceTree = "<group>"; };
+		4FBFE5E31A3A80F20007BCDB /* libnopoll.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libnopoll.a; path = "../spice-mono-glue.bak/ios_armv7/libnopoll.a"; sourceTree = "<group>"; };
+		4FBFE5E41A3A80F20007BCDB /* libspice-client-glib-2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libspice-client-glib-2.0.a"; path = "../spice-mono-glue.bak/ios_armv7/libspice-client-glib-2.0.a"; sourceTree = "<group>"; };
+		4FBFE5E51A3A80F20007BCDB /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = "../spice-mono-glue.bak/ios_armv7/libssl.a"; sourceTree = "<group>"; };
+		4FBFE5EA1A3A81040007BCDB /* spice-mono-glue.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "spice-mono-glue.a"; path = "../spice-mono-glue/spice-mono-glue.a"; sourceTree = "<group>"; };
 		BE1A4ACE1A0D1399002983C2 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		BE1A4ACF1A0D1399002983C2 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		BE588B151A24EE4000ACED16 /* beep-timber.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = "beep-timber.aif"; sourceTree = "<group>"; };
@@ -69,11 +59,6 @@
 		BE5D39421A1233A7008C2094 /* flexvdi_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flexvdi_icon.png; sourceTree = "<group>"; };
 		BE5D394A1A1235DF008C2094 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		BE5D394C1A1255D2008C2094 /* barra_sup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = barra_sup.png; sourceTree = "<group>"; };
-		BE5F0C0E1A14AF4C0050579D /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = "../spice-mono-glue/ios_armv7/libcrypto.a"; sourceTree = "<group>"; };
-		BE5F0C0F1A14AF4C0050579D /* libnopoll.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libnopoll.a; path = "../spice-mono-glue/ios_armv7/libnopoll.a"; sourceTree = "<group>"; };
-		BE5F0C101A14AF4C0050579D /* libspice-client-glib-2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libspice-client-glib-2.0.a"; path = "../spice-mono-glue/ios_armv7/libspice-client-glib-2.0.a"; sourceTree = "<group>"; };
-		BE5F0C111A14AF4C0050579D /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = "../spice-mono-glue/ios_armv7/libssl.a"; sourceTree = "<group>"; };
-		BE5F0C121A14AF4C0050579D /* spice-mono-glue.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "spice-mono-glue.a"; path = "../spice-mono-glue/ios_armv7/spice-mono-glue.a"; sourceTree = "<group>"; };
 		BEA2334A1A0CC575007978B5 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		BEA2334B1A0CC575007978B5 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		BEA2F85F1A0BB94B00C2D8BF /* LoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginController.h; sourceTree = "<group>"; };
@@ -111,7 +96,6 @@
 		D8FD56501A03A77A00292158 /* MainView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainView.h; sourceTree = "<group>"; };
 		D8FD56511A03A77A00292158 /* MainView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainView.m; sourceTree = "<group>"; };
 		D8FD56531A03A77A00292158 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		D8FD56591A03A77A00292158 /* iOSLauncherTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iOSLauncherTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8FD565A1A03A77A00292158 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		D8FD56621A03A77A00292158 /* iOSLauncherTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iOSLauncherTests-Info.plist"; sourceTree = "<group>"; };
 		D8FD56641A03A77A00292158 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -132,11 +116,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BE5F0C131A14AF4C0050579D /* libcrypto.a in Frameworks */,
-				BE5F0C141A14AF4C0050579D /* libnopoll.a in Frameworks */,
-				BE5F0C151A14AF4C0050579D /* libspice-client-glib-2.0.a in Frameworks */,
-				BE5F0C161A14AF4C0050579D /* libssl.a in Frameworks */,
-				BE5F0C171A14AF4C0050579D /* spice-mono-glue.a in Frameworks */,
+				4FBFE5EB1A3A81040007BCDB /* spice-mono-glue.a in Frameworks */,
+				4FBFE5E61A3A80F20007BCDB /* libcrypto.a in Frameworks */,
+				4FBFE5E71A3A80F20007BCDB /* libnopoll.a in Frameworks */,
+				4FBFE5E81A3A80F20007BCDB /* libspice-client-glib-2.0.a in Frameworks */,
+				4FBFE5E91A3A80F20007BCDB /* libssl.a in Frameworks */,
 				D8985D001A03BB2100B240FF /* libresolv.dylib in Frameworks */,
 				D8985CFE1A03BA6E00B240FF /* libiconv.dylib in Frameworks */,
 				D8985CFC1A03BA0F00B240FF /* GStreamer.framework in Frameworks */,
@@ -145,16 +129,6 @@
 				D8FD56351A03A77A00292158 /* UIKit.framework in Frameworks */,
 				D8FD56371A03A77A00292158 /* GLKit.framework in Frameworks */,
 				D8FD56311A03A77A00292158 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D8FD56561A03A77A00292158 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D8FD565B1A03A77A00292158 /* XCTest.framework in Frameworks */,
-				D8FD565D1A03A77A00292158 /* UIKit.framework in Frameworks */,
-				D8FD565C1A03A77A00292158 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -189,7 +163,6 @@
 			isa = PBXGroup;
 			children = (
 				D8FD562D1A03A77A00292158 /* flexVDI.app */,
-				D8FD56591A03A77A00292158 /* iOSLauncherTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -197,11 +170,11 @@
 		D8FD562F1A03A77A00292158 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				BE5F0C0E1A14AF4C0050579D /* libcrypto.a */,
-				BE5F0C0F1A14AF4C0050579D /* libnopoll.a */,
-				BE5F0C101A14AF4C0050579D /* libspice-client-glib-2.0.a */,
-				BE5F0C111A14AF4C0050579D /* libssl.a */,
-				BE5F0C121A14AF4C0050579D /* spice-mono-glue.a */,
+				4FBFE5EA1A3A81040007BCDB /* spice-mono-glue.a */,
+				4FBFE5E21A3A80F20007BCDB /* libcrypto.a */,
+				4FBFE5E31A3A80F20007BCDB /* libnopoll.a */,
+				4FBFE5E41A3A80F20007BCDB /* libspice-client-glib-2.0.a */,
+				4FBFE5E51A3A80F20007BCDB /* libssl.a */,
 				D8985CFF1A03BB2100B240FF /* libresolv.dylib */,
 				D8985CFD1A03BA6E00B240FF /* libiconv.dylib */,
 				D8985CFB1A03BA0F00B240FF /* GStreamer.framework */,
@@ -314,24 +287,6 @@
 			productReference = D8FD562D1A03A77A00292158 /* flexVDI.app */;
 			productType = "com.apple.product-type.application";
 		};
-		D8FD56581A03A77A00292158 /* iOSLauncherTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = D8FD566D1A03A77A00292158 /* Build configuration list for PBXNativeTarget "iOSLauncherTests" */;
-			buildPhases = (
-				D8FD56551A03A77A00292158 /* Sources */,
-				D8FD56561A03A77A00292158 /* Frameworks */,
-				D8FD56571A03A77A00292158 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				D8FD565F1A03A77A00292158 /* PBXTargetDependency */,
-			);
-			name = iOSLauncherTests;
-			productName = iOSLauncherTests;
-			productReference = D8FD56591A03A77A00292158 /* iOSLauncherTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -341,8 +296,8 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Flexible Software Solutions S.L.";
 				TargetAttributes = {
-					D8FD56581A03A77A00292158 = {
-						TestTargetID = D8FD562C1A03A77A00292158;
+					D8FD562C1A03A77A00292158 = {
+						DevelopmentTeam = KCNDDZ7UVS;
 					};
 				};
 			};
@@ -360,7 +315,6 @@
 			projectRoot = "";
 			targets = (
 				D8FD562C1A03A77A00292158 /* iOSLauncher */,
-				D8FD56581A03A77A00292158 /* iOSLauncherTests */,
 			);
 		};
 /* End PBXProject section */
@@ -380,14 +334,6 @@
 				BE5D394D1A1255D2008C2094 /* barra_sup.png in Resources */,
 				BE5D394B1A1235DF008C2094 /* Localizable.strings in Resources */,
 				BE5D39441A1233A7008C2094 /* config_icon.png in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D8FD56571A03A77A00292158 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D8FD56651A03A77A00292158 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -415,23 +361,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D8FD56551A03A77A00292158 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D8FD56671A03A77A00292158 /* iOSLauncherTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		D8FD565F1A03A77A00292158 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D8FD562C1A03A77A00292158 /* iOSLauncher */;
-			targetProxy = D8FD565E1A03A77A00292158 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		BEE619091A13696800448F71 /* Main_iPad.storyboard */ = {
@@ -551,8 +481,8 @@
 				ARCHS = armv7;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Nologin Consulting S.L. (KCNDDZ7UVS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Nologin Consulting S.L. (KCNDDZ7UVS)";
 				"DYLIB_COMPATIBILITY_VERSION[sdk=*]" = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -569,9 +499,12 @@
 					"/Users/slopez/Documents/spice-mono-glue",
 					"/Users/slopez/Documents/spice-mono-glue/ios_armv7",
 					"/Users/slopez/Documents/spice-mono-glue/ios_x86",
+					"/Users/slp/Documents/spice-mono-glue/ios_armv7",
+					"/Users/slp/Documents/spice-mono-glue.bak/ios_armv7",
+					"/Users/slp/Documents/spice-mono-glue",
 				);
 				PRODUCT_NAME = flexVDI;
-				PROVISIONING_PROFILE = "dcfb8510-4ce3-4afd-a14d-0001d25cbe84";
+				PROVISIONING_PROFILE = "125a391e-519b-428d-ae76-43a96955bccf";
 				VALID_ARCHS = "arm64 armv7";
 				WRAPPER_EXTENSION = app;
 			};
@@ -583,8 +516,8 @@
 				ARCHS = armv7;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Nologin Consulting S.L. (KCNDDZ7UVS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Nologin Consulting S.L. (KCNDDZ7UVS)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(USER_LIBRARY_DIR)/Developer/GStreamer/iPhone.sdk",
@@ -600,51 +533,14 @@
 					"/Users/slopez/Documents/spice-mono-glue",
 					"/Users/slopez/Documents/spice-mono-glue/ios_armv7",
 					"/Users/slopez/Documents/spice-mono-glue/ios_x86",
+					"/Users/slp/Documents/spice-mono-glue/ios_armv7",
+					"/Users/slp/Documents/spice-mono-glue.bak/ios_armv7",
+					"/Users/slp/Documents/spice-mono-glue",
 				);
 				PRODUCT_NAME = flexVDI;
-				PROVISIONING_PROFILE = "dcfb8510-4ce3-4afd-a14d-0001d25cbe84";
+				PROVISIONING_PROFILE = "125a391e-519b-428d-ae76-43a96955bccf";
 				VALID_ARCHS = "arm64 armv7";
 				WRAPPER_EXTENSION = app;
-			};
-			name = Release;
-		};
-		D8FD566E1A03A77A00292158 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/iOSLauncher.app/iOSLauncher";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "iOSLauncher/iOSLauncher-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "iOSLauncherTests/iOSLauncherTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		D8FD566F1A03A77A00292158 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/iOSLauncher.app/iOSLauncher";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "iOSLauncher/iOSLauncher-Prefix.pch";
-				INFOPLIST_FILE = "iOSLauncherTests/iOSLauncherTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
 		};
@@ -665,15 +561,6 @@
 			buildConfigurations = (
 				D8FD566B1A03A77A00292158 /* Debug */,
 				D8FD566C1A03A77A00292158 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		D8FD566D1A03A77A00292158 /* Build configuration list for PBXNativeTarget "iOSLauncherTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				D8FD566E1A03A77A00292158 /* Debug */,
-				D8FD566F1A03A77A00292158 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

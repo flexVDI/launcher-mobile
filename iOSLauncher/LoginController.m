@@ -67,7 +67,14 @@
         if ([fileManager createFileAtPath:filename contents:data attributes:nil] == NO) {
             NSLog(@"Can't create placeholder");
         } else {
-            NSLog(@"Placeholder successfully created");
+            NSError *error = nil;
+            NSURL *fileURL = [NSURL fileURLWithPath:filename];
+            if ([fileURL setResourceValue:[NSNumber numberWithBool:YES]
+                                   forKey:NSURLIsExcludedFromBackupKey error:&error] == NO) {
+                NSLog(@"Can't exclude placeholder from backup");
+            } else {
+                NSLog(@"Placeholder successfully created");
+            }
         }
     }
     

@@ -338,17 +338,19 @@ int engine_draw(int max_width, int max_height)
     if (width == 0 || height == 0)
         return 0;
     
-    if (flags) {
+    if (flags & DISPLAY_INVALIDATE) {
         if (flags & DISPLAY_CHANGE_RESOLUTION || !global_state.main_texture_created) {
             create_main_texture(global_state.spice_display_buffer, width, height);
         } else {
             update_main_texture(global_state.spice_display_buffer, width, height);
             //create_main_texture(global_state.spice_display_buffer, width, height);
         }
-        render_main_texture();
-        
-        render_keyboard_texture();
+    } else {
+        update_main_texture(global_state.spice_display_buffer, width, height);
     }
+    
+    render_main_texture();
+    render_keyboard_texture();
 
     return 0;
 }

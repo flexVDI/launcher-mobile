@@ -162,6 +162,9 @@ int engine_spice_update_display(char *display_buffer, int *width, int *height)
         /* Guest resolution is too big for us. */
         //GLUE_DEBUG("Resolution too big.\n");
         return -2;
+    } else if (update_result == -3) {
+        // There no changes on the screen.
+        //return -3;
     } else {
         GLUE_DEBUG("Can't update screen.\n");
         if (global_state.conn_state == CONNECTED && !engine_spice_is_connected()) {
