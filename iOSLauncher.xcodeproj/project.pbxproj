@@ -7,11 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4FBFE5E61A3A80F20007BCDB /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FBFE5E21A3A80F20007BCDB /* libcrypto.a */; };
-		4FBFE5E71A3A80F20007BCDB /* libnopoll.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FBFE5E31A3A80F20007BCDB /* libnopoll.a */; };
-		4FBFE5E81A3A80F20007BCDB /* libspice-client-glib-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FBFE5E41A3A80F20007BCDB /* libspice-client-glib-2.0.a */; };
-		4FBFE5E91A3A80F20007BCDB /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FBFE5E51A3A80F20007BCDB /* libssl.a */; };
-		4FBFE5EB1A3A81040007BCDB /* spice-mono-glue.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FBFE5EA1A3A81040007BCDB /* spice-mono-glue.a */; };
 		BE1A4AD01A0D1399002983C2 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = BE1A4ACF1A0D1399002983C2 /* Reachability.m */; };
 		BE588B161A24EE4000ACED16 /* beep-timber.aif in Resources */ = {isa = PBXBuildFile; fileRef = BE588B151A24EE4000ACED16 /* beep-timber.aif */; };
 		BE5D39441A1233A7008C2094 /* config_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = BE5D39411A1233A7008C2094 /* config_icon.png */; };
@@ -25,6 +20,8 @@
 		BEA2F8EC1A0BCC9F00C2D8BF /* ConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEA2F8EB1A0BCC9F00C2D8BF /* ConfigViewController.m */; };
 		BEAF3EC81A0A488F0056C6A8 /* keyboard.png in Resources */ = {isa = PBXBuildFile; fileRef = BEAF3EC71A0A488F0056C6A8 /* keyboard.png */; };
 		BEAF3ECB1A0A6BB00056C6A8 /* KeyboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEAF3ECA1A0A6BB00056C6A8 /* KeyboardView.m */; };
+		BEBABEBE1BC2D01200693218 /* libspice-client-glib-2.0.8.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BEBABEBD1BC2D01200693218 /* libspice-client-glib-2.0.8.dylib */; };
+		BEBABEC61BC513DE00693218 /* libflexdp-glue.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BEBABEC51BC513DE00693218 /* libflexdp-glue.a */; };
 		BEE6190B1A13696800448F71 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BEE619091A13696800448F71 /* Main_iPad.storyboard */; };
 		D8985CFC1A03BA0F00B240FF /* GStreamer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8985CFB1A03BA0F00B240FF /* GStreamer.framework */; };
 		D8985CFE1A03BA6E00B240FF /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D8985CFD1A03BA6E00B240FF /* libiconv.dylib */; };
@@ -47,11 +44,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4FBFE5E21A3A80F20007BCDB /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = "../spice-mono-glue.bak/ios_armv7/libcrypto.a"; sourceTree = "<group>"; };
-		4FBFE5E31A3A80F20007BCDB /* libnopoll.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libnopoll.a; path = "../spice-mono-glue.bak/ios_armv7/libnopoll.a"; sourceTree = "<group>"; };
-		4FBFE5E41A3A80F20007BCDB /* libspice-client-glib-2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libspice-client-glib-2.0.a"; path = "../spice-mono-glue.bak/ios_armv7/libspice-client-glib-2.0.a"; sourceTree = "<group>"; };
-		4FBFE5E51A3A80F20007BCDB /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = "../spice-mono-glue.bak/ios_armv7/libssl.a"; sourceTree = "<group>"; };
-		4FBFE5EA1A3A81040007BCDB /* spice-mono-glue.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "spice-mono-glue.a"; path = "../spice-mono-glue/spice-mono-glue.a"; sourceTree = "<group>"; };
 		BE1A4ACE1A0D1399002983C2 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		BE1A4ACF1A0D1399002983C2 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		BE588B151A24EE4000ACED16 /* beep-timber.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = "beep-timber.aif"; sourceTree = "<group>"; };
@@ -73,6 +65,8 @@
 		BEAF3EC71A0A488F0056C6A8 /* keyboard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = keyboard.png; sourceTree = "<group>"; };
 		BEAF3EC91A0A6BB00056C6A8 /* KeyboardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardView.h; sourceTree = "<group>"; };
 		BEAF3ECA1A0A6BB00056C6A8 /* KeyboardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyboardView.m; sourceTree = "<group>"; };
+		BEBABEBD1BC2D01200693218 /* libspice-client-glib-2.0.8.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libspice-client-glib-2.0.8.dylib"; path = "../../cerbero/dist/ios_universal/lib/libspice-client-glib-2.0.8.dylib"; sourceTree = "<group>"; };
+		BEBABEC51BC513DE00693218 /* libflexdp-glue.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libflexdp-glue.a"; path = "../../cerbero/dist/ios_universal/lib/libflexdp-glue.a"; sourceTree = "<group>"; };
 		BEE6190A1A13696800448F71 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
 		D8985CFB1A03BA0F00B240FF /* GStreamer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GStreamer.framework; path = ../../Library/Developer/GStreamer/iPhone.sdk/GStreamer.framework; sourceTree = "<group>"; };
 		D8985CFD1A03BA6E00B240FF /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
@@ -116,11 +110,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4FBFE5EB1A3A81040007BCDB /* spice-mono-glue.a in Frameworks */,
-				4FBFE5E61A3A80F20007BCDB /* libcrypto.a in Frameworks */,
-				4FBFE5E71A3A80F20007BCDB /* libnopoll.a in Frameworks */,
-				4FBFE5E81A3A80F20007BCDB /* libspice-client-glib-2.0.a in Frameworks */,
-				4FBFE5E91A3A80F20007BCDB /* libssl.a in Frameworks */,
+				BEBABEC61BC513DE00693218 /* libflexdp-glue.a in Frameworks */,
+				BEBABEBE1BC2D01200693218 /* libspice-client-glib-2.0.8.dylib in Frameworks */,
 				D8985D001A03BB2100B240FF /* libresolv.dylib in Frameworks */,
 				D8985CFE1A03BA6E00B240FF /* libiconv.dylib in Frameworks */,
 				D8985CFC1A03BA0F00B240FF /* GStreamer.framework in Frameworks */,
@@ -170,11 +161,8 @@
 		D8FD562F1A03A77A00292158 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				4FBFE5EA1A3A81040007BCDB /* spice-mono-glue.a */,
-				4FBFE5E21A3A80F20007BCDB /* libcrypto.a */,
-				4FBFE5E31A3A80F20007BCDB /* libnopoll.a */,
-				4FBFE5E41A3A80F20007BCDB /* libspice-client-glib-2.0.a */,
-				4FBFE5E51A3A80F20007BCDB /* libssl.a */,
+				BEBABEC51BC513DE00693218 /* libflexdp-glue.a */,
+				BEBABEBD1BC2D01200693218 /* libspice-client-glib-2.0.8.dylib */,
 				D8985CFF1A03BB2100B240FF /* libresolv.dylib */,
 				D8985CFD1A03BA6E00B240FF /* libiconv.dylib */,
 				D8985CFB1A03BA0F00B240FF /* GStreamer.framework */,
@@ -494,14 +482,8 @@
 				INFOPLIST_FILE = "iOSLauncher/iOSLauncher-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
+					/Users/slopez/cerbero/dist/ios_universal/lib,
 					"$(inherited)",
-					"/Users/slopez/Documents/ios-openssl/lib",
-					"/Users/slopez/Documents/spice-mono-glue",
-					"/Users/slopez/Documents/spice-mono-glue/ios_armv7",
-					"/Users/slopez/Documents/spice-mono-glue/ios_x86",
-					"/Users/slp/Documents/spice-mono-glue/ios_armv7",
-					"/Users/slp/Documents/spice-mono-glue.bak/ios_armv7",
-					"/Users/slp/Documents/spice-mono-glue",
 				);
 				PRODUCT_NAME = flexVDI;
 				PROVISIONING_PROFILE = "125a391e-519b-428d-ae76-43a96955bccf";
@@ -528,14 +510,8 @@
 				INFOPLIST_FILE = "iOSLauncher/iOSLauncher-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
+					/Users/slopez/cerbero/dist/ios_universal/lib,
 					"$(inherited)",
-					"/Users/slopez/Documents/ios-openssl/lib",
-					"/Users/slopez/Documents/spice-mono-glue",
-					"/Users/slopez/Documents/spice-mono-glue/ios_armv7",
-					"/Users/slopez/Documents/spice-mono-glue/ios_x86",
-					"/Users/slp/Documents/spice-mono-glue/ios_armv7",
-					"/Users/slp/Documents/spice-mono-glue.bak/ios_armv7",
-					"/Users/slp/Documents/spice-mono-glue",
 				);
 				PRODUCT_NAME = flexVDI;
 				PROVISIONING_PROFILE = "125a391e-519b-428d-ae76-43a96955bccf";
