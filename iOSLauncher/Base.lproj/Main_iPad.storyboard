@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="Fr6-KJ-st8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="Fr6-KJ-st8">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <scenes>
         <!--Main View Controller-->
@@ -27,10 +27,10 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="CellDesktop" id="khF-C1-3VP" customClass="DesktopTableViewCell">
-                                        <rect key="frame" x="0.0" y="22" width="728" height="44"/>
+                                        <rect key="frame" x="0.0" y="22" width="484" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="khF-C1-3VP" id="RzM-G8-mjk">
-                                            <rect key="frame" x="0.0" y="0.0" width="695" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="451" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="XFY-Zb-mjp" userLabel="lblName">
@@ -60,6 +60,7 @@
                     </view>
                     <connections>
                         <outlet property="lblMessage" destination="epT-5a-a33" id="kcB-bF-3Uy"/>
+                        <outlet property="mainView" destination="mMZ-fH-qZJ" id="DRv-LJ-feI"/>
                         <outlet property="tblMenu" destination="Vjp-UY-e0r" id="PAo-c8-WU6"/>
                     </connections>
                 </viewController>
@@ -161,10 +162,10 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="CellDesktop" id="uv2-fe-jKL" customClass="DesktopTableViewCell">
-                                        <rect key="frame" x="0.0" y="22" width="728" height="44"/>
+                                        <rect key="frame" x="0.0" y="22" width="435" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uv2-fe-jKL" id="WgJ-kD-RPo">
-                                            <rect key="frame" x="0.0" y="0.0" width="695" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="402" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1c8-ho-ohb" userLabel="lblName">

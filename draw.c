@@ -379,8 +379,9 @@ void engine_set_save_location(const char *path)
         free(global_state.save_path);
     }
     
-    global_state.save_path = malloc(strlen(path));
-    strcpy(global_state.save_path, path);
+    unsigned long len = strlen(path) + 1;
+    global_state.save_path = malloc(len);
+    strncpy(global_state.save_path, path, len);
 }
 
 void engine_save_main_texture(void) {

@@ -1138,6 +1138,13 @@ MainViewController *mainViewController;
             [self clearCredentials];
             [self dismissViewControllerAnimated:YES completion:nil];
             return;
+        } else {
+            UIApplicationState state = [UIApplication sharedApplication].applicationState;
+            if (state == UIApplicationStateBackground) {
+                /* Application is in background. Ignore connection request */
+                [self dismissViewControllerAnimated:YES completion:nil];
+                return;
+            }
         }
         
         if (keybView.keyboardVisible) {

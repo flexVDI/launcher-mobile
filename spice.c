@@ -17,7 +17,7 @@ void engine_mainloop_worker(void *data)
     SpiceGlibGlue_InitializeLogging(0);
     
     GLUE_DEBUG("engine_mainloop_worker\n");
-    result = SpiceGlibGlue_Init();
+    //result = SpiceGlibGlue_Init();
     
     GLUE_DEBUG("engine_mainloop_worker: result=%d\n", result);
     
@@ -69,16 +69,16 @@ void engine_spice_set_connection_data(const char *host,
         conn_data = global_state.conn_data = malloc(sizeof(spice_conn_data_t));
     }
     
-    conn_data->host = malloc(strlen(host));
+    conn_data->host = malloc(strlen(host) + 1);
     strcpy(conn_data->host, host);
     
-    conn_data->port = malloc(strlen(port));
+    conn_data->port = malloc(strlen(port) + 1);
     strcpy(conn_data->port, port);
     
-    conn_data->wsport = malloc(strlen(wsport));
+    conn_data->wsport = malloc(strlen(wsport) + 1);
     strcpy(conn_data->wsport, wsport);
     
-    conn_data->password = malloc(strlen(password));
+    conn_data->password = malloc(strlen(password) + 1);
     strcpy(conn_data->password, password);
 }
 
@@ -157,14 +157,20 @@ int engine_spice_update_display(char *display_buffer, int *width, int *height)
     update_result = SpiceGlibGlueUpdateDisplayData(display_buffer, width, height);
 
     if (update_result == 0) {
+        GLUE_DEBUG("Screen invalidated\n");
         invalidated = 1;
+    } else if (update_result == -1) {
+        //GLUE_DEBUG("Screen was not invalidated\n");
+        //return -1;
     } else if (update_result == -2) {
-        /* Guest resolution is too big for us. */
-        //GLUE_DEBUG("Resolution too big.\n");
-        return -2;
+        GLUE_DEBUG("Display is not ready\n");
+        return -1;
     } else if (update_result == -3) {
-        // There no changes on the screen.
-        //return -3;
+        GLUE_DEBUG("Display is not initialized\n");
+        return -1;
+    } else if (update_result == -4) {
+        GLUE_DEBUG("Guest resolution has changed\n");
+        return -2;
     } else {
         GLUE_DEBUG("Can't update screen.\n");
         if (global_state.conn_state == CONNECTED && !engine_spice_is_connected()) {

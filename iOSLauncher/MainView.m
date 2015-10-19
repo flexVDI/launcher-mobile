@@ -82,6 +82,13 @@ MainView *mainView;
     //[super dealloc];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [displayLink removeFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    displayLink = nil;
+    renderer = nil;
+}
+
 #pragma mark -
 #pragma mark UIView layout methods
 

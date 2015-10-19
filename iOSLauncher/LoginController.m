@@ -173,6 +173,7 @@
 #pragma mark -
 #pragma mark other methods
 
+
 -(NSString*)uniqueIDForDevice{
     NSString* uniqueIdentifier = nil;
     if( [UIDevice instancesRespondToSelector:@selector(identifierForVendor)] ) {

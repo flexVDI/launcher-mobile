@@ -2,7 +2,7 @@
 
 void SpiceGlibGlue_InitializeLogging(int32_t verbosityLevel);
 
-int16_t SpiceGlibGlue_Init(void);
+//int16_t SpiceGlibGlue_Init(void);
 
 int16_t SpiceGlibGlue_Connect(char* h, char* p,
                               char* tp, char* ws,

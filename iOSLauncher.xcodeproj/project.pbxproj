@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		BE1A4AD01A0D1399002983C2 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = BE1A4ACF1A0D1399002983C2 /* Reachability.m */; };
+		BE3F13711BCEACBE00334757 /* libspice-mono-glue.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE3F13701BCEACBE00334757 /* libspice-mono-glue.a */; };
+		BE4AF8A71BC68033007022C3 /* libspice-client-glib-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE4AF8A61BC68033007022C3 /* libspice-client-glib-2.0.a */; };
+		BE4AF8A91BC68446007022C3 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE4AF8A81BC68446007022C3 /* libssl.a */; };
+		BE4AF8AB1BC68461007022C3 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE4AF8AA1BC68461007022C3 /* libcrypto.a */; };
+		BE4AF8AD1BC68481007022C3 /* libnopoll.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE4AF8AC1BC68481007022C3 /* libnopoll.a */; };
 		BE588B161A24EE4000ACED16 /* beep-timber.aif in Resources */ = {isa = PBXBuildFile; fileRef = BE588B151A24EE4000ACED16 /* beep-timber.aif */; };
 		BE5D39441A1233A7008C2094 /* config_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = BE5D39411A1233A7008C2094 /* config_icon.png */; };
 		BE5D39451A1233A7008C2094 /* flexvdi_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = BE5D39421A1233A7008C2094 /* flexvdi_icon.png */; };
@@ -20,10 +25,8 @@
 		BEA2F8EC1A0BCC9F00C2D8BF /* ConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEA2F8EB1A0BCC9F00C2D8BF /* ConfigViewController.m */; };
 		BEAF3EC81A0A488F0056C6A8 /* keyboard.png in Resources */ = {isa = PBXBuildFile; fileRef = BEAF3EC71A0A488F0056C6A8 /* keyboard.png */; };
 		BEAF3ECB1A0A6BB00056C6A8 /* KeyboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEAF3ECA1A0A6BB00056C6A8 /* KeyboardView.m */; };
-		BEBABEBE1BC2D01200693218 /* libspice-client-glib-2.0.8.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BEBABEBD1BC2D01200693218 /* libspice-client-glib-2.0.8.dylib */; };
-		BEBABEC61BC513DE00693218 /* libflexdp-glue.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BEBABEC51BC513DE00693218 /* libflexdp-glue.a */; };
+		BEC9CD681BC6776A00448A33 /* GStreamer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEC9CD671BC6776A00448A33 /* GStreamer.framework */; };
 		BEE6190B1A13696800448F71 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BEE619091A13696800448F71 /* Main_iPad.storyboard */; };
-		D8985CFC1A03BA0F00B240FF /* GStreamer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8985CFB1A03BA0F00B240FF /* GStreamer.framework */; };
 		D8985CFE1A03BA6E00B240FF /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D8985CFD1A03BA6E00B240FF /* libiconv.dylib */; };
 		D8985D001A03BB2100B240FF /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D8985CFF1A03BB2100B240FF /* libresolv.dylib */; };
 		D8985D0A1A03D82200B240FF /* ES1Renderer.m in Sources */ = {isa = PBXBuildFile; fileRef = D8985D091A03D82200B240FF /* ES1Renderer.m */; };
@@ -46,6 +49,11 @@
 /* Begin PBXFileReference section */
 		BE1A4ACE1A0D1399002983C2 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		BE1A4ACF1A0D1399002983C2 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		BE3F13701BCEACBE00334757 /* libspice-mono-glue.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libspice-mono-glue.a"; path = "../../cerbero/dist/ios_universal/lib/libspice-mono-glue.a"; sourceTree = "<group>"; };
+		BE4AF8A61BC68033007022C3 /* libspice-client-glib-2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libspice-client-glib-2.0.a"; path = "../../cerbero/dist/ios_universal/lib/libspice-client-glib-2.0.a"; sourceTree = "<group>"; };
+		BE4AF8A81BC68446007022C3 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = ../../cerbero/dist/ios_universal/lib/libssl.a; sourceTree = "<group>"; };
+		BE4AF8AA1BC68461007022C3 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = ../../cerbero/dist/ios_universal/lib/libcrypto.a; sourceTree = "<group>"; };
+		BE4AF8AC1BC68481007022C3 /* libnopoll.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libnopoll.a; path = ../../cerbero/dist/ios_universal/lib/libnopoll.a; sourceTree = "<group>"; };
 		BE588B151A24EE4000ACED16 /* beep-timber.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = "beep-timber.aif"; sourceTree = "<group>"; };
 		BE5D39411A1233A7008C2094 /* config_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = config_icon.png; sourceTree = "<group>"; };
 		BE5D39421A1233A7008C2094 /* flexvdi_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flexvdi_icon.png; sourceTree = "<group>"; };
@@ -65,10 +73,8 @@
 		BEAF3EC71A0A488F0056C6A8 /* keyboard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = keyboard.png; sourceTree = "<group>"; };
 		BEAF3EC91A0A6BB00056C6A8 /* KeyboardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardView.h; sourceTree = "<group>"; };
 		BEAF3ECA1A0A6BB00056C6A8 /* KeyboardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyboardView.m; sourceTree = "<group>"; };
-		BEBABEBD1BC2D01200693218 /* libspice-client-glib-2.0.8.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libspice-client-glib-2.0.8.dylib"; path = "../../cerbero/dist/ios_universal/lib/libspice-client-glib-2.0.8.dylib"; sourceTree = "<group>"; };
-		BEBABEC51BC513DE00693218 /* libflexdp-glue.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libflexdp-glue.a"; path = "../../cerbero/dist/ios_universal/lib/libflexdp-glue.a"; sourceTree = "<group>"; };
+		BEC9CD671BC6776A00448A33 /* GStreamer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GStreamer.framework; path = ../../../../Library/Frameworks/GStreamer.framework; sourceTree = "<group>"; };
 		BEE6190A1A13696800448F71 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
-		D8985CFB1A03BA0F00B240FF /* GStreamer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GStreamer.framework; path = ../../Library/Developer/GStreamer/iPhone.sdk/GStreamer.framework; sourceTree = "<group>"; };
 		D8985CFD1A03BA6E00B240FF /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		D8985CFF1A03BB2100B240FF /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
 		D8985D051A03D78200B240FF /* ESRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESRenderer.h; sourceTree = "<group>"; };
@@ -110,11 +116,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BEBABEC61BC513DE00693218 /* libflexdp-glue.a in Frameworks */,
-				BEBABEBE1BC2D01200693218 /* libspice-client-glib-2.0.8.dylib in Frameworks */,
+				BE3F13711BCEACBE00334757 /* libspice-mono-glue.a in Frameworks */,
+				BE4AF8AD1BC68481007022C3 /* libnopoll.a in Frameworks */,
+				BE4AF8AB1BC68461007022C3 /* libcrypto.a in Frameworks */,
+				BE4AF8A91BC68446007022C3 /* libssl.a in Frameworks */,
+				BE4AF8A71BC68033007022C3 /* libspice-client-glib-2.0.a in Frameworks */,
+				BEC9CD681BC6776A00448A33 /* GStreamer.framework in Frameworks */,
 				D8985D001A03BB2100B240FF /* libresolv.dylib in Frameworks */,
 				D8985CFE1A03BA6E00B240FF /* libiconv.dylib in Frameworks */,
-				D8985CFC1A03BA0F00B240FF /* GStreamer.framework in Frameworks */,
 				D8FD56391A03A77A00292158 /* OpenGLES.framework in Frameworks */,
 				D8FD56331A03A77A00292158 /* CoreGraphics.framework in Frameworks */,
 				D8FD56351A03A77A00292158 /* UIKit.framework in Frameworks */,
@@ -161,11 +170,14 @@
 		D8FD562F1A03A77A00292158 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				BEBABEC51BC513DE00693218 /* libflexdp-glue.a */,
-				BEBABEBD1BC2D01200693218 /* libspice-client-glib-2.0.8.dylib */,
+				BE3F13701BCEACBE00334757 /* libspice-mono-glue.a */,
+				BE4AF8AC1BC68481007022C3 /* libnopoll.a */,
+				BE4AF8AA1BC68461007022C3 /* libcrypto.a */,
+				BE4AF8A81BC68446007022C3 /* libssl.a */,
+				BE4AF8A61BC68033007022C3 /* libspice-client-glib-2.0.a */,
+				BEC9CD671BC6776A00448A33 /* GStreamer.framework */,
 				D8985CFF1A03BB2100B240FF /* libresolv.dylib */,
 				D8985CFD1A03BA6E00B240FF /* libiconv.dylib */,
-				D8985CFB1A03BA0F00B240FF /* GStreamer.framework */,
 				D8FD56301A03A77A00292158 /* Foundation.framework */,
 				D8FD56321A03A77A00292158 /* CoreGraphics.framework */,
 				D8FD56341A03A77A00292158 /* UIKit.framework */,
@@ -281,11 +293,11 @@
 		D8FD56251A03A77A00292158 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Flexible Software Solutions S.L.";
 				TargetAttributes = {
 					D8FD562C1A03A77A00292158 = {
-						DevelopmentTeam = KCNDDZ7UVS;
+						DevelopmentTeam = 4GPXVCF3S2;
 					};
 				};
 			};
@@ -403,9 +415,11 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Nologin Consulting S.L. (KCNDDZ7UVS)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Nologin Consulting S.L. (KCNDDZ7UVS)";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_BITCODE = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -422,7 +436,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "125a391e-519b-428d-ae76-43a96955bccf";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -444,9 +458,10 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Nologin Consulting S.L. (KCNDDZ7UVS)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Nologin Consulting S.L. (KCNDDZ7UVS)";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = YES;
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -456,7 +471,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				PROVISIONING_PROFILE = "125a391e-519b-428d-ae76-43a96955bccf";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -466,27 +481,29 @@
 		D8FD566B1A03A77A00292158 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = armv7;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Nologin Consulting S.L. (KCNDDZ7UVS)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Nologin Consulting S.L. (KCNDDZ7UVS)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				"DYLIB_COMPATIBILITY_VERSION[sdk=*]" = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(USER_LIBRARY_DIR)/Developer/GStreamer/iPhone.sdk",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 				);
+				GCC_LINK_WITH_DYNAMIC_LIBRARIES = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iOSLauncher/iOSLauncher-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "iOSLauncher/iOSLauncher-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
-					/Users/slopez/cerbero/dist/ios_universal/lib,
 					"$(inherited)",
+					/Users/slopez/cerbero/dist/ios_universal/lib,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = es.flexvm.flexVDI;
 				PRODUCT_NAME = flexVDI;
-				PROVISIONING_PROFILE = "125a391e-519b-428d-ae76-43a96955bccf";
+				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "arm64 armv7";
 				WRAPPER_EXTENSION = app;
 			};
@@ -495,26 +512,28 @@
 		D8FD566C1A03A77A00292158 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = armv7;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Nologin Consulting S.L. (KCNDDZ7UVS)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Nologin Consulting S.L. (KCNDDZ7UVS)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(USER_LIBRARY_DIR)/Developer/GStreamer/iPhone.sdk",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 				);
+				GCC_LINK_WITH_DYNAMIC_LIBRARIES = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iOSLauncher/iOSLauncher-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				INFOPLIST_FILE = "iOSLauncher/iOSLauncher-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
-					/Users/slopez/cerbero/dist/ios_universal/lib,
 					"$(inherited)",
+					/Users/slopez/cerbero/dist/ios_universal/lib,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = es.flexvm.flexVDI;
 				PRODUCT_NAME = flexVDI;
-				PROVISIONING_PROFILE = "125a391e-519b-428d-ae76-43a96955bccf";
+				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "arm64 armv7";
 				WRAPPER_EXTENSION = app;
 			};
