@@ -30,7 +30,7 @@
 }
 
 -(void)insertText:(NSString *)text {
-    NSLog(@"insertText: %@, length=%d", text, text.length);
+    NSLog(@"insertText: %@, length=%lu", text, (unsigned long)text.length);
     const char *ctext=[text UTF8String];
     NSLog(@"ctext length=%lu\n", strlen(ctext));
     unsigned char tc = ctext[0];

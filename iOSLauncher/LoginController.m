@@ -279,7 +279,7 @@
     
     
     NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
-    int statusCode = [httpResponse statusCode];
+    unsigned long statusCode = [httpResponse statusCode];
     
     //    int statusCode = [response statusCode];
     if (statusCode != 200){
@@ -288,7 +288,7 @@
         
         [[self view] makeToast:NSLocalizedString(@"main_server_error", nil) duration:ToastDurationNormal position:@"center"];
         
-        NSLog(@"statusCode %d  ",statusCode);
+        NSLog(@"statusCode %ld  ",statusCode);
         [connection cancel];
         _activityIndicator.hidden = TRUE;
         [_activityIndicator stopAnimating];
@@ -349,7 +349,7 @@
         
         NSData *postData = [body dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
         [request setHTTPBody:postData];
-        [request setValue:[NSString stringWithFormat:@"%d", body.length] forHTTPHeaderField:@"Content-Length"];
+        [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)body.length] forHTTPHeaderField:@"Content-Length"];
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         
         
@@ -386,7 +386,7 @@
             
             NSData *postData = [body dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
             [request setHTTPBody:postData];
-            [request setValue:[NSString stringWithFormat:@"%d", body.length] forHTTPHeaderField:@"Content-Length"];
+            [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)body.length] forHTTPHeaderField:@"Content-Length"];
             [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
             
             NSURLConnection *connectionDesktop =[[NSURLConnection alloc] initWithRequest:request delegate:self];
@@ -437,7 +437,7 @@
                 [self.desktopsKeys addObject:key];
             }
             
-            [self adjustHeightWithNumberRows:[self.desktops count]];
+            [self adjustHeightWithNumberRows:(int)[self.desktops count]];
             _tblDesktop.hidden=FALSE;
             _viewBackTable.hidden=FALSE;
         } else if ([status isEqualToString:@"OK"]) {
@@ -450,7 +450,12 @@
             self.spiceAddress=[responseDesktopDict objectForKey:@"spice_address"];
             self.spicePassword=[responseDesktopDict objectForKey:@"spice_password"];
             self.spicePort=[responseDesktopDict objectForKey:@"spice_port"];
-            self.use_ws=[responseDesktopDict objectForKey:@"use_ws"];
+            NSNumber *useWS=(NSNumber *)[responseDesktopDict objectForKey: @"use_ws"];
+            if ([useWS boolValue] == YES) {
+                self.use_ws = YES;
+            } else {
+                self.use_ws = NO;
+            }
             
             if (self.enableRetina && UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad)
             {
@@ -505,9 +510,9 @@
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"didSelectRowAtIndexPath %d",indexPath.row);
+    NSLog(@"didSelectRowAtIndexPath %ld",(long)indexPath.row);
     
-    self.selectedDesktop=indexPath.row;
+    self.selectedDesktop=(int)indexPath.row;
     NSLog(@"didSelectRowAtIndexPath self.selectedDesktop %d",self.selectedDesktop);
     NSString *desktop=[self.desktopsKeys objectAtIndex:self.selectedDesktop];
     
@@ -531,7 +536,7 @@
     
     NSData *postData = [body dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
     [request setHTTPBody:postData];
-    [request setValue:[NSString stringWithFormat:@"%d", body.length] forHTTPHeaderField:@"Content-Length"];
+    [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)body.length] forHTTPHeaderField:@"Content-Length"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     
     NSURLConnection *connectionDesktop =[[NSURLConnection alloc] initWithRequest:request delegate:self];

@@ -555,13 +555,13 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				HEADER_SEARCH_PATHS = /Users/slopez/Library/Developer/GStreamer/iPhone.sdk/GStreamer.framework/Headers;
 				INFOPLIST_FILE = "iOSLauncher/iOSLauncher-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_NO_PIE = YES;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/slopez/cerbero/dist/ios_universal/lib,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = es.flexvm.flexVDI;
+				PRODUCT_BUNDLE_IDENTIFIER = com.flexvdi.iOSLauncher;
 				PRODUCT_NAME = flexVDI;
 				PROVISIONING_PROFILE = "";
 				STRIP_INSTALLED_PRODUCT = YES;
@@ -592,13 +592,13 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				HEADER_SEARCH_PATHS = /Users/slopez/Library/Developer/GStreamer/iPhone.sdk/GStreamer.framework/Headers;
 				INFOPLIST_FILE = "iOSLauncher/iOSLauncher-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_NO_PIE = YES;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/slopez/cerbero/dist/ios_universal/lib,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = es.flexvm.flexVDI;
+				PRODUCT_BUNDLE_IDENTIFIER = com.flexvdi.iOSLauncher;
 				PRODUCT_NAME = flexVDI;
 				PROVISIONING_PROFILE = "";
 				STRIP_INSTALLED_PRODUCT = YES;

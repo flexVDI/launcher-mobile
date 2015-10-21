@@ -40,7 +40,7 @@ MainViewController *mainViewController;
     {
         keyboardRequested = [[NSUserDefaults standardUserDefaults] boolForKey:kFlexKeyKeyboardRequested];
         fixOrientation = [[NSUserDefaults standardUserDefaults] boolForKey:kFlexKeyFixOrientation];
-        orientationMask = [[NSUserDefaults standardUserDefaults] integerForKey:kFlexKeyOrientationMask];
+        orientationMask = (int) [[NSUserDefaults standardUserDefaults] integerForKey:kFlexKeyOrientationMask];
         mainViewController = self;
         return self;
     }
@@ -341,7 +341,7 @@ MainViewController *mainViewController;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"didSelectRowAtIndexPath %d",indexPath.row);
+    NSLog(@"didSelectRowAtIndexPath %ld",(long)indexPath.row);
     if (indexPath.section == 0) {
         switch (indexPath.row) {
             case 0:
@@ -352,7 +352,7 @@ MainViewController *mainViewController;
                 break;
         }
     } else {
-        [self sendKeyCombination:indexPath.row];
+        [self sendKeyCombination:(int)indexPath.row];
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -1285,14 +1285,14 @@ void native_resolution_change(int changing) {
     
     NSLog(@"didReceiveResponse");
     NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
-    int statusCode = [httpResponse statusCode];
+    long statusCode = [httpResponse statusCode];
     
     if (statusCode != 200){
         NSLog(@"no es 200  ");
         
         reconnectionState = R_FAILED;
         
-        NSLog(@"statusCode %d  ",statusCode);
+        NSLog(@"statusCode %ld  ",statusCode);
         [connection cancel];
     }
 }
@@ -1383,7 +1383,7 @@ void native_resolution_change(int changing) {
         
         NSData *postData = [body dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
         [request setHTTPBody:postData];
-        [request setValue:[NSString stringWithFormat:@"%d", body.length] forHTTPHeaderField:@"Content-Length"];
+        [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)body.length] forHTTPHeaderField:@"Content-Length"];
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         
         reconnectionState = R_LAUNCHER;
@@ -1406,7 +1406,12 @@ void native_resolution_change(int changing) {
             self.ip=[responseDesktopDict objectForKey:@"spice_address"];
             self.pass=[responseDesktopDict objectForKey:@"spice_password"];
             self.port=[responseDesktopDict objectForKey:@"spice_port"];
-            self.use_ws=[responseDesktopDict objectForKey:@"use_ws"];
+            NSNumber *useWS=(NSNumber *)[responseDesktopDict objectForKey: @"use_ws"];
+            if ([useWS boolValue] == YES) {
+                self.use_ws = YES;
+            } else {
+                self.use_ws = NO;
+            }
             
             dragging = false;
             NSString *wsport;
@@ -1435,7 +1440,7 @@ void native_resolution_change(int changing) {
     NSLog(@"despues de todo=%d", reconnectionState);
 }
 
-- (NSUInteger)supportedInterfaceOrientations {
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return orientationMask;
 }
 
@@ -1480,7 +1485,7 @@ void native_resolution_change(int changing) {
         textViewRangeAutoChanged = false;
     } else {
         NSRange range = textView.selectedRange;
-        NSLog(@"textViewDidChangeSelection: %d", range.location);
+        NSLog(@"textViewDidChangeSelection: %lu", (unsigned long)range.location);
         
         if (range.location == 5) {
             /* left-key */

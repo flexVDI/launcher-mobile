@@ -144,7 +144,6 @@ int engine_spice_update_display(char *display_buffer, int *width, int *height)
 {
     int invalidated = 0;
     int flags = 0;
-    int update_result = 0;
     
     if (!global_state.input_initialized) {
         /* XXX - HACK! We send here a bogus input to ensure
@@ -159,33 +158,6 @@ int engine_spice_update_display(char *display_buffer, int *width, int *height)
     if (invalidated) {
         global_state.first_frame = 0;
     }
-    
-#if 0
-    if (update_result == 0) {
-        GLUE_DEBUG("Screen invalidated\n");
-        invalidated = 1;
-    } else if (update_result == -1) {
-        //GLUE_DEBUG("Screen was not invalidated\n");
-        //return -1;
-    } else if (update_result == -2) {
-        GLUE_DEBUG("Display is not ready\n");
-        return -1;
-    } else if (update_result == -3) {
-        GLUE_DEBUG("Display is not initialized\n");
-        return -1;
-    } else if (update_result == -4) {
-        GLUE_DEBUG("Guest resolution has changed\n");
-        return -2;
-    } else {
-        GLUE_DEBUG("Can't update screen.\n");
-        if (global_state.conn_state == CONNECTED && !engine_spice_is_connected()) {
-            global_state.conn_state = DISCONNECTED;
-            global_state.display_state = DISCONNECTED;
-            native_connection_change(DISCONNECTED);
-        }
-        return -1;
-    }
-#endif
 
     if (invalidated) {
         flags |= DISPLAY_INVALIDATE;

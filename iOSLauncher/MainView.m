@@ -127,9 +127,9 @@ MainView *mainView;
     spriteImage = [UIImage imageWithContentsOfFile:imagePath].CGImage;
     
     if (spriteImage) {
-        width = CGImageGetWidth(spriteImage);
-        height = CGImageGetHeight(spriteImage);
-        bpp = CGImageGetBitsPerPixel(spriteImage);
+        width = (int)CGImageGetWidth(spriteImage);
+        height = (int)CGImageGetHeight(spriteImage);
+        bpp = (int)CGImageGetBitsPerPixel(spriteImage);
         
         buf = (unsigned char**) calloc(1, sizeof(unsigned char*));
         buf[0] = (unsigned char*) calloc(width * height * 4, sizeof(unsigned char));
