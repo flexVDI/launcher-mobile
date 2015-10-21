@@ -15,7 +15,8 @@ void engine_spice_worker(void *data);
 void engine_spice_set_connection_data(const char *host,
                                       const char *port,
                                       const char *wsport,
-                                      const char *password);
+                                      const char *password,
+                                      int32_t enableAudio);
 
 int engine_spice_connect(void);
 

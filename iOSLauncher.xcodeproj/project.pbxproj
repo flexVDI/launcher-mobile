@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		BE1A4AD01A0D1399002983C2 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = BE1A4ACF1A0D1399002983C2 /* Reachability.m */; };
+		BE3013431BD67AF400EE5B7D /* GStreamer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE3013421BD67AF400EE5B7D /* GStreamer.framework */; };
+		BE3013461BD67BE900EE5B7D /* gst_ios_init.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3013451BD67BE900EE5B7D /* gst_ios_init.m */; settings = {ASSET_TAGS = (); }; };
+		BE3013481BD6807000EE5B7D /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE3013471BD6807000EE5B7D /* CoreMedia.framework */; };
+		BE30134A1BD680A000EE5B7D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE3013491BD680A000EE5B7D /* AVFoundation.framework */; };
+		BE30134C1BD680A900EE5B7D /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE30134B1BD680A900EE5B7D /* CoreAudio.framework */; };
+		BE30134E1BD680AE00EE5B7D /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE30134D1BD680AE00EE5B7D /* CoreVideo.framework */; };
+		BE3013501BD680C900EE5B7D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE30134F1BD680C900EE5B7D /* AudioToolbox.framework */; };
+		BE3013521BD680FA00EE5B7D /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE3013511BD680FA00EE5B7D /* VideoToolbox.framework */; };
 		BE3F13711BCEACBE00334757 /* libspice-mono-glue.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE3F13701BCEACBE00334757 /* libspice-mono-glue.a */; };
 		BE4AF8A71BC68033007022C3 /* libspice-client-glib-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE4AF8A61BC68033007022C3 /* libspice-client-glib-2.0.a */; };
 		BE4AF8A91BC68446007022C3 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE4AF8A81BC68446007022C3 /* libssl.a */; };
@@ -25,8 +33,10 @@
 		BEA2F8EC1A0BCC9F00C2D8BF /* ConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEA2F8EB1A0BCC9F00C2D8BF /* ConfigViewController.m */; };
 		BEAF3EC81A0A488F0056C6A8 /* keyboard.png in Resources */ = {isa = PBXBuildFile; fileRef = BEAF3EC71A0A488F0056C6A8 /* keyboard.png */; };
 		BEAF3ECB1A0A6BB00056C6A8 /* KeyboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEAF3ECA1A0A6BB00056C6A8 /* KeyboardView.m */; };
-		BEC9CD681BC6776A00448A33 /* GStreamer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEC9CD671BC6776A00448A33 /* GStreamer.framework */; };
 		BEE6190B1A13696800448F71 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BEE619091A13696800448F71 /* Main_iPad.storyboard */; };
+		BEF904CD1BD4D84A009F363D /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEF904CC1BD4D84A009F363D /* HockeySDK.framework */; };
+		BEF904D01BD4E8C0009F363D /* HockeySDK.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = BEF904CE1BD4E8C0009F363D /* HockeySDK.xcconfig */; settings = {ASSET_TAGS = (); }; };
+		BEF904D11BD4E8C0009F363D /* HockeySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BEF904CF1BD4E8C0009F363D /* HockeySDKResources.bundle */; settings = {ASSET_TAGS = (); }; };
 		D8985CFE1A03BA6E00B240FF /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D8985CFD1A03BA6E00B240FF /* libiconv.dylib */; };
 		D8985D001A03BB2100B240FF /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D8985CFF1A03BB2100B240FF /* libresolv.dylib */; };
 		D8985D0A1A03D82200B240FF /* ES1Renderer.m in Sources */ = {isa = PBXBuildFile; fileRef = D8985D091A03D82200B240FF /* ES1Renderer.m */; };
@@ -49,6 +59,15 @@
 /* Begin PBXFileReference section */
 		BE1A4ACE1A0D1399002983C2 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		BE1A4ACF1A0D1399002983C2 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		BE3013421BD67AF400EE5B7D /* GStreamer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GStreamer.framework; path = ../../../../Library/Frameworks/GStreamer.framework; sourceTree = "<group>"; };
+		BE3013441BD67BC100EE5B7D /* gst_ios_init.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gst_ios_init.h; sourceTree = "<group>"; };
+		BE3013451BD67BE900EE5B7D /* gst_ios_init.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = gst_ios_init.m; sourceTree = "<group>"; };
+		BE3013471BD6807000EE5B7D /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		BE3013491BD680A000EE5B7D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		BE30134B1BD680A900EE5B7D /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		BE30134D1BD680AE00EE5B7D /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		BE30134F1BD680C900EE5B7D /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		BE3013511BD680FA00EE5B7D /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		BE3F13701BCEACBE00334757 /* libspice-mono-glue.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libspice-mono-glue.a"; path = "../../cerbero/dist/ios_universal/lib/libspice-mono-glue.a"; sourceTree = "<group>"; };
 		BE4AF8A61BC68033007022C3 /* libspice-client-glib-2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libspice-client-glib-2.0.a"; path = "../../cerbero/dist/ios_universal/lib/libspice-client-glib-2.0.a"; sourceTree = "<group>"; };
 		BE4AF8A81BC68446007022C3 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = ../../cerbero/dist/ios_universal/lib/libssl.a; sourceTree = "<group>"; };
@@ -73,8 +92,10 @@
 		BEAF3EC71A0A488F0056C6A8 /* keyboard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = keyboard.png; sourceTree = "<group>"; };
 		BEAF3EC91A0A6BB00056C6A8 /* KeyboardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardView.h; sourceTree = "<group>"; };
 		BEAF3ECA1A0A6BB00056C6A8 /* KeyboardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyboardView.m; sourceTree = "<group>"; };
-		BEC9CD671BC6776A00448A33 /* GStreamer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GStreamer.framework; path = ../../../../Library/Frameworks/GStreamer.framework; sourceTree = "<group>"; };
 		BEE6190A1A13696800448F71 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
+		BEF904CC1BD4D84A009F363D /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HockeySDK.framework; path = "HockeySDK-iOS/HockeySDK.embeddedframework/HockeySDK.framework"; sourceTree = "<group>"; };
+		BEF904CE1BD4E8C0009F363D /* HockeySDK.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = HockeySDK.xcconfig; path = "../HockeySDK-iOS/HockeySDK.embeddedframework/Resources/HockeySDK.xcconfig"; sourceTree = "<group>"; };
+		BEF904CF1BD4E8C0009F363D /* HockeySDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = HockeySDKResources.bundle; path = "../HockeySDK-iOS/HockeySDK.embeddedframework/Resources/HockeySDKResources.bundle"; sourceTree = "<group>"; };
 		D8985CFD1A03BA6E00B240FF /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		D8985CFF1A03BB2100B240FF /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
 		D8985D051A03D78200B240FF /* ESRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESRenderer.h; sourceTree = "<group>"; };
@@ -116,12 +137,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE3013521BD680FA00EE5B7D /* VideoToolbox.framework in Frameworks */,
+				BE3013501BD680C900EE5B7D /* AudioToolbox.framework in Frameworks */,
+				BE30134E1BD680AE00EE5B7D /* CoreVideo.framework in Frameworks */,
+				BE30134C1BD680A900EE5B7D /* CoreAudio.framework in Frameworks */,
+				BE30134A1BD680A000EE5B7D /* AVFoundation.framework in Frameworks */,
+				BE3013481BD6807000EE5B7D /* CoreMedia.framework in Frameworks */,
+				BE3013431BD67AF400EE5B7D /* GStreamer.framework in Frameworks */,
+				BEF904CD1BD4D84A009F363D /* HockeySDK.framework in Frameworks */,
 				BE3F13711BCEACBE00334757 /* libspice-mono-glue.a in Frameworks */,
 				BE4AF8AD1BC68481007022C3 /* libnopoll.a in Frameworks */,
 				BE4AF8AB1BC68461007022C3 /* libcrypto.a in Frameworks */,
 				BE4AF8A91BC68446007022C3 /* libssl.a in Frameworks */,
 				BE4AF8A71BC68033007022C3 /* libspice-client-glib-2.0.a in Frameworks */,
-				BEC9CD681BC6776A00448A33 /* GStreamer.framework in Frameworks */,
 				D8985D001A03BB2100B240FF /* libresolv.dylib in Frameworks */,
 				D8985CFE1A03BA6E00B240FF /* libiconv.dylib in Frameworks */,
 				D8FD56391A03A77A00292158 /* OpenGLES.framework in Frameworks */,
@@ -138,6 +166,8 @@
 		BEAF3EC61A0A47B00056C6A8 /* res */ = {
 			isa = PBXGroup;
 			children = (
+				BEF904CE1BD4E8C0009F363D /* HockeySDK.xcconfig */,
+				BEF904CF1BD4E8C0009F363D /* HockeySDKResources.bundle */,
 				BE588B151A24EE4000ACED16 /* beep-timber.aif */,
 				BE5D394C1A1255D2008C2094 /* barra_sup.png */,
 				BE5D39411A1233A7008C2094 /* config_icon.png */,
@@ -170,12 +200,19 @@
 		D8FD562F1A03A77A00292158 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BE3013511BD680FA00EE5B7D /* VideoToolbox.framework */,
+				BE30134F1BD680C900EE5B7D /* AudioToolbox.framework */,
+				BE30134D1BD680AE00EE5B7D /* CoreVideo.framework */,
+				BE30134B1BD680A900EE5B7D /* CoreAudio.framework */,
+				BE3013491BD680A000EE5B7D /* AVFoundation.framework */,
+				BE3013471BD6807000EE5B7D /* CoreMedia.framework */,
+				BE3013421BD67AF400EE5B7D /* GStreamer.framework */,
+				BEF904CC1BD4D84A009F363D /* HockeySDK.framework */,
 				BE3F13701BCEACBE00334757 /* libspice-mono-glue.a */,
 				BE4AF8AC1BC68481007022C3 /* libnopoll.a */,
 				BE4AF8AA1BC68461007022C3 /* libcrypto.a */,
 				BE4AF8A81BC68446007022C3 /* libssl.a */,
 				BE4AF8A61BC68033007022C3 /* libspice-client-glib-2.0.a */,
-				BEC9CD671BC6776A00448A33 /* GStreamer.framework */,
 				D8985CFF1A03BB2100B240FF /* libresolv.dylib */,
 				D8985CFD1A03BA6E00B240FF /* libiconv.dylib */,
 				D8FD56301A03A77A00292158 /* Foundation.framework */,
@@ -217,6 +254,8 @@
 				BEA2F8651A0BBB6A00C2D8BF /* flexConstants.h */,
 				BEA2334A1A0CC575007978B5 /* MainViewController.h */,
 				BEA2334B1A0CC575007978B5 /* MainViewController.m */,
+				BE3013441BD67BC100EE5B7D /* gst_ios_init.h */,
+				BE3013451BD67BE900EE5B7D /* gst_ios_init.m */,
 			);
 			path = iOSLauncher;
 			sourceTree = "<group>";
@@ -277,6 +316,7 @@
 				D8FD56291A03A77A00292158 /* Sources */,
 				D8FD562A1A03A77A00292158 /* Frameworks */,
 				D8FD562B1A03A77A00292158 /* Resources */,
+				BEF904C51BD4CEF0009F363D /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -330,6 +370,8 @@
 				BE588B161A24EE4000ACED16 /* beep-timber.aif in Resources */,
 				BEE6190B1A13696800448F71 /* Main_iPad.storyboard in Resources */,
 				D8FD56541A03A77A00292158 /* Images.xcassets in Resources */,
+				BEF904D01BD4E8C0009F363D /* HockeySDK.xcconfig in Resources */,
+				BEF904D11BD4E8C0009F363D /* HockeySDKResources.bundle in Resources */,
 				D8FD563F1A03A77A00292158 /* InfoPlist.strings in Resources */,
 				BE5D394D1A1255D2008C2094 /* barra_sup.png in Resources */,
 				BE5D394B1A1235DF008C2094 /* Localizable.strings in Resources */,
@@ -338,6 +380,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		BEF904C51BD4CEF0009F363D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "FILE=\"${SRCROOT}/HockeySDK-iOS/BuildAgent\"\nif [ -f \"$FILE\" ]; then\n    \"$FILE\"\nfi";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D8FD56291A03A77A00292158 /* Sources */ = {
@@ -358,6 +416,7 @@
 				D8FD56411A03A77A00292158 /* main.m in Sources */,
 				BEA2F8EC1A0BCC9F00C2D8BF /* ConfigViewController.m in Sources */,
 				BEA2F8611A0BB94B00C2D8BF /* LoginController.m in Sources */,
+				BE3013461BD67BE900EE5B7D /* gst_ios_init.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -490,11 +549,13 @@
 					"$(inherited)",
 					"$(USER_LIBRARY_DIR)/Developer/GStreamer/iPhone.sdk",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+					"$(PROJECT_DIR)/HockeySDK-iOS/HockeySDK.embeddedframework",
 				);
 				GCC_LINK_WITH_DYNAMIC_LIBRARIES = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iOSLauncher/iOSLauncher-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				HEADER_SEARCH_PATHS = /Users/slopez/Library/Developer/GStreamer/iPhone.sdk/GStreamer.framework/Headers;
 				INFOPLIST_FILE = "iOSLauncher/iOSLauncher-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (
@@ -520,11 +581,13 @@
 					"$(inherited)",
 					"$(USER_LIBRARY_DIR)/Developer/GStreamer/iPhone.sdk",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+					"$(PROJECT_DIR)/HockeySDK-iOS/HockeySDK.embeddedframework",
 				);
 				GCC_LINK_WITH_DYNAMIC_LIBRARIES = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iOSLauncher/iOSLauncher-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "";
+				HEADER_SEARCH_PATHS = /Users/slopez/Library/Developer/GStreamer/iPhone.sdk/GStreamer.framework/Headers;
 				INFOPLIST_FILE = "iOSLauncher/iOSLauncher-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = (

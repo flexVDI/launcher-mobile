@@ -51,10 +51,10 @@
         _txtDomain.text=serverDomain;
     }
     
-    if([[NSUserDefaults standardUserDefaults] boolForKey:kFlexKeyEnableWebSockets]==TRUE){;
-        _enableWebSockets.on=TRUE;
+    if([[NSUserDefaults standardUserDefaults] boolForKey:kFlexKeyEnableAudio]==TRUE){;
+        _enableAudio.on=TRUE;
     }else{
-        _enableWebSockets.on=FALSE;
+        _enableAudio.on=FALSE;
     }
     
     if([[NSUserDefaults standardUserDefaults] boolForKey:kFlexKeyEnableRetina]==TRUE){;
@@ -118,11 +118,11 @@
     [prefs setObject:_txtPort.text forKey:kFlexKeyServerPort];
     [prefs setObject:_txtDomain.text forKey:kFlexKeyServerDomain];
     
-    if([_enableWebSockets isOn]){
-        [prefs setBool:TRUE forKey:kFlexKeyEnableWebSockets];
+    if([_enableAudio isOn]){
+        [prefs setBool:TRUE forKey:kFlexKeyEnableAudio];
         
     }else{
-        [prefs setBool:NO forKey:kFlexKeyEnableWebSockets];
+        [prefs setBool:NO forKey:kFlexKeyEnableAudio];
     }
     
     if([_enableRetina isOn]){

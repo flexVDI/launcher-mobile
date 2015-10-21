@@ -60,7 +60,6 @@
                     </view>
                     <connections>
                         <outlet property="lblMessage" destination="epT-5a-a33" id="kcB-bF-3Uy"/>
-                        <outlet property="mainView" destination="mMZ-fH-qZJ" id="ltC-Aw-bkE"/>
                         <outlet property="tblMenu" destination="Vjp-UY-e0r" id="PAo-c8-WU6"/>
                     </connections>
                 </viewController>
@@ -256,8 +255,8 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WebSockets" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="nKs-yR-YIl">
-                                <rect key="frame" x="463" y="169" width="85" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Habilitar Audio" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="nKs-yR-YIl">
+                                <rect key="frame" x="445" y="169" width="103" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <nil key="highlightedColor"/>
@@ -274,7 +273,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad"/>
                             </textField>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="wEW-Cw-GWx" userLabel="enableWebSockets">
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="wEW-Cw-GWx" userLabel="enableAudio">
                                 <rect key="frame" x="551" y="164" width="51" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
                                 <color key="onTintColor" red="0.27450981736183167" green="0.59607845544815063" blue="0.71764707565307617" alpha="1" colorSpace="deviceRGB"/>
@@ -353,8 +352,8 @@
                     <navigationItem key="navigationItem" id="J86-aT-usR"/>
                     <connections>
                         <outlet property="btnSave" destination="fsP-lH-5DR" id="XjC-Gm-fvP"/>
+                        <outlet property="enableAudio" destination="wEW-Cw-GWx" id="XP8-W2-WxR"/>
                         <outlet property="enableRetina" destination="DoR-2Y-tje" id="gSa-Tb-ltQ"/>
-                        <outlet property="enableWebSockets" destination="wEW-Cw-GWx" id="z8e-Ch-tKl"/>
                         <outlet property="lblVersion" destination="OgX-Qg-OeP" id="r4m-95-W4q"/>
                         <outlet property="txtIp" destination="9Bm-HS-OFu" id="w3W-I6-OyM"/>
                         <outlet property="txtPort" destination="4ma-bL-GmC" id="78x-9L-qf9"/>

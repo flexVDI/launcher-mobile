@@ -108,7 +108,7 @@
             return;
         }
         
-        self.enableWebSockets = [[NSUserDefaults standardUserDefaults] boolForKey:kFlexKeyEnableWebSockets];
+        self.enableAudio = [[NSUserDefaults standardUserDefaults] boolForKey:kFlexKeyEnableAudio];
         self.enableRetina = [[NSUserDefaults standardUserDefaults] boolForKey:kFlexKeyEnableRetina];
         
         /* Autoreconnection */
@@ -157,7 +157,7 @@
         
         mainViewController.ip = self.spiceAddress;
         mainViewController.port = self.spicePort;
-        mainViewController.enableWebSockets = self.enableWebSockets;
+        mainViewController.enableAudio = self.enableAudio;
         mainViewController.pass = self.spicePassword;
         _viewBackTable.hidden=TRUE;
         _tblDesktop.hidden=TRUE;
@@ -218,7 +218,7 @@
     NSString* serverProto =nil;
     serverProto = @"https";
     self.useHttps = TRUE;
-    self.enableWebSockets = [[NSUserDefaults standardUserDefaults] boolForKey:kFlexKeyEnableWebSockets];
+    self.enableAudio = [[NSUserDefaults standardUserDefaults] boolForKey:kFlexKeyEnableAudio];
     self.enableRetina = [[NSUserDefaults standardUserDefaults] boolForKey:kFlexKeyEnableRetina];
 
     if(valid){
@@ -447,6 +447,7 @@
             self.spiceAddress=[responseDesktopDict objectForKey:@"spice_address"];
             self.spicePassword=[responseDesktopDict objectForKey:@"spice_password"];
             self.spicePort=[responseDesktopDict objectForKey:@"spice_port"];
+            self.use_ws=[responseDesktopDict objectForKey:@"use_ws"];
             
             if (self.enableRetina && UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad)
             {
@@ -456,7 +457,7 @@
             }
             
             NSString *wsport;
-            if (self.enableWebSockets) {
+            if (self.use_ws) {
                 wsport = @"443";
             } else {
                 wsport = @"-1";
@@ -465,7 +466,8 @@
             engine_spice_set_connection_data([self.spiceAddress UTF8String],
                                              [self.spicePort UTF8String],
                                              [wsport UTF8String],
-                                             [self.spicePassword UTF8String]);
+                                             [self.spicePassword UTF8String],
+                                             self.enableAudio);
             
             if (engine_spice_connect() != 0) {
                 [[self view] makeToast:NSLocalizedString(@"connection_failed", nil) duration:ToastDurationNormal position:@"center"];

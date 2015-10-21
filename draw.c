@@ -270,6 +270,9 @@ void engine_init_buffer(int width, int height)
     }
     
     global_state.spice_display_buffer = malloc(width * height * 4);
+    
+    SpiceGlibGlueSetDisplayBuffer((uint32_t *) global_state.spice_display_buffer,
+                                  width, height);
 }
 
 
@@ -317,8 +320,11 @@ int engine_draw(int max_width, int max_height)
     int flags = 0;
     int width = max_width;
     int height = max_height;
+    int image_width;
+    int image_height;
     
-    if (global_state.conn_state == AUTOCONNECT) {
+    if (global_state.conn_state == AUTOCONNECT ||
+        (global_state.conn_state == CONNECTED && !engine_spice_is_connected())) {
         global_state.conn_state = DISCONNECTED;
         global_state.display_state = DISCONNECTED;
         engine_load_main_texture(max_width, max_height);
@@ -338,15 +344,30 @@ int engine_draw(int max_width, int max_height)
     if (width == 0 || height == 0)
         return 0;
     
+    if ((global_state.width + global_state.height) < (width + height)) {
+        image_width = global_state.width;
+        image_height = global_state.height;
+    } else {
+        image_width = width;
+        image_height = height;
+    }
+    
+    image_width = width < global_state.width ? width : global_state.width;
+    image_height = height < global_state.height ? height : global_state.height;
+    
     if (flags & DISPLAY_INVALIDATE) {
         if (flags & DISPLAY_CHANGE_RESOLUTION || !global_state.main_texture_created) {
-            create_main_texture(global_state.spice_display_buffer, width, height);
+            create_main_texture(global_state.spice_display_buffer,
+                                image_width, image_height);
         } else {
-            update_main_texture(global_state.spice_display_buffer, width, height);
-            //create_main_texture(global_state.spice_display_buffer, width, height);
+            update_main_texture(global_state.spice_display_buffer,
+                                image_width, image_height);
+//            create_main_texture(global_state.spice_display_buffer,
+//                                image_width, image_height);
         }
     } else {
-        update_main_texture(global_state.spice_display_buffer, width, height);
+        update_main_texture(global_state.spice_display_buffer,
+                            image_width, image_height);
     }
     
     render_main_texture();
@@ -446,11 +467,15 @@ void engine_load_main_texture(int max_width, int max_height) {
         return;
     }
     
+#if 0
     if (global_state.spice_display_buffer != NULL) {
         free(global_state.spice_display_buffer);
     }
     
     bitmap = global_state.spice_display_buffer = malloc(max_size);
+#else
+    bitmap = global_state.spice_display_buffer;
+#endif
     
     if (fread(bitmap, max_size, 1, input_fd) != 1) {
         GLUE_DEBUG("can't read texture from file\n");

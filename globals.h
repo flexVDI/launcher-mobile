@@ -13,8 +13,10 @@ typedef struct _global_state_t {
     char *save_path;
     
     int conn_state;
+    int main_loop_running;
     int display_state;
     spice_conn_data_t *conn_data;
+    int enable_audio;
     
     int width;
     int height;
@@ -23,6 +25,7 @@ typedef struct _global_state_t {
     int content_scale;
     int change_resolution;
     int input_initialized;
+    int first_frame;
     
     double mouse_fix[2];
     double zoom;

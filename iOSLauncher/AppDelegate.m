@@ -10,12 +10,21 @@
 #import "globals.h"
 #import "spice.h"
 #import "draw.h"
+#import "gst_ios_init.h"
+@import HockeySDK;
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"4695c9d7468d7f82744833605fb33a9c"];
+    // Do some additional configuration if needed here
+    [[BITHockeyManager sharedHockeyManager] startManager];
+    [[BITHockeyManager sharedHockeyManager].authenticator
+     authenticateInstallation];
+    
+    gst_ios_init();
+
     return YES;
 }
 							

@@ -21,5 +21,6 @@
 "connection_failed" = "No fue posible establecer la conexión";
 "reconnection" = "Reconectando, por favor espere";
 "reconnection_failed" = "No fue posible reestablecer la conexión";
+"menu_hint" = "Recuerda: Puedes acceder al menú manteniendo pulsado el icono del teclado";
 "wait_for_network" = "Esperando a que se reestablezca la red";
 "wait_for_desktop" = "Su escritorio está siendo preparado...";

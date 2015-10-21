@@ -17,7 +17,7 @@
 #define kFlexKeyLauncherPassword @"LauncherPassword"
 #define kFlexKeyLauncherDesktop @"LauncherDesktop"
 #define kFlexKeyLauncherDevID @"LauncherDevID"
-#define kFlexKeyEnableWebSockets @"EnableWebSockets"
+#define kFlexKeyEnableAudio @"EnableAudio"
 #define kFlexKeyEnableRetina @"EnableRetina"
 
 #define kFlexKeyConnectionAuthMode @"ConnectionAuthMode"

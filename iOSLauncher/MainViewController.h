@@ -70,7 +70,8 @@ enum reconnectionStates {
 @property (strong, nonatomic) NSString *ip;
 @property (strong, nonatomic) NSString *port;
 @property (strong, nonatomic) NSString *pass;
-@property (nonatomic) BOOL enableWebSockets;
+@property (nonatomic) BOOL use_ws;
+@property (nonatomic) BOOL enableAudio;
 
 @end
 

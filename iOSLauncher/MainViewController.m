@@ -101,6 +101,15 @@ MainViewController *mainViewController;
     _lblMessage.layer.cornerRadius = 8;
     
     connDesiredState = CONNECTED;
+    
+    if (global_state.conn_state != AUTOCONNECT) {
+        [self showLabel:NSLocalizedString(@"menu_hint", nil)];
+        [NSTimer scheduledTimerWithTimeInterval:5.0
+                                     target:self
+                                   selector:@selector(hideLabel)
+                                   userInfo:nil
+                                    repeats:NO];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -1136,13 +1145,17 @@ MainViewController *mainViewController;
             global_state.guest_height = 0;
             global_state.guest_width = 0;
             [self clearCredentials];
-            [self dismissViewControllerAnimated:YES completion:nil];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self dismissViewControllerAnimated:YES completion:nil];
+            });
             return;
         } else {
             UIApplicationState state = [UIApplication sharedApplication].applicationState;
             if (state == UIApplicationStateBackground) {
                 /* Application is in background. Ignore connection request */
-                [self dismissViewControllerAnimated:YES completion:nil];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self dismissViewControllerAnimated:YES completion:nil];
+                });
                 return;
             }
         }
@@ -1395,9 +1408,11 @@ void native_resolution_change(int changing) {
             self.ip=[responseDesktopDict objectForKey:@"spice_address"];
             self.pass=[responseDesktopDict objectForKey:@"spice_password"];
             self.port=[responseDesktopDict objectForKey:@"spice_port"];
+            self.use_ws=[responseDesktopDict objectForKey:@"use_ws"];
+            
             dragging = false;
             NSString *wsport;
-            if (self.enableWebSockets) {
+            if (self.use_ws) {
                 wsport = @"443";
             } else {
                 wsport = @"-1";
@@ -1406,7 +1421,8 @@ void native_resolution_change(int changing) {
             engine_spice_set_connection_data([self.ip UTF8String],
                                              [self.port UTF8String],
                                              [wsport UTF8String],
-                                             [self.pass UTF8String]);
+                                             [self.pass UTF8String],
+                                             self.enableAudio);
             
             reconnectionState = R_SPICE;
         } else if ([status isEqualToString:@"Pending"]) {

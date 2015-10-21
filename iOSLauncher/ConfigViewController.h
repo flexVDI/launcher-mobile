@@ -12,7 +12,7 @@
 @interface ConfigViewController : UIViewController<UITextFieldDelegate>
 @property (retain, nonatomic) IBOutlet UITextField *txtDomain;
 //@property (retain, nonatomic) IBOutlet UISwitch *switchHttps;
-@property (retain, nonatomic) IBOutlet UISwitch *enableWebSockets;
+@property (retain, nonatomic) IBOutlet UISwitch *enableAudio;
 @property (retain, nonatomic) IBOutlet UISwitch *enableRetina;
 @property (retain, nonatomic) IBOutlet UITextField *txtPort;
 @property (retain, nonatomic) IBOutlet UIButton *btnSave;

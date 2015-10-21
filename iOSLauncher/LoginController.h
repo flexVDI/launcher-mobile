@@ -29,10 +29,11 @@ enum connectionStates {
 @property (strong, nonatomic) NSString *spiceAddress;
 @property (strong, nonatomic) NSString *spicePassword;
 @property (strong, nonatomic) NSString *spicePort;
+@property (assign, nonatomic) BOOL use_ws;
 @property (strong, nonatomic) NSString *launcherDesktop;
 @property (assign, nonatomic) BOOL useHttps;
 @property (assign, nonatomic) BOOL enableRetina;
-@property (assign, nonatomic) BOOL enableWebSockets;
+@property (assign, nonatomic) BOOL enableAudio;
 @property (assign, nonatomic) int selectedDesktop;
 @property (strong, nonatomic) NSString *uniqueIdentifier;
 @property (retain, nonatomic) IBOutlet UITextField *pass;

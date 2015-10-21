@@ -10,24 +10,13 @@ pthread_t mainloop_worker;
 
 void engine_mainloop_worker(void *data)
 {
-    spice_conn_data_t *conn_data = global_state.conn_data;
-    int result;
-    
     GLUE_DEBUG("InitializeLogging\n");
     SpiceGlibGlue_InitializeLogging(0);
     
     GLUE_DEBUG("engine_mainloop_worker\n");
-    //result = SpiceGlibGlue_Init();
+    SpiceGlibGlue_MainLoop();
     
-    GLUE_DEBUG("engine_mainloop_worker: result=%d\n", result);
-    
-    GLUE_DEBUG("engine_spice_worker\n");
-    result = SpiceGlibGlue_Connect(conn_data->host,
-                                   conn_data->port, "",
-                                   conn_data->wsport,
-                                   conn_data->password, NULL, NULL, 0);
-    
-    GLUE_DEBUG("engine_spice_worker: result=%d\n", result);
+    GLUE_DEBUG("engine_mainloop_worker exit\n");
 }
 
 void engine_spice_worker(void *data)
@@ -39,7 +28,8 @@ void engine_spice_worker(void *data)
     result = SpiceGlibGlue_Connect(conn_data->host,
                                    conn_data->port, "",
                                    conn_data->wsport,
-                                   conn_data->password, NULL, NULL, 0);
+                                   conn_data->password,
+                                   NULL, NULL, global_state.enable_audio);
 
     GLUE_DEBUG("engine_spice_worker: result=%d\n", result);
 }
@@ -47,7 +37,8 @@ void engine_spice_worker(void *data)
 void engine_spice_set_connection_data(const char *host,
                                       const char *port,
                                       const char *wsport,
-                                      const char *password)
+                                      const char *password,
+                                      int32_t enableAudio)
 {
     spice_conn_data_t *conn_data;
     
@@ -80,15 +71,23 @@ void engine_spice_set_connection_data(const char *host,
     
     conn_data->password = malloc(strlen(password) + 1);
     strcpy(conn_data->password, password);
+    
+    global_state.enable_audio = enableAudio;
 }
 
 int engine_spice_connect()
 {
     int i;
     
-    if (global_state.conn_state == DISCONNECTED) {
+    if (global_state.main_loop_running == 0) {
         pthread_create(&mainloop_worker, NULL, (void *) &engine_mainloop_worker, NULL);
-        //pthread_create(&spice_worker, NULL, (void *) &engine_spice_worker, NULL);
+        global_state.main_loop_running = 1;
+    }
+    
+    global_state.first_frame = 1;
+    
+    if (global_state.conn_state == DISCONNECTED) {
+        engine_spice_worker(NULL);
         
         for (i = 0; i < 15; i++) {
             if (engine_spice_is_connected()) {
@@ -154,8 +153,14 @@ int engine_spice_update_display(char *display_buffer, int *width, int *height)
         global_state.input_initialized = 1;
     }
     
-    update_result = SpiceGlibGlueUpdateDisplayData(display_buffer, width, height);
-
+    //update_result = SpiceGlibGlueUpdateDisplayData(display_buffer, width, height);
+    invalidated = SpiceGlibGlueLockDisplayBuffer(width, height,
+                                                 global_state.first_frame);
+    if (invalidated) {
+        global_state.first_frame = 0;
+    }
+    
+#if 0
     if (update_result == 0) {
         GLUE_DEBUG("Screen invalidated\n");
         invalidated = 1;
@@ -180,6 +185,7 @@ int engine_spice_update_display(char *display_buffer, int *width, int *height)
         }
         return -1;
     }
+#endif
 
     if (invalidated) {
         flags |= DISPLAY_INVALIDATE;
@@ -195,6 +201,8 @@ int engine_spice_update_display(char *display_buffer, int *width, int *height)
         global_state.mouse_fix[1] = (double) global_state.guest_height / (double) global_state.height;
         flags |= DISPLAY_CHANGE_RESOLUTION;
     }
+    
+    SpiceGlibGlueUnlockDisplayBuffer();
 
     return flags;
 }

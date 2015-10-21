@@ -2,12 +2,20 @@
 
 void SpiceGlibGlue_InitializeLogging(int32_t verbosityLevel);
 
-//int16_t SpiceGlibGlue_Init(void);
+int16_t SpiceGlibGlue_MainLoop(void);
 
 int16_t SpiceGlibGlue_Connect(char* h, char* p,
                               char* tp, char* ws,
                               char* pw, char* cf,
                               char* cs, int32_t sound);
+
+void SpiceGlibGlueSetDisplayBuffer(uint32_t *display_buffer,
+                                   int32_t width,
+                                   int32_t height);
+
+int16_t SpiceGlibGlueLockDisplayBuffer(int32_t *width, int32_t *height, int force);
+
+void SpiceGlibGlueUnlockDisplayBuffer();
 
 void SpiceGlibGlue_Disconnect(void);
 
