@@ -591,13 +591,11 @@ MainViewController *mainViewController;
     if (!dragging) {
         dragging = true;
         
-        //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-                AudioServicesPlaySystemSound(soundFileID);
-            } else {
-                AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
-            }
-        //});
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad && !self.silenceBeeper) {
+            AudioServicesPlaySystemSound(soundFileID);
+        } else {
+            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+        }
         
         io_event.type = IO_EVENT_MOVED;
         io_event.position[0] = center.x * global_state.content_scale;

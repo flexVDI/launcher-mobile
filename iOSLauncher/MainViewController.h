@@ -72,6 +72,7 @@ enum reconnectionStates {
 @property (strong, nonatomic) NSString *pass;
 @property (nonatomic) BOOL use_ws;
 @property (nonatomic) BOOL enableAudio;
+@property (nonatomic) BOOL silenceBeeper;
 
 @end
 

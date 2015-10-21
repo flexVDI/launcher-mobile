@@ -14,6 +14,7 @@
 //@property (retain, nonatomic) IBOutlet UISwitch *switchHttps;
 @property (retain, nonatomic) IBOutlet UISwitch *enableAudio;
 @property (retain, nonatomic) IBOutlet UISwitch *enableRetina;
+@property (retain, nonatomic) IBOutlet UISwitch *silenceBeeper;
 @property (retain, nonatomic) IBOutlet UITextField *txtPort;
 @property (retain, nonatomic) IBOutlet UIButton *btnSave;
 @property (retain, nonatomic) IBOutlet UITextField *txtIp;

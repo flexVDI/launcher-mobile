@@ -16,7 +16,7 @@ G_PASTE(g_io_module_, G_PASTE(name, _load_static)) ()
  */
 
 #define GST_IOS_PLUGINS_CORE
-//#define GST_IOS_PLUGINS_CAPTURE
+#define GST_IOS_PLUGINS_CAPTURE
 //#define GST_IOS_PLUGINS_CODECS_RESTRICTED
 //#define GST_IOS_PLUGINS_ENCODING
 //#define GST_IOS_PLUGINS_CODECS_GPL

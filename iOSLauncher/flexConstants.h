@@ -19,6 +19,7 @@
 #define kFlexKeyLauncherDevID @"LauncherDevID"
 #define kFlexKeyEnableAudio @"EnableAudio"
 #define kFlexKeyEnableRetina @"EnableRetina"
+#define kFlexKeySilenceBeeper @"SilenceBeeper"
 
 #define kFlexKeyConnectionAuthMode @"ConnectionAuthMode"
 #define kFlexKeyConnectionDesktop @"ConnectionDesktop"

@@ -63,6 +63,12 @@
         _enableRetina.on=FALSE;
     }
     
+    if([[NSUserDefaults standardUserDefaults] boolForKey:kFlexKeySilenceBeeper]==TRUE){;
+        _silenceBeeper.on=TRUE;
+    }else{
+        _silenceBeeper.on=FALSE;
+    }
+    
     _btnSave.layer.cornerRadius = 10.0f;
 }
 -(void)viewDidAppear:(BOOL)animated
@@ -132,6 +138,13 @@
         [prefs setBool:NO forKey:kFlexKeyEnableRetina];
     }
     
+    if([_silenceBeeper isOn]){
+        [prefs setBool:TRUE forKey:kFlexKeySilenceBeeper];
+        
+    }else{
+        [prefs setBool:NO forKey:kFlexKeySilenceBeeper];
+    }
+    
     [prefs synchronize];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -154,6 +167,41 @@
     [_txtDomain resignFirstResponder];
 }
 - (IBAction)btnBackAction:(id)sender {
+    [_txtIp resignFirstResponder];
+    [_txtPort resignFirstResponder];
+    [_txtDomain resignFirstResponder];
+//    if (_txtIp.text.length == 0 || _txtPort.text.length == 0) {
+//        [[self view] makeToast:NSLocalizedString(@"ask_server_data", nil) duration:ToastDurationShort position:@"center"];
+//        return;
+//    }
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    [prefs setObject:_txtIp.text forKey:kFlexKeyServerIP];
+    [prefs setObject:_txtPort.text forKey:kFlexKeyServerPort];
+    [prefs setObject:_txtDomain.text forKey:kFlexKeyServerDomain];
+    
+    if([_enableAudio isOn]){
+        [prefs setBool:TRUE forKey:kFlexKeyEnableAudio];
+        
+    }else{
+        [prefs setBool:NO forKey:kFlexKeyEnableAudio];
+    }
+    
+    if([_enableRetina isOn]){
+        [prefs setBool:TRUE forKey:kFlexKeyEnableRetina];
+        
+    }else{
+        [prefs setBool:NO forKey:kFlexKeyEnableRetina];
+    }
+    
+    if([_silenceBeeper isOn]){
+        [prefs setBool:TRUE forKey:kFlexKeySilenceBeeper];
+        
+    }else{
+        [prefs setBool:NO forKey:kFlexKeySilenceBeeper];
+    }
+    
+    [prefs synchronize];
+    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 #pragma mark -

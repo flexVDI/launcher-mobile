@@ -110,6 +110,7 @@
         
         self.enableAudio = [[NSUserDefaults standardUserDefaults] boolForKey:kFlexKeyEnableAudio];
         self.enableRetina = [[NSUserDefaults standardUserDefaults] boolForKey:kFlexKeyEnableRetina];
+        self.silenceBeeper = [[NSUserDefaults standardUserDefaults] boolForKey:kFlexKeySilenceBeeper];
         
         /* Autoreconnection */
         if (self.enableRetina) {
@@ -158,6 +159,7 @@
         mainViewController.ip = self.spiceAddress;
         mainViewController.port = self.spicePort;
         mainViewController.enableAudio = self.enableAudio;
+        mainViewController.silenceBeeper = self.silenceBeeper;
         mainViewController.pass = self.spicePassword;
         _viewBackTable.hidden=TRUE;
         _tblDesktop.hidden=TRUE;
@@ -220,6 +222,7 @@
     self.useHttps = TRUE;
     self.enableAudio = [[NSUserDefaults standardUserDefaults] boolForKey:kFlexKeyEnableAudio];
     self.enableRetina = [[NSUserDefaults standardUserDefaults] boolForKey:kFlexKeyEnableRetina];
+    self.silenceBeeper = [[NSUserDefaults standardUserDefaults] boolForKey:kFlexKeySilenceBeeper];
 
     if(valid){
         self.strUrlAuthMode = [NSString stringWithFormat:@"%@://%@:%@/vdi/authmode", serverProto,serverIP,serverPort];
@@ -560,5 +563,19 @@
     
     _tblDesktop.frame = tblResultFrame;
     [_tblDesktop reloadData];
+}
+-(BOOL)shouldAutorotate{
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+-(UIInterfaceOrientationMask)supportedInterfaceOrientations{
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        return UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscapeRight;
+    } else {
+        return UIInterfaceOrientationMaskPortrait;
+    }
 }
 @end

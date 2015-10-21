@@ -34,6 +34,7 @@ enum connectionStates {
 @property (assign, nonatomic) BOOL useHttps;
 @property (assign, nonatomic) BOOL enableRetina;
 @property (assign, nonatomic) BOOL enableAudio;
+@property (assign, nonatomic) BOOL silenceBeeper;
 @property (assign, nonatomic) int selectedDesktop;
 @property (strong, nonatomic) NSString *uniqueIdentifier;
 @property (retain, nonatomic) IBOutlet UITextField *pass;
