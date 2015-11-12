@@ -9,9 +9,9 @@
 /* Begin PBXBuildFile section */
 		BE1A4AD01A0D1399002983C2 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = BE1A4ACF1A0D1399002983C2 /* Reachability.m */; };
 		BE3013431BD67AF400EE5B7D /* GStreamer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE3013421BD67AF400EE5B7D /* GStreamer.framework */; };
-		BE3013461BD67BE900EE5B7D /* gst_ios_init.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3013451BD67BE900EE5B7D /* gst_ios_init.m */; settings = {ASSET_TAGS = (); }; };
-		BE3013561BD7873700EE5B7D /* flexvdi_ios_central2.png in Resources */ = {isa = PBXBuildFile; fileRef = BE3013551BD7873700EE5B7D /* flexvdi_ios_central2.png */; settings = {ASSET_TAGS = (); }; };
-		BE3013581BD7907C00EE5B7D /* flexvdi_config_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = BE3013571BD7907C00EE5B7D /* flexvdi_config_logo.png */; settings = {ASSET_TAGS = (); }; };
+		BE3013461BD67BE900EE5B7D /* gst_ios_init.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3013451BD67BE900EE5B7D /* gst_ios_init.m */; };
+		BE3013561BD7873700EE5B7D /* flexvdi_ios_central2.png in Resources */ = {isa = PBXBuildFile; fileRef = BE3013551BD7873700EE5B7D /* flexvdi_ios_central2.png */; };
+		BE3013581BD7907C00EE5B7D /* flexvdi_config_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = BE3013571BD7907C00EE5B7D /* flexvdi_config_logo.png */; };
 		BE3F13711BCEACBE00334757 /* libspice-mono-glue.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE3F13701BCEACBE00334757 /* libspice-mono-glue.a */; };
 		BE4AF8A71BC68033007022C3 /* libspice-client-glib-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE4AF8A61BC68033007022C3 /* libspice-client-glib-2.0.a */; };
 		BE4AF8A91BC68446007022C3 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE4AF8A81BC68446007022C3 /* libssl.a */; };
