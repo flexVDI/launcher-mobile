@@ -89,9 +89,13 @@ MainViewController *mainViewController;
     }
     
     keybView = [[KeyboardView alloc] init];
-    UITextInputAssistantItem* item = [keybView inputAssistantItem];
-    item.leadingBarButtonGroups = @[];
-    item.trailingBarButtonGroups = @[];
+    NSString *ver = [[UIDevice currentDevice] systemVersion];
+    float ver_float = [ver floatValue];
+    if (ver_float > 9.0) {
+        UITextInputAssistantItem* item = [keybView inputAssistantItem];
+        item.leadingBarButtonGroups = @[];
+        item.trailingBarButtonGroups = @[];
+    }
     [keybView setText:@"dontlookatme"];
     [keybView setSelectedRange:NSMakeRange(6, 0)];
     keybView.delegate = self;

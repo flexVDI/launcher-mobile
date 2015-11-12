@@ -51,13 +51,18 @@
 	[super viewWillAppear:animated];
     [_txtUser becomeFirstResponder];
     
-    UITextInputAssistantItem* item = [_txtUser inputAssistantItem];
-    item.leadingBarButtonGroups = @[];
-    item.trailingBarButtonGroups = @[];
+    NSString *ver = [[UIDevice currentDevice] systemVersion];
+    float ver_float = [ver floatValue];
+    if (ver_float > 9.0) {
+        UITextInputAssistantItem* item = [_txtUser inputAssistantItem];
+        item.leadingBarButtonGroups = @[];
+        item.trailingBarButtonGroups = @[];
     
-    item = [_txtPassword inputAssistantItem];
-    item.leadingBarButtonGroups = @[];
-    item.trailingBarButtonGroups = @[];
+        item = [_txtPassword inputAssistantItem];
+        item.leadingBarButtonGroups = @[];
+        item.trailingBarButtonGroups = @[];
+    }
+    
     NSLog(@"Sale viewWillAppear");
 }
 -(void)viewDidAppear:(BOOL)animated

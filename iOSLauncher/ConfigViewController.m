@@ -33,13 +33,17 @@
     _lblVersion.text = @"v2.2.3";
     _lblVersion.layer.cornerRadius = 8.0f;
     
-    UITextInputAssistantItem* item = [_txtIp inputAssistantItem];
-    item.leadingBarButtonGroups = @[];
-    item.trailingBarButtonGroups = @[];
+    NSString *ver = [[UIDevice currentDevice] systemVersion];
+    float ver_float = [ver floatValue];
+    if (ver_float > 9.0) {
+        UITextInputAssistantItem* item = [_txtIp inputAssistantItem];
+        item.leadingBarButtonGroups = @[];
+        item.trailingBarButtonGroups = @[];
     
-    item = [_txtPort inputAssistantItem];
-    item.leadingBarButtonGroups = @[];
-    item.trailingBarButtonGroups = @[];
+        item = [_txtPort inputAssistantItem];
+        item.leadingBarButtonGroups = @[];
+        item.trailingBarButtonGroups = @[];
+    }
     
     NSString* serverIP = [[NSUserDefaults standardUserDefaults] stringForKey:kFlexKeyServerIP];
     NSLog(@"serverIP %@",serverIP);
