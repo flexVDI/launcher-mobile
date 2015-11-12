@@ -50,6 +50,14 @@
 {
 	[super viewWillAppear:animated];
     [_txtUser becomeFirstResponder];
+    
+    UITextInputAssistantItem* item = [_txtUser inputAssistantItem];
+    item.leadingBarButtonGroups = @[];
+    item.trailingBarButtonGroups = @[];
+    
+    item = [_txtPassword inputAssistantItem];
+    item.leadingBarButtonGroups = @[];
+    item.trailingBarButtonGroups = @[];
     NSLog(@"Sale viewWillAppear");
 }
 -(void)viewDidAppear:(BOOL)animated
