@@ -3,6 +3,9 @@
 
 #if defined(LINUX)
 #include <GL/gl.h>
+#elif defined(ANDROID)
+#include <android/log.h>
+#include <GLES/gl.h>
 #else
 #include <OpenGLES/ES1/gl.h>
 #endif
@@ -54,7 +57,11 @@ global_state_t global_state;
 #define CONNECTED 0x1
 #define AUTOCONNECT 0x2
 
+#ifdef ANDROIDX
+#define GLUE_DEBUG(fmt, ...) __android_log_print(ANDROID_LOG_ERROR, "flexdp-engine", fmt, ## __VA_ARGS__);
+#else
 #define GLUE_DEBUG(fmt, ...) printf(fmt, ## __VA_ARGS__);
+#endif
 
 #endif
 

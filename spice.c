@@ -169,8 +169,13 @@ int engine_spice_update_display(char *display_buffer, int *width, int *height)
          *height != global_state.guest_height)) {
         global_state.guest_width = *width;
         global_state.guest_height = *height;
+#ifdef ANDROID
+        global_state.mouse_fix[0] = 1.0;
+        global_state.mouse_fix[1] = 1.0;
+#else
         global_state.mouse_fix[0] = (double) global_state.guest_width / (double) global_state.width;
         global_state.mouse_fix[1] = (double) global_state.guest_height / (double) global_state.height;
+#endif
         flags |= DISPLAY_CHANGE_RESOLUTION;
     }
     

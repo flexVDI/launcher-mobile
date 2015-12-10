@@ -1,0 +1,20 @@
+Copy these files here:
+
+libcrypto.a
+libffi.a
+libgio-2.0.a
+libglib-2.0.a
+libgmodule-2.0.a
+libgobject-2.0.a
+libgstapp-1.0.a
+libgstaudio-1.0.a
+libgstbase-1.0.a
+libgstreamer-1.0.a
+libiconv.a
+libintl.a
+libjpeg.a
+libnopoll.a
+libpixman-1.a
+libspice-client-glib-2.0.a
+libspice-mono-glue.a
+libssl.a

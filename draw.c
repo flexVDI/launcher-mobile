@@ -1,11 +1,3 @@
-#if defined(LINUX)
-#include <GL/gl.h>
-#include <GL/glu.h>
-#else
-#include <OpenGLES/ES1/gl.h>
-#endif
-
-#include <string.h>
 #include <stdlib.h>
 #include <limits.h>
 #include <sys/stat.h>
@@ -283,7 +275,9 @@ void engine_init_screen()
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     //glBlendFunc(GL_ONE, GL_SRC_COLOR);
     
+#ifndef ANDROID
     create_keyboard_texture(&global_state.keyboard_texture[0]);
+#endif
     global_state.main_opacity = 1.0;
     if (global_state.keyboard_opacity == 0.0) {
         global_state.keyboard_opacity = 0.2;
@@ -371,7 +365,9 @@ int engine_draw(int max_width, int max_height)
     }
     
     render_main_texture();
+#ifndef ANDROID
     render_keyboard_texture();
+#endif
 
     return 0;
 }
@@ -387,7 +383,9 @@ int engine_draw_disconnected(int max_width, int max_height)
     global_state.keyboard_opacity = 0.2;
     global_state.main_opacity = 0.5;
     render_main_texture();
+#ifndef ANDROID
     render_keyboard_texture();
+#endif
     global_state.keyboard_opacity = keyb_opacity;
     global_state.main_opacity = main_opacity;
     
