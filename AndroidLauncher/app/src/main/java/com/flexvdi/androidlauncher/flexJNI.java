@@ -1,21 +1,9 @@
 package com.flexvdi.androidlauncher;
 
-import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-
-import java.nio.ByteBuffer;
-
 public class flexJNI {
-    private static Context context = null;
-    private static int keyboardWidth = 0;
-    private static int keyboardHeight = 0;
-    private static boolean keyboardVisible = false;
-
     native static void setJava();
 
-    native static void setConnectionData(String jniHost, String jniPort, String jniWsport, String jniPassword, Boolean enableSound);
+    native static void setConnectionData(String jniHost, String jniPort, String jniWsport, String jniPassword, int enableSound);
     native static void connect();
     native static void disconnect();
     native static int isConnected();

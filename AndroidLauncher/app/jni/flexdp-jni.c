@@ -18,13 +18,18 @@ double mouse_scale = 1.0;
 
 
 JNIEXPORT void JNICALL Java_com_flexvdi_androidlauncher_flexJNI_setConnectionData(JNIEnv *env, jobject thisObj,
-    jstring jniHost, jstring jniPort, jstring jniWsport, jstring jniPassword, jboolean enableSound)
+    jstring jniHost, jstring jniPort, jstring jniWsport, jstring jniPassword, jint jniEnableSound)
 {
 
     const char *host = (*env)->GetStringUTFChars(env, jniHost, NULL);
     const char *port = (*env)->GetStringUTFChars(env, jniPort, NULL);
     const char *wsport = (*env)->GetStringUTFChars(env, jniWsport, NULL);
     const char *password = (*env)->GetStringUTFChars(env, jniPassword, NULL);
+    int enableSound = 0;
+
+    if (jniEnableSound != 0) {
+        enableSound = 1;
+    }
 
     LOGE("setConnectionData: %s, %s, %s, %s", host, port, wsport, password);
 

@@ -9,7 +9,9 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.opengl.GLSurfaceView;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.KeyEvent;
@@ -29,6 +31,12 @@ public class MainActivity extends Activity implements View.OnTouchListener {
     private boolean keyboardVisible = false;
     private SharedPreferences settings;
     private SharedPreferences.Editor settingsEditor;
+
+    private final static int ASTATE_RUNNING = 0;
+    private final static int ASTATE_PAUSED = 1;
+    private final static int ASTATE_STOPPED = 2;
+    private static int applicationState;
+    private static boolean viewHasFocus;
 
     private final static int CSTATE_DISCONNECTED = 0;
     private final static int CSTATE_CONNECTED = 1;
@@ -59,16 +67,24 @@ public class MainActivity extends Activity implements View.OnTouchListener {
         mScaleDetector = new ScaleGestureDetector(getApplicationContext(), mScaleListener);
 
         mMainActivity = this;
+
+        applicationState = ASTATE_STOPPED;
     }
 
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
         //Log.d("androidlauncher", "dispatchTouchEvent");
-        if (event.getAction() == MotionEvent.ACTION_UP) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            mGestureListener.onTouchDown(event);
+        } else if (event.getAction() == MotionEvent.ACTION_UP) {
             mGestureListener.onTouchUp(event);
         } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
             mGestureListener.onMovement(event);
+        } else if ((event.getAction() & MotionEvent.ACTION_MASK) == MotionEvent.ACTION_POINTER_UP) {
+            Log.e("androidlauncher", "Two fingers");
+            mGestureListener.onTwoFingers(event);
+            return true;
         }
 
         if (event.getPointerCount() > 1) {
@@ -103,7 +119,9 @@ public class MainActivity extends Activity implements View.OnTouchListener {
         int keyCode = event.getKeyCode();
 
         if (scanCode != 0) {
-            if (scanCode == 139) {
+            if (scanCode == 114 || scanCode == 115) {
+                return false;
+            } else if (scanCode == 139) {
                 if (action == KeyEvent.ACTION_UP) {
                     toggleKeyboard();
                 }
@@ -147,6 +165,7 @@ public class MainActivity extends Activity implements View.OnTouchListener {
     }
 
     private void closeConnection() {
+        mGLView.onPause();
         connDesiredState = CSTATE_DISCONNECTED;
         flexJNI.disconnect();
     }
@@ -299,43 +318,59 @@ public class MainActivity extends Activity implements View.OnTouchListener {
     }
 
     @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        Log.d(TAG, "onWindowFocusChanged");
+        viewHasFocus = hasFocus;
+        onResume();
+    }
+
+    @Override
     public void onPause() {
         super.onPause();
         Log.d(TAG, "onPause");
         mGLView.onPause();
-        connDesiredState = CSTATE_AUTOCONNECT;
-        flexJNI.disconnect();
+        if (applicationState == ASTATE_RUNNING) {
+            applicationState = ASTATE_PAUSED;
+            connDesiredState = CSTATE_AUTOCONNECT;
+            flexJNI.disconnect();
+        }
     }
 
     @Override
     public void onStop() {
         super.onStop();
         Log.d(TAG, "onStop");
-        connDesiredState = CSTATE_AUTOCONNECT;
-        flexJNI.disconnect();
+        if (applicationState != ASTATE_STOPPED) {
+            applicationState = ASTATE_STOPPED;
+        }
+    }
+
+    private boolean isScreenOn() {
+        PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
+        if (powerManager.isScreenOn()) {
+            return true;
+        }
+
+        return false;
     }
 
     @Override
     public void onResume() {
         super.onResume();
         Log.d(TAG, "onResume");
-        mGLView.onResume();
-        String spice_address = settings.getString("spice_address", "");
-        String spice_port = settings.getString("spice_port", "");
-        String spice_password = settings.getString("spice_password", "");
-        String use_ws = settings.getString("use_ws", "");
-        String tunnel_port = "443";
 
-        if (use_ws.equals("true")) {
-            tunnel_port = "-1";
-        }
-
-        if (!spice_address.equals("") && !spice_port.equals("") && !spice_password.equals("")) {
-            connDesiredState = CSTATE_CONNECTED;
-            flexJNI.setConnectionData(spice_address, spice_port, tunnel_port, spice_password, Boolean.TRUE);
-            flexJNI.connect();
-        } else {
-            finish();
+        if (viewHasFocus && isScreenOn()) {
+            mGLView.onResume();
+            if (applicationState != ASTATE_RUNNING) {
+                connDesiredState = CSTATE_CONNECTED;
+                applicationState = ASTATE_RUNNING;
+                AsyncTask.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        connectionChange(CSTATE_DISCONNECTED);
+                    }
+                });
+            }
         }
     }
 
@@ -373,17 +408,21 @@ public class MainActivity extends Activity implements View.OnTouchListener {
                     String spice_address = settings.getString("spice_address", "");
                     String spice_port = settings.getString("spice_port", "");
                     String spice_password = settings.getString("spice_password", "");
-                    String use_ws = settings.getString("use_ws", "");
                     String tunnel_port = "443";
+                    int enableSound = 0;
 
-                    if (use_ws.equals("true")) {
+                    if (settings.getString("use_ws", "").equals("true")) {
                         tunnel_port = "-1";
+                    }
+
+                    if (settings.getBoolean("enableSound", true)) {
+                        enableSound = 1;
                     }
 
                     if (!spice_address.equals("") && !spice_port.equals("") && !spice_password.equals("")) {
                         int connTries;
 
-                        flexJNI.setConnectionData(spice_address, spice_port, tunnel_port, spice_password, Boolean.TRUE);
+                        flexJNI.setConnectionData(spice_address, spice_port, tunnel_port, spice_password, enableSound);
                         flexJNI.connect();
 
                         for (connTries = 0; connTries < 3; connTries++) {

@@ -10,6 +10,7 @@ import javax.microedition.khronos.opengles.GL10;
 
 public class MainGLRenderer implements GLSurfaceView.Renderer {
     private MainActivity mainActivity;
+    private boolean engineConfigured = false;
     private int backingWidth = 0;
     private int backingHeight = 0;
     private int engineWidth = 0;
@@ -27,8 +28,21 @@ public class MainGLRenderer implements GLSurfaceView.Renderer {
         engineScale = scale;
     }
 
-    public void onSurfaceCreated(GL10 gl, EGLConfig config) {
+    private void initEngine(GL10 gl) {
+        flexJNI.initBuffer(engineWidth, engineHeight);
+        flexJNI.initScreen(engineScale);
 
+        gl.glViewport(0, 0, backingWidth, backingHeight);
+        gl.glMatrixMode(gl.GL_PROJECTION);
+        gl.glLoadIdentity();
+        gl.glOrthof(0, backingWidth, backingHeight, 0, 0, 1);
+    }
+
+    public void onSurfaceCreated(GL10 gl, EGLConfig config) {
+        Log.d("androidlauncher", "onSurfaceCreated");
+        if (engineConfigured) {
+            initEngine(gl);
+        }
     }
 
     public void onDrawFrame(GL10 gl) {
@@ -95,15 +109,8 @@ public class MainGLRenderer implements GLSurfaceView.Renderer {
             backingHeight = height;
             engineWidth = (int) (width * engineScale);
             engineHeight = (int) (height * engineScale);
-            //engineWidth = width;
-            //engineHeight = height;
-            flexJNI.initBuffer(engineWidth, engineHeight);
-            flexJNI.initScreen(engineScale);
         }
 
-        gl.glViewport(0, 0, backingWidth, backingHeight);
-        gl.glMatrixMode(gl.GL_PROJECTION);
-        gl.glLoadIdentity();
-        gl.glOrthof(0, backingWidth, backingHeight, 0, 0, 1);
+        initEngine(gl);
     }
 }

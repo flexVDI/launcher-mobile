@@ -71,25 +71,43 @@ LOCAL_SRC_FILES := deps/$(TARGET_ARCH_ABI)/libjpeg.a
 include $(PREBUILT_STATIC_LIBRARY)
 include $(CLEAR_VARS)
 
-LOCAL_MODULE := gstapp-1.0
-LOCAL_SRC_FILES := deps/$(TARGET_ARCH_ABI)/libgstapp-1.0.a
-include $(PREBUILT_STATIC_LIBRARY)
-include $(CLEAR_VARS)
+# Edit this line
+GSTREAMER_ROOT_ANDROID := /Users/slopez/gstreamer/$(TARGET_ARCH_ABI)/
 
-LOCAL_MODULE := gstbase-1.0
-LOCAL_SRC_FILES := deps/$(TARGET_ARCH_ABI)/libgstbase-1.0.a
-include $(PREBUILT_STATIC_LIBRARY)
-include $(CLEAR_VARS)
+ifndef GSTREAMER_ROOT
+ifndef GSTREAMER_ROOT_ANDROID
+$(error GSTREAMER_ROOT_ANDROID is not defined!)
+endif
+GSTREAMER_ROOT        := $(GSTREAMER_ROOT_ANDROID)
+endif
+GSTREAMER_NDK_BUILD_PATH  := $(GSTREAMER_ROOT)/share/gst-android/ndk-build
 
-LOCAL_MODULE := gstaudio-1.0
-LOCAL_SRC_FILES := deps/$(TARGET_ARCH_ABI)/libgstaudio-1.0.a
-include $(PREBUILT_STATIC_LIBRARY)
-include $(CLEAR_VARS)
 
-LOCAL_MODULE := gstreamer-1.0
-LOCAL_SRC_FILES := deps/$(TARGET_ARCH_ABI)/libgstreamer-1.0.a
-include $(PREBUILT_STATIC_LIBRARY)
-include $(CLEAR_VARS)
+include $(GSTREAMER_NDK_BUILD_PATH)/plugins.mk
+GSTREAMER_PLUGINS         := $(GSTREAMER_PLUGINS_CORE) $(GSTREAMER_PLUGINS_PLAYBACK) $(GSTREAMER_PLUGINS_CODECS) $(GSTREAMER_PLUGINS_SYS) $(GSTREAMER_PLUGINS_CODECS_RESTRICTED)
+G_IO_MODULES              := gnutls
+
+include $(GSTREAMER_NDK_BUILD_PATH)/gstreamer-1.0.mk
+
+#LOCAL_MODULE := gstapp-1.0
+#LOCAL_SRC_FILES := deps/$(TARGET_ARCH_ABI)/libgstapp-1.0.a
+#include $(PREBUILT_STATIC_LIBRARY)
+#include $(CLEAR_VARS)
+
+#LOCAL_MODULE := gstbase-1.0
+#LOCAL_SRC_FILES := deps/$(TARGET_ARCH_ABI)/libgstbase-1.0.a
+#include $(PREBUILT_STATIC_LIBRARY)
+#include $(CLEAR_VARS)
+
+#LOCAL_MODULE := gstaudio-1.0
+#LOCAL_SRC_FILES := deps/$(TARGET_ARCH_ABI)/libgstaudio-1.0.a
+#include $(PREBUILT_STATIC_LIBRARY)
+#include $(CLEAR_VARS)
+
+#LOCAL_MODULE := gstreamer-1.0
+#LOCAL_SRC_FILES := deps/$(TARGET_ARCH_ABI)/libgstreamer-1.0.a
+#include $(PREBUILT_STATIC_LIBRARY)
+#include $(CLEAR_VARS)
 
 LOCAL_MODULE := flexdp-jni
 LOCAL_MODULE_FILENAME := libflexdp-jni
@@ -98,7 +116,9 @@ $(LOCAL_PATH)/../../..
 
 LOCAL_LDFLAGS += -L/Users/slopez/cerbero/dist/android_armv7/lib
 LOCAL_LDLIBS := -llog -lz -lGLESv1_CM
-LOCAL_STATIC_LIBRARIES := spice-mono-glue spice-client-glib-2.0 gio-2.0 gmodule-2.0 gobject-2.0 ffi pixman-1 jpeg nopoll ssl crypto gstapp-1.0 gstbase-1.0 gstaudio-1.0 gstreamer-1.0 glib-2.0 intl iconv
+LOCAL_SHARED_LIBRARIES := gstreamer_android
+#LOCAL_STATIC_LIBRARIES := spice-mono-glue spice-client-glib-2.0 gio-2.0 gmodule-2.0 gobject-2.0 ffi pixman-1 jpeg nopoll ssl crypto gstapp-1.0 gstbase-1.0 gstaudio-1.0 gstreamer-1.0 glib-2.0 intl iconv
+LOCAL_STATIC_LIBRARIES := spice-mono-glue spice-client-glib-2.0 gio-2.0 gmodule-2.0 gobject-2.0 ffi pixman-1 jpeg nopoll ssl crypto glib-2.0 intl iconv
 
 LOCAL_SRC_FILES := \
 ../../../draw.c \

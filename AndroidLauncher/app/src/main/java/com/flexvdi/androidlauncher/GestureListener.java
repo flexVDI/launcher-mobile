@@ -8,6 +8,7 @@ import android.view.MotionEvent;
 
 public class GestureListener extends GestureDetector.SimpleOnGestureListener {
     private boolean grabbing = false;
+    private boolean zooming = false;
     private static final int SCROLL_EMPTY = 0;
     private static final int SCROLL_DOWN = 1;
     private static final int SCROLL_UP = 2;
@@ -16,11 +17,11 @@ public class GestureListener extends GestureDetector.SimpleOnGestureListener {
     private float zoomFactor = 0.0f;
     private float zoomOffsetX = 0.0f;
     private float zoomOffsetY = 0.0f;
-    private static final int GRAB_EMPTY = 0;
-    private static final int GRAB_STATIC = 1;
-    private static final int GRAB_MOVED = 2;
     private int prevX;
     private int prevY;
+    private int lastTouchX;
+    private int lastTouchY;
+    private long settleTimestamp;
     private boolean grabMoved = false;
     private Context mContext;
 
@@ -28,19 +29,43 @@ public class GestureListener extends GestureDetector.SimpleOnGestureListener {
         mContext = context;
     }
 
+    private boolean isSettleTime() {
+        if (settleTimestamp != 0) {
+            long now = System.currentTimeMillis();
+            if ((now - settleTimestamp) > 500) {
+                settleTimestamp = 0;
+            } else {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public boolean onSingleTapConfirmed(MotionEvent e) {
         Log.d("androidlauncher", "onSingleTapConfirmed");
+        if (isSettleTime()) {
+            return false;
+        }
+
         flexJNI.sendMouseClick((int) e.getX(), (int) e.getY(), 1, 1);
         return false;
     }
     public boolean onDoubleTap(MotionEvent e) {
         Log.d("androidlauncher", "onDoubleTap");
+        if (isSettleTime()) {
+            return false;
+        }
+
         flexJNI.sendMouseClick((int) e.getX(), (int) e.getY(), 1, 2);
         return true;
     }
     public void onLongPress(MotionEvent e) {
         Log.d("androidlauncher", "onLongPress");
+        if (isSettleTime()) {
+            return;
+        }
+
         Vibrator v = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
         v.vibrate(100);
 
@@ -53,6 +78,10 @@ public class GestureListener extends GestureDetector.SimpleOnGestureListener {
     }
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
         Log.d("androidlauncher", "onScroll");
+        if (isSettleTime()) {
+            return false;
+        }
+
         if (zoomFactor != 0.0) {
             if (distanceX > 8.0) {
                 zoomOffsetX += 0.02;
@@ -102,6 +131,11 @@ public class GestureListener extends GestureDetector.SimpleOnGestureListener {
         return true;
     }
 
+    public void onTouchDown(MotionEvent e) {
+        lastTouchX = (int)e.getX();
+        lastTouchY = (int)e.getY();
+    }
+
     public void onTouchUp(MotionEvent e) {
         if (grabbing) {
             Log.d("androidlauncher", "de-grabbing");
@@ -112,6 +146,7 @@ public class GestureListener extends GestureDetector.SimpleOnGestureListener {
             grabbing = false;
         }
 
+        zooming = false;
         grabMoved = false;
         scrollDirection = SCROLL_EMPTY;
         scrollAcumDistance = 0;
@@ -132,6 +167,13 @@ public class GestureListener extends GestureDetector.SimpleOnGestureListener {
                 grabMoved = true;
                 flexJNI.sendMouseEventMoved((int) e.getX(), (int) e.getY(), 1);
             }
+        }
+    }
+
+    public void onTwoFingers(MotionEvent e) {
+        if (!zooming) {
+            settleTimestamp = System.currentTimeMillis();
+            flexJNI.sendMouseClick(lastTouchX, lastTouchY, 3, 1);
         }
     }
 
@@ -156,8 +198,11 @@ public class GestureListener extends GestureDetector.SimpleOnGestureListener {
     }
 
     public void setZoomFactor(float zoom) {
-        zoomFactor = zoom;
-        adjustZoomOffset();
-        flexJNI.setZoomFactor(zoomFactor);
+        if (zoom != zoomFactor && (Math.abs(zoom) > 0.01 || zoom == 0.0)) {
+            zooming = true;
+            zoomFactor = zoom;
+            adjustZoomOffset();
+            flexJNI.setZoomFactor(zoomFactor);
+        }
     }
 }

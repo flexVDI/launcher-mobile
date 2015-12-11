@@ -13,7 +13,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -21,9 +20,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,7 +32,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
-import java.net.URI;
 import java.net.URL;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
@@ -48,6 +43,8 @@ import java.util.List;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.X509TrustManager;
+
+import org.freedesktop.gstreamer.GStreamer;
 
 
 /**
@@ -71,11 +68,19 @@ public class LoginActivity extends Activity {
     private Context mContext;
     private String selectedDesktop;
 
+
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
 
         mContext = this;
+
+        try {
+            GStreamer.init(mContext);
+        } catch (Exception e) {
+            Log.e(TAG, "Can't initialize GStreamer" + e.getMessage());
+            finish();
+        }
 
         settings = getSharedPreferences("flexVDI", MODE_PRIVATE);
         settingsEditor = settings.edit();
@@ -85,24 +90,12 @@ public class LoginActivity extends Activity {
 //		settingsEditor.commit();
 
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-        //try {
-        //    GStreamer.init(this);
-        //} catch (Exception e) {
-        //    Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
-        //    finish();
-        //    return;
-        //}
 
         setContentView(R.layout.activity_login);
-
-        //showPending = true;
 
         ipText = (EditText) findViewById(R.id.textIP);
         flexServerName = (EditText) findViewById(R.id.flexServerName);
         passwordText = (EditText) findViewById(R.id.textPASSWORD);
-
-        ipText.setText("flexvdi");
-        passwordText.setText("flexvdi");
 
         goButton = (Button) findViewById(R.id.buttonGO);
         goButton.setOnClickListener(new View.OnClickListener() {
@@ -157,7 +150,7 @@ public class LoginActivity extends Activity {
         });
 
         checkBoxEnableSound = (CheckBox) findViewById(R.id.checkBoxEnableSound);
-        if (settings.getBoolean("enableSound", false)) {
+        if (settings.getBoolean("enableSound", true)) {
             checkBoxEnableSound.setChecked(true);
         } else {
             checkBoxEnableSound.setChecked(false);
@@ -174,7 +167,7 @@ public class LoginActivity extends Activity {
                 Settings.Secure.ANDROID_ID);
 
         textViewDeviceID = (TextView) findViewById(R.id.textViewDeviceID);
-        textViewDeviceID.setText("ID: " + deviceID);
+        textViewDeviceID.setText("ID: " + deviceID + " (v2.2.4)");
 
         if (settings.contains("flexServerName")) {
             flexServerName.setText(settings.getString("flexServerName", ""));
