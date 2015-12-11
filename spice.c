@@ -144,6 +144,7 @@ int engine_spice_update_display(char *display_buffer, int *width, int *height)
 {
     int invalidated = 0;
     int flags = 0;
+    int force_inval = 0;
     
     if (!global_state.input_initialized) {
         /* XXX - HACK! We send here a bogus input to ensure
@@ -151,12 +152,16 @@ int engine_spice_update_display(char *display_buffer, int *width, int *height)
         SpiceGlibGlueMotionEvent(0, 0, global_state.button_mask);
         global_state.input_initialized = 1;
     }
+
+    if (global_state.first_frame < 5) {
+        force_inval = 1;
+    }
     
     //update_result = SpiceGlibGlueUpdateDisplayData(display_buffer, width, height);
-    invalidated = SpiceGlibGlueLockDisplayBuffer(width, height,
-                                                 global_state.first_frame);
-    if (invalidated) {
-        global_state.first_frame = 0;
+    invalidated = SpiceGlibGlueLockDisplayBuffer(width, height, force_inval);
+
+    if (invalidated && force_inval) {
+        global_state.first_frame++;
     }
 
     if (invalidated) {
