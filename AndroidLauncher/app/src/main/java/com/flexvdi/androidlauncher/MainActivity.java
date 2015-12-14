@@ -18,6 +18,7 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
@@ -47,6 +48,8 @@ public class MainActivity extends Activity implements View.OnTouchListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        flexJNI.setContext(this);
 
         settings = getSharedPreferences("flexVDI", MODE_PRIVATE);
         settingsEditor = settings.edit();
@@ -112,6 +115,11 @@ public class MainActivity extends Activity implements View.OnTouchListener {
     }
 
     @Override
+    public void onBackPressed() {
+        showPopup();
+    }
+
+    @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         Log.e("androidlauncher", "KeyEvent.Action=" + event.getAction() + " KeyEvent.ScanCode=" + event.getScanCode());
         int scanCode = event.getScanCode();
@@ -156,10 +164,14 @@ public class MainActivity extends Activity implements View.OnTouchListener {
         if (keyboardVisible) {
             InputMethodManager imm = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+            flexJNI.setKeyboardOpacity(0.2);
+            flexJNI.setKeyboardOffset(0.0);
             keyboardVisible = false;
         } else {
             InputMethodManager imm = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+            flexJNI.setKeyboardOpacity(1.0);
+            flexJNI.setKeyboardOffset(0.2);
             keyboardVisible = true;
         }
     }

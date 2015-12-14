@@ -44,7 +44,7 @@ public class GestureListener extends GestureDetector.SimpleOnGestureListener {
     @Override
     public boolean onSingleTapConfirmed(MotionEvent e) {
         Log.d("androidlauncher", "onSingleTapConfirmed");
-        if (isSettleTime()) {
+        if (isSettleTime() || zooming) {
             return false;
         }
 
@@ -53,7 +53,7 @@ public class GestureListener extends GestureDetector.SimpleOnGestureListener {
     }
     public boolean onDoubleTap(MotionEvent e) {
         Log.d("androidlauncher", "onDoubleTap");
-        if (isSettleTime()) {
+        if (isSettleTime() || zooming) {
             return false;
         }
 
@@ -62,7 +62,7 @@ public class GestureListener extends GestureDetector.SimpleOnGestureListener {
     }
     public void onLongPress(MotionEvent e) {
         Log.d("androidlauncher", "onLongPress");
-        if (isSettleTime()) {
+        if (isSettleTime() || zooming) {
             return;
         }
 
@@ -78,7 +78,7 @@ public class GestureListener extends GestureDetector.SimpleOnGestureListener {
     }
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
         Log.d("androidlauncher", "onScroll");
-        if (isSettleTime()) {
+        if (isSettleTime() || zooming) {
             return false;
         }
 

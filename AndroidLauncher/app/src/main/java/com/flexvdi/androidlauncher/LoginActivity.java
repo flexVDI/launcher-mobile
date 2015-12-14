@@ -97,6 +97,9 @@ public class LoginActivity extends Activity {
         flexServerName = (EditText) findViewById(R.id.flexServerName);
         passwordText = (EditText) findViewById(R.id.textPASSWORD);
 
+        ipText.setText("flexvdi");
+        passwordText.setText("flexvdi");
+
         goButton = (Button) findViewById(R.id.buttonGO);
         goButton.setOnClickListener(new View.OnClickListener() {
             @Override

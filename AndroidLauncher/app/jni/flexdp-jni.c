@@ -14,6 +14,11 @@
 JavaVM *jvm = 0;
 jclass mainActivity_class = 0;
 jmethodID mainActivity_connectionChange = 0;
+jclass flexJNI_class = 0;
+jmethodID flexJNI_loadPNG = 0;
+jmethodID flexJNI_getPNGWidth = 0;
+jmethodID flexJNI_getPNGHeight = 0;
+jmethodID flexJNI_showKeyboard = 0;
 double mouse_scale = 1.0;
 
 
@@ -92,6 +97,9 @@ JNIEXPORT void JNICALL Java_com_flexvdi_androidlauncher_flexJNI_initScreen(JNIEn
     global_state.zoom = 0.0;
     global_state.zoom_offset_x = 0;
     global_state.zoom_offset_y = 0;
+    global_state.keyboard_offset = 0;
+    global_state.keyboard_opacity = 0.2;
+    global_state.content_scale = 1;
     engine_init_screen();
 }
 
@@ -219,6 +227,18 @@ JNIEXPORT void JNICALL Java_com_flexvdi_androidlauncher_flexJNI_sendKeyEvent(JNI
     engine_spice_keyboard_event(charCode, event);
 }
 
+JNIEXPORT void JNICALL Java_com_flexvdi_androidlauncher_flexJNI_setKeyboardOpacity(JNIEnv *env, jobject thisObj,
+    jdouble opacity)
+{
+    global_state.keyboard_opacity = opacity;
+}
+
+JNIEXPORT void JNICALL Java_com_flexvdi_androidlauncher_flexJNI_setKeyboardOffset(JNIEnv *env, jobject thisObj,
+    jdouble offset)
+{
+    global_state.keyboard_offset = offset;
+}
+
 jint JNI_OnLoad(JavaVM *vm, void *reserved)
 {
     JNIEnv *env = 0;
@@ -241,17 +261,85 @@ jint JNI_OnLoad(JavaVM *vm, void *reserved)
         exit(1);
     }
 
+    flexJNI_class = (jclass) (*env)->NewGlobalRef(env, (*env)->FindClass(env, "com/flexvdi/androidlauncher/flexJNI"));
+    if (flexJNI_class == 0) {
+        LOGE("can't find class flexJNI");
+        exit(1);
+    }
+
+    flexJNI_loadPNG = (*env)->GetStaticMethodID(env, flexJNI_class, "loadPNG", "()Ljava/nio/ByteBuffer;");
+    if (flexJNI_loadPNG == 0) {
+        LOGE("can't find method loadPNG");
+        exit(1);
+    }
+
+    flexJNI_getPNGWidth = (*env)->GetStaticMethodID(env, flexJNI_class, "getPNGWidth", "()I");
+    if (flexJNI_getPNGWidth == 0) {
+        LOGE("can't find method getPNGWidth");
+        exit(1);
+    }
+
+    flexJNI_getPNGHeight = (*env)->GetStaticMethodID(env, flexJNI_class, "getPNGHeight", "()I");
+    if (flexJNI_getPNGHeight == 0) {
+        LOGE("can't find method getPNGHeight");
+        exit(1);
+    }
+
+    flexJNI_showKeyboard = (*env)->GetStaticMethodID(env, flexJNI_class, "showKeyboard", "()V");
+    if (flexJNI_showKeyboard == 0) {
+        LOGE("can't find method showKeyboard");
+        exit(1);
+    }
+
     return JNI_VERSION_1_6;
 }
 
 void native_load_png(unsigned char **imgbuf, int *width, int *height)
 {
     LOGE("native_load_png");
+
+    JNIEnv *env = 0;
+    if ((*jvm)->GetEnv(jvm, (void **) &env, JNI_VERSION_1_6) != JNI_OK) {
+        LOGE("can't get JavaVM env");
+        exit(1);
+    }
+
+    jobject directBuffer = (*env)->CallStaticObjectMethod(env, flexJNI_class, flexJNI_loadPNG);
+    char *jniBuf = (char*)(*env)->GetDirectBufferAddress(env, directBuffer);
+    int jniWidth = (int)(*env)->CallStaticIntMethod(env, flexJNI_class, flexJNI_getPNGWidth);
+    int jniHeight = (int)(*env)->CallStaticIntMethod(env, flexJNI_class, flexJNI_getPNGHeight);
+
+    int length = jniWidth * jniHeight * 4;
+    int stride = jniWidth * 4;
+    char *buf = (char *) malloc(jniWidth * jniHeight * 4);
+    buf += (jniWidth - 1) * stride;
+
+    int i;
+    for (i = 0; i < jniHeight; i++) {
+        memcpy(buf, jniBuf, stride);
+
+        buf -= stride;
+        jniBuf += stride;
+    }
+
+    *imgbuf = buf;
+    *width = jniWidth;
+    *height = jniHeight;
+
+    LOGE("native_load_png: imgbuf=0x%x buf=0x%x width=%d height=%d", *imgbuf, buf, *width, *height);
 }
 
 void native_show_keyboard()
 {
     LOGE("native_show_keyboard");
+
+    JNIEnv *env = 0;
+    if ((*jvm)->GetEnv(jvm, (void **) &env, JNI_VERSION_1_6) != JNI_OK) {
+        LOGE("can't get JavaVM env");
+        exit(1);
+    }
+
+    (*env)->CallStaticVoidMethod(env, flexJNI_class, flexJNI_showKeyboard);
 }
 
 void native_show_menu()
@@ -260,7 +348,7 @@ void native_show_menu()
 
 void native_connection_change(int state)
 {
-    LOGE("native_show_keyboard");
+    LOGE("native_connection_change");
 
     JNIEnv *env = 0;
     if ((*jvm)->GetEnv(jvm, (void **) &env, JNI_VERSION_1_6) != JNI_OK) {
