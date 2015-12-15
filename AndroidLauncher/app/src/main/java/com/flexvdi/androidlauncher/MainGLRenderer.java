@@ -15,22 +15,24 @@ public class MainGLRenderer implements GLSurfaceView.Renderer {
     private int backingHeight = 0;
     private int engineWidth = 0;
     private int engineHeight = 0;
-    private double engineScale = 1.0;
+    private double mouseScale = 1.0;
+    private double contentScale = 2.0;
     private long lastResolutionCheck = 0;
     private boolean resolutionIsOK = false;
     private Toast statusToast;
     private long lastToastShown = 0;
 
-    public MainGLRenderer(Context context, double scale) {
+    public MainGLRenderer(Context context, double dMouseScale, double dContentScale) {
         super();
         mainActivity = (MainActivity) context;
         statusToast = new Toast(mainActivity);
-        engineScale = scale;
+        mouseScale = dMouseScale;
+        contentScale = dContentScale;
     }
 
     private void initEngine(GL10 gl) {
         flexJNI.initBuffer(engineWidth, engineHeight);
-        flexJNI.initScreen(engineScale);
+        flexJNI.initScreen(mouseScale, contentScale);
 
         gl.glViewport(0, 0, backingWidth, backingHeight);
         gl.glMatrixMode(gl.GL_PROJECTION);
@@ -52,7 +54,7 @@ public class MainGLRenderer implements GLSurfaceView.Renderer {
         if (flexJNI.isConnected() != 0) {
             //Log.e("androidlauncher", "SPICE is connected");
             long now = System.currentTimeMillis();
-            if (now - lastResolutionCheck > 3000) {
+            if (now - lastResolutionCheck > 5000) {
                 int guest_width = flexJNI.getGuestWidth();
                 int guest_height = flexJNI.getGuestHeight();
 
@@ -107,8 +109,8 @@ public class MainGLRenderer implements GLSurfaceView.Renderer {
         if (width != backingWidth || height != backingHeight) {
             backingWidth = width;
             backingHeight = height;
-            engineWidth = (int) (width * engineScale);
-            engineHeight = (int) (height * engineScale);
+            engineWidth = (int) (width * mouseScale);
+            engineHeight = (int) (height * mouseScale);
         }
 
         initEngine(gl);

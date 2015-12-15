@@ -17,7 +17,7 @@ public class flexJNI {
     native static int isConnected();
 
     native static void initBuffer(int width, int height);
-    native static void initScreen(double scale);
+    native static void initScreen(double mouseScale, double contentScale);
     native static int getGuestWidth();
     native static int getGuestHeight();
     native static int draw(int width, int height);

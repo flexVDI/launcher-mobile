@@ -89,17 +89,17 @@ JNIEXPORT void JNICALL Java_com_flexvdi_androidlauncher_flexJNI_initBuffer(JNIEn
 }
 
 JNIEXPORT void JNICALL Java_com_flexvdi_androidlauncher_flexJNI_initScreen(JNIEnv *env, jobject thisObj,
-    jdouble mouseScale)
+    jdouble mouseScale, jdouble contentScale)
 {
     LOGE("initScreen");
 
     mouse_scale = mouseScale;
+    global_state.content_scale = contentScale;
     global_state.zoom = 0.0;
     global_state.zoom_offset_x = 0;
     global_state.zoom_offset_y = 0;
     global_state.keyboard_offset = 0;
     global_state.keyboard_opacity = 0.2;
-    global_state.content_scale = 1;
     engine_init_screen();
 }
 
@@ -325,8 +325,6 @@ void native_load_png(unsigned char **imgbuf, int *width, int *height)
     *imgbuf = buf;
     *width = jniWidth;
     *height = jniHeight;
-
-    LOGE("native_load_png: imgbuf=0x%x buf=0x%x width=%d height=%d", *imgbuf, buf, *width, *height);
 }
 
 void native_show_keyboard()

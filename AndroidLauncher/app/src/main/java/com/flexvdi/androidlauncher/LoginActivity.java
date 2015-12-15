@@ -7,12 +7,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Point;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -85,9 +87,9 @@ public class LoginActivity extends Activity {
         settings = getSharedPreferences("flexVDI", MODE_PRIVATE);
         settingsEditor = settings.edit();
 		/* Uncomment this for clearing preferences (useful when debugging) */
-//		settingsEditor.clear();
-//		settingsEditor.apply();
-//		settingsEditor.commit();
+		//settingsEditor.clear();
+        //settingsEditor.apply();
+		//settingsEditor.commit();
 
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 
@@ -97,8 +99,8 @@ public class LoginActivity extends Activity {
         flexServerName = (EditText) findViewById(R.id.flexServerName);
         passwordText = (EditText) findViewById(R.id.textPASSWORD);
 
-        ipText.setText("flexvdi");
-        passwordText.setText("flexvdi");
+        //ipText.setText("flexvdi");
+        //passwordText.setText("flexvdi");
 
         goButton = (Button) findViewById(R.id.buttonGO);
         goButton.setOnClickListener(new View.OnClickListener() {
@@ -159,6 +161,20 @@ public class LoginActivity extends Activity {
             checkBoxEnableSound.setChecked(false);
         }
 
+        if (!settings.contains("staticResolution")) {
+            Display display = getWindowManager().getDefaultDisplay();
+            Point size = new Point();
+            display.getSize(size);
+            if ((size.x + size.y) > 2340) {
+                /* 2340 = 1440+900 */
+                settingsEditor.putBoolean("staticResolution", true);
+            } else {
+                settingsEditor.putBoolean("staticResolution", false);
+            }
+            settingsEditor.apply();
+            settingsEditor.commit();
+        }
+
         checkBoxStaticResolution = (CheckBox) findViewById(R.id.checkBoxStaticResolution);
         if (settings.getBoolean("staticResolution", true)) {
             checkBoxStaticResolution.setChecked(true);
@@ -170,7 +186,7 @@ public class LoginActivity extends Activity {
                 Settings.Secure.ANDROID_ID);
 
         textViewDeviceID = (TextView) findViewById(R.id.textViewDeviceID);
-        textViewDeviceID.setText("ID: " + deviceID + " (v2.2.4)");
+        textViewDeviceID.setText("ID: " + deviceID + " (v2.2.5)");
 
         if (settings.contains("flexServerName")) {
             flexServerName.setText(settings.getString("flexServerName", ""));
@@ -411,7 +427,7 @@ public class LoginActivity extends Activity {
                         settingsEditor.putString("spice_address", jresp.getString("spice_address"));
                         settingsEditor.putString("spice_port", jresp.getString("spice_port"));
                         settingsEditor.putString("spice_password", jresp.getString("spice_password"));
-                        settingsEditor.putString("use_ws", jresp.getString("use_ws"));
+                        settingsEditor.putBoolean("use_ws", jresp.getBoolean("use_ws"));
                         result = "ready";
                     } else if (statusDesktop.equals("Pending")) {
                         result = "pending";

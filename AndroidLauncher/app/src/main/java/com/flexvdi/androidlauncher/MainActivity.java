@@ -18,7 +18,6 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
@@ -54,12 +53,14 @@ public class MainActivity extends Activity implements View.OnTouchListener {
         settings = getSharedPreferences("flexVDI", MODE_PRIVATE);
         settingsEditor = settings.edit();
 
-        double scale = 1.0;
+        double mouseScale = 1.0;
+        double contentScale = 2.0;
         if (settings.getBoolean("staticResolution", true)) {
-            scale = 0.5;
+            mouseScale = 0.5;
+            contentScale = 1.0;
         }
 
-        mGLView = new MainGLSurfaceView(this, scale);
+        mGLView = new MainGLSurfaceView(this, mouseScale, contentScale);
         setContentView(mGLView);
         mGLView.setOnTouchListener(this);
 
@@ -116,6 +117,9 @@ public class MainActivity extends Activity implements View.OnTouchListener {
 
     @Override
     public void onBackPressed() {
+        if (keyboardVisible) {
+            toggleKeyboard();
+        }
         showPopup();
     }
 
@@ -125,6 +129,19 @@ public class MainActivity extends Activity implements View.OnTouchListener {
         int scanCode = event.getScanCode();
         int action = event.getAction();
         int keyCode = event.getKeyCode();
+
+        /* Special case for Back and Home buttons */
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (action == KeyEvent.ACTION_UP) {
+                if (keyboardVisible) {
+                    toggleKeyboard();
+                }
+                showPopup();
+            }
+            return true;
+        } else if (keyCode == KeyEvent.KEYCODE_HOME) {
+            return super.dispatchKeyEvent(event);
+        }
 
         if (scanCode != 0) {
             if (scanCode == 114 || scanCode == 115) {
@@ -420,11 +437,11 @@ public class MainActivity extends Activity implements View.OnTouchListener {
                     String spice_address = settings.getString("spice_address", "");
                     String spice_port = settings.getString("spice_port", "");
                     String spice_password = settings.getString("spice_password", "");
-                    String tunnel_port = "443";
+                    String tunnel_port = "-1";
                     int enableSound = 0;
 
-                    if (settings.getString("use_ws", "").equals("true")) {
-                        tunnel_port = "-1";
+                    if (settings.getBoolean("use_ws", true)) {
+                        tunnel_port = "443";
                     }
 
                     if (settings.getBoolean("enableSound", true)) {
