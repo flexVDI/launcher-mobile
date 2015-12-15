@@ -30,7 +30,7 @@
     _txtIp.delegate = self;
     _txtPort.delegate = self;
     _txtDomain.delegate = self;
-    _lblVersion.text = @"v2.2.3";
+    _lblVersion.text = @"v2.2.6";
     _lblVersion.layer.cornerRadius = 8.0f;
     
     NSString *ver = [[UIDevice currentDevice] systemVersion];
