@@ -186,7 +186,7 @@ public class LoginActivity extends Activity {
                 Settings.Secure.ANDROID_ID);
 
         textViewDeviceID = (TextView) findViewById(R.id.textViewDeviceID);
-        textViewDeviceID.setText("ID: " + deviceID + " (v2.2.5)");
+        textViewDeviceID.setText("ID: " + deviceID + " (v2.2.6)");
 
         if (settings.contains("flexServerName")) {
             flexServerName.setText(settings.getString("flexServerName", ""));
