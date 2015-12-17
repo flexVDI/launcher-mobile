@@ -312,19 +312,18 @@ void native_load_png(unsigned char **imgbuf, int *width, int *height)
     int length = jniWidth * jniHeight * 4;
     int stride = jniWidth * 4;
     char *buf = (char *) malloc(jniWidth * jniHeight * 4);
-    buf += (jniWidth - 1) * stride;
+    *imgbuf = buf;
+    *width = jniWidth;
+    *height = jniHeight;
 
     int i;
+    buf += (jniHeight - 1) * stride;
     for (i = 0; i < jniHeight; i++) {
         memcpy(buf, jniBuf, stride);
 
         buf -= stride;
         jniBuf += stride;
     }
-
-    *imgbuf = buf;
-    *width = jniWidth;
-    *height = jniHeight;
 }
 
 void native_show_keyboard()
