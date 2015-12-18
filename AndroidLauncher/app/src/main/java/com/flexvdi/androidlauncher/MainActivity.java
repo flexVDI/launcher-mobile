@@ -12,13 +12,18 @@ import android.opengl.GLSurfaceView;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.PowerManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 public class MainActivity extends Activity implements View.OnTouchListener {
@@ -28,6 +33,7 @@ public class MainActivity extends Activity implements View.OnTouchListener {
     private ScaleListener mScaleListener;
     private GestureDetector mGestureDetector;
     private GestureListener mGestureListener;
+    private EditText editText;
     private boolean keyboardVisible = false;
     private SharedPreferences settings;
     private SharedPreferences.Editor settingsEditor;
@@ -61,8 +67,42 @@ public class MainActivity extends Activity implements View.OnTouchListener {
         }
 
         mGLView = new MainGLSurfaceView(this, mouseScale, contentScale);
-        setContentView(mGLView);
         mGLView.setOnTouchListener(this);
+
+        editText = new EditText(this);
+        editText.setText("dontlookatme");
+        editText.setSelection(6);
+        editText.setSingleLine(false);
+        editText.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI | EditorInfo.IME_FLAG_NO_ENTER_ACTION);
+        editText.setInputType(EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS | EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
+                if (cs.toString().length() > 12) {
+                    KeyboardUtils.sendKeyCode(0, cs.toString().toCharArray()[6]);
+                    editText.setText("dontlookatme");
+                    editText.setSelection(6);
+                } else if (cs.toString().length() < 12) {
+                    // BackSpace;
+                    KeyboardUtils.sendKeyCode(KeyEvent.KEYCODE_DEL, '\b');
+                    editText.setText("dontlookatme");
+                    editText.setSelection(6);
+                }
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable arg0) {
+            }
+        });
+
+        RelativeLayout relativeLayout = new RelativeLayout(this);
+        relativeLayout.addView(editText);
+        relativeLayout.addView(mGLView);
+        setContentView(relativeLayout);
 
         mGestureListener = new GestureListener(this);
         mGestureDetector = new GestureDetector(getApplicationContext(), mGestureListener);
@@ -178,19 +218,23 @@ public class MainActivity extends Activity implements View.OnTouchListener {
     }
 
     public void toggleKeyboard() {
+        InputMethodManager imm = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+        /*
         if (keyboardVisible) {
             InputMethodManager imm = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
-            flexJNI.setKeyboardOpacity(0.2);
-            flexJNI.setKeyboardOffset(0.0);
+            //flexJNI.setKeyboardOpacity(0.2);
+            //flexJNI.setKeyboardOffset(0.0);
             keyboardVisible = false;
         } else {
             InputMethodManager imm = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
-            flexJNI.setKeyboardOpacity(1.0);
-            flexJNI.setKeyboardOffset(0.2);
+            //flexJNI.setKeyboardOpacity(1.0);
+            //flexJNI.setKeyboardOffset(0.2);
             keyboardVisible = true;
         }
+        */
     }
 
     private void closeConnection() {
