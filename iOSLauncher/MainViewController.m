@@ -291,14 +291,14 @@ MainViewController *mainViewController;
         switch (indexPath.row) {
             case 0:
                 key = @"close";
-                name = @"Cerrar sesión";
+                name = NSLocalizedString(@"close_session", nil);
                 break;
             case 1:
                 key = @"fixReleaseOrientation";
                 if (fixOrientation) {
-                    name = @"Liberar orientación";
+                    name = NSLocalizedString(@"free_orientation", nil);
                 } else {
-                    name = @"Fijar orientación";
+                    name = NSLocalizedString(@"fix_orientation", nil);
                 }
                 break;
         }
@@ -370,7 +370,7 @@ MainViewController *mainViewController;
     if (section == 0) {
         return @"General";
     } else {
-        return @"Enviar combinación de teclas";
+        return NSLocalizedString(@"send_key", nil);
     }
 }
 
@@ -1274,7 +1274,7 @@ void native_connection_change(int state)
 void native_resolution_change(int changing) {
     if (changing) {
         engine_set_main_opacity(0.5);
-        [mainViewController showLabel:@"Solicitando ajuste de resolución" ];
+        [mainViewController showLabel:NSLocalizedString(@"requesting_resolution", nil)];
     } else {
         engine_set_main_opacity(1.0);
         [mainViewController hideLabel];

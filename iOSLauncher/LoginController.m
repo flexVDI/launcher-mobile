@@ -564,7 +564,7 @@
 }
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:
 (NSInteger)section {
-    return @"Escritorios";
+    return NSLocalizedString(@"desktops", nil);
     
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{

@@ -1,0 +1,33 @@
+/* 
+  Localizable.strings
+  iOSLauncher
+
+  Created by Sergio Lopez on 11/11/14.
+  Copyright (c) 2014 Flexible Software Solutions S.L. All rights reserved.
+*/
+
+"ask_server_data" = "Please, enter your server information";
+
+"login_username_empty" = "Please enter your username";
+"login_pass_empty" = "Please enter your password";
+
+"login_serverip_empty" = "Server field can't be empty";
+"login_serverport_empty" = "Port field can't be empty";
+"main_server_error" = "Can't open connection to server";
+"main_server_status_nok" = "Can't open connection to server";
+
+"settings_save_success" = "Configuration successfully saved";
+
+"connection_failed" = "Couldn't open connection to server";
+"reconnection" = "Reconnecting, please wait...";
+"reconnection_failed" = "Couldn't restore connection to server";
+"menu_hint" = "Remember: You can access the Menu touching the keyboard icon for 2 seconds.";
+"wait_for_network" = "Waiting for network...";
+"wait_for_desktop" = "Preparing your desktop, please wait...";
+
+"requesting_resolution" = "Requesting resolution adjustment";
+"desktops" = "Desktops";
+"send_key" = "Send key combination";
+"close_session" = "Close session";
+"fix_orientation" = "Fix orientation";
+"free_orientation" = "Free orientation";

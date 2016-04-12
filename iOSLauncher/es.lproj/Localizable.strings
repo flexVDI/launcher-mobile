@@ -24,3 +24,10 @@
 "menu_hint" = "Recuerda: Puedes acceder al menú manteniendo pulsado el icono del teclado";
 "wait_for_network" = "Esperando a que se reestablezca la red";
 "wait_for_desktop" = "Su escritorio está siendo preparado...";
+
+"requesting_resolution" = "Solicitando ajuste de resolución";
+"desktops" = "Escritorios";
+"send_key" = "Enviar combinación de teclas";
+"close_session" = "Cerrar sesión";
+"fix_orientation" = "Fijar orientación";
+"free_orientation" = "Liberar orientación";

@@ -1,0 +1,48 @@
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "1c8-ho-ohb"; */
+"1c8-ho-ohb.text" = "Label";
+
+/* Class = "UILabel"; text = "Conectando..."; ObjectID = "5tL-9z-qat"; */
+"5tL-9z-qat.text" = "Conectando...";
+
+/* Class = "UILabel"; text = "Silenciar Beeper"; ObjectID = "Aeh-bT-7Gd"; */
+"Aeh-bT-7Gd.text" = "Silenciar Beeper";
+
+/* Class = "UILabel"; text = "..."; ObjectID = "BZa-MA-iv9"; */
+"BZa-MA-iv9.text" = "...";
+
+/* Class = "UITextField"; placeholder = "Contraseña"; ObjectID = "J70-mi-eRn"; */
+"J70-mi-eRn.placeholder" = "Contraseña";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "KBI-yz-Hkc"; */
+"KBI-yz-Hkc.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "XFY-Zb-mjp"; */
+"XFY-Zb-mjp.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "Conectar"; ObjectID = "bL9-1o-vby"; */
+"bL9-1o-vby.normalTitle" = "Conectar";
+
+/* Class = "UILabel"; text = "..."; ObjectID = "brh-Xp-YRp"; */
+"brh-Xp-YRp.text" = "...";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "epT-5a-a33"; */
+"epT-5a-a33.text" = "Label";
+
+/* Class = "UILabel"; text = "identificador de terminal"; ObjectID = "fQE-V9-ogl"; */
+"fQE-V9-ogl.text" = "identificador de terminal";
+
+/* Class = "UITextField"; placeholder = "Usuario"; ObjectID = "jv1-WR-81C"; */
+"jv1-WR-81C.placeholder" = "Usuario";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "k5Z-5U-KhU"; */
+"k5Z-5U-KhU.text" = "Label";
+
+/* Class = "UILabel"; text = "Servidor"; ObjectID = "lG7-Ht-1EP"; */
+"lG7-Ht-1EP.text" = "Servidor";
+
+/* Class = "UILabel"; text = "Habilitar Audio"; ObjectID = "nKs-yR-YIl"; */
+"nKs-yR-YIl.text" = "Habilitar Audio";
+
+/* Class = "UILabel"; text = "Puerto"; ObjectID = "qp9-8a-x84"; */
+"qp9-8a-x84.text" = "Puerto";

@@ -20,8 +20,8 @@
 		BE588B161A24EE4000ACED16 /* beep-timber.aif in Resources */ = {isa = PBXBuildFile; fileRef = BE588B151A24EE4000ACED16 /* beep-timber.aif */; };
 		BE5D39441A1233A7008C2094 /* config_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = BE5D39411A1233A7008C2094 /* config_icon.png */; };
 		BE5D39451A1233A7008C2094 /* flexvdi_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = BE5D39421A1233A7008C2094 /* flexvdi_icon.png */; };
-		BE5D394B1A1235DF008C2094 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BE5D394A1A1235DF008C2094 /* Localizable.strings */; };
 		BE5D394D1A1255D2008C2094 /* barra_sup.png in Resources */ = {isa = PBXBuildFile; fileRef = BE5D394C1A1255D2008C2094 /* barra_sup.png */; };
+		BE64382E1CBD096800742F1B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BE6438301CBD096800742F1B /* Localizable.strings */; };
 		BEA2334C1A0CC575007978B5 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEA2334B1A0CC575007978B5 /* MainViewController.m */; };
 		BEA2F8611A0BB94B00C2D8BF /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEA2F8601A0BB94B00C2D8BF /* LoginController.m */; };
 		BEA2F8641A0BBB2600C2D8BF /* Toast+UIView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEA2F8631A0BBB2600C2D8BF /* Toast+UIView.m */; };
@@ -75,8 +75,12 @@
 		BE588B151A24EE4000ACED16 /* beep-timber.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = "beep-timber.aif"; sourceTree = "<group>"; };
 		BE5D39411A1233A7008C2094 /* config_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = config_icon.png; sourceTree = "<group>"; };
 		BE5D39421A1233A7008C2094 /* flexvdi_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flexvdi_icon.png; sourceTree = "<group>"; };
-		BE5D394A1A1235DF008C2094 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		BE5D394C1A1255D2008C2094 /* barra_sup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = barra_sup.png; sourceTree = "<group>"; };
+		BE64382C1CBD07C900742F1B /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
+		BE64382D1CBD07C900742F1B /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main_iPad.strings; sourceTree = "<group>"; };
+		BE64382F1CBD096800742F1B /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		BE6438311CBD09BA00742F1B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		BE6438321CBD0CC500742F1B /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		BEA2334A1A0CC575007978B5 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		BEA2334B1A0CC575007978B5 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		BEA2F85F1A0BB94B00C2D8BF /* LoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginController.h; sourceTree = "<group>"; };
@@ -263,7 +267,7 @@
 				D8FD563D1A03A77A00292158 /* InfoPlist.strings */,
 				D8FD56401A03A77A00292158 /* main.m */,
 				D8FD56421A03A77A00292158 /* iOSLauncher-Prefix.pch */,
-				BE5D394A1A1235DF008C2094 /* Localizable.strings */,
+				BE6438301CBD096800742F1B /* Localizable.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -344,6 +348,7 @@
 			knownRegions = (
 				en,
 				Base,
+				es,
 			);
 			mainGroup = D8FD56241A03A77A00292158;
 			productRefGroup = D8FD562E1A03A77A00292158 /* Products */;
@@ -370,7 +375,7 @@
 				BE3013581BD7907C00EE5B7D /* flexvdi_config_logo.png in Resources */,
 				D8FD563F1A03A77A00292158 /* InfoPlist.strings in Resources */,
 				BE5D394D1A1255D2008C2094 /* barra_sup.png in Resources */,
-				BE5D394B1A1235DF008C2094 /* Localizable.strings in Resources */,
+				BE64382E1CBD096800742F1B /* Localizable.strings in Resources */,
 				BE5D39441A1233A7008C2094 /* config_icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -419,10 +424,21 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		BE6438301CBD096800742F1B /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BE64382F1CBD096800742F1B /* es */,
+				BE6438311CBD09BA00742F1B /* en */,
+				BE6438321CBD0CC500742F1B /* Base */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		BEE619091A13696800448F71 /* Main_iPad.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				BEE6190A1A13696800448F71 /* Base */,
+				BE64382D1CBD07C900742F1B /* es */,
 			);
 			name = Main_iPad.storyboard;
 			sourceTree = "<group>";
@@ -439,6 +455,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				D8FD56471A03A77A00292158 /* Base */,
+				BE64382C1CBD07C900742F1B /* es */,
 			);
 			name = Main_iPhone.storyboard;
 			sourceTree = "<group>";
