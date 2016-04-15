@@ -46,7 +46,6 @@ MainViewController *mainViewController;
     return self;
 }
 
-//The EAGL view is stored in the nib file. When it's unarchived it's sent -initWithCoder:
 - (id)initWithCoder:(NSCoder*)coder
 {
     if ((self = [super initWithCoder:coder]))
@@ -147,21 +146,13 @@ MainViewController *mainViewController;
 
 - (void)closeConnection
 {
-    NSLog(@"closeConnection\n");
     [self clearCredentials];
     connDesiredState = DISCONNECTED;
     engine_spice_disconnect();
 }
 
-- (void)changeResolution
-{
-    NSLog(@"changeResolution\n");
-}
-
 -(void)fixReleaseOrientation
 {
-    NSLog(@"fixReleaseOrientation\n");
-    
     if (fixOrientation) {
         fixOrientation = NO;
         orientationMask = UIInterfaceOrientationMaskLandscapeRight | UIInterfaceOrientationMaskPortrait;
@@ -398,29 +389,13 @@ MainViewController *mainViewController;
     return 40;
 }
 
-//-(void) adjustHeightWithNumberRows:(int)numberOfRows{
-//    if(numberOfRows>=9){
-//        NSLog(@"reloadDataForTable muchas filas %d",numberOfRows);
-//        numberOfRows=8;
-//        
-//    }
-//    CGRect tblResultFrame = _tblMenu.frame;
-//    tblResultFrame.size.height = 44+(numberOfRows)*44;
-//    
-//    _tblMenu.frame = tblResultFrame;
-//    [_tblMenu reloadData];
-//}
 
 #pragma mark -
 #pragma mark Touch-handling methods
-
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     NSLog(@"touchedBegan\n");
     [self hideMenu];
-    //[mainView hideKeyboard];
-    //NSMutableSet *currentTouches = [[event touchesForView:self] mutableCopy];
-    //[currentTouches minusSet:touches];
     
     if (dragging) {
         NSLog(@"touchedBegan dragging\n");
@@ -479,8 +454,6 @@ MainViewController *mainViewController;
             lastMovementPosition.y = center.y;
         }
     }
-	// New touches are not yet included in the current touches for the view
-	//lastMovementPosition = [[touches anyObject] locationInView:self];
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event;
@@ -490,40 +463,11 @@ MainViewController *mainViewController;
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-	//NSMutableSet *remainingTouches = [[event touchesForView:self] mutableCopy];
-    //[remainingTouches minusSet:touches];
-    if (!dragging) {
-        return;
-    }
-    
-    //	lastMovementPosition = [[touches anyObject] locationInView:self];
-    //
-    //    io_event_t io_event;
-    //
-    //    io_event.type = IO_EVENT_MOVED;
-    //    io_event.position[0] = lastMovementPosition.x * global_state.content_scale;
-    //    io_event.position[1] = lastMovementPosition.y * global_state.content_scale;
-    //    io_event.button = 1;
-    //    IO_PushEvent(&io_event);
-    
-    //    io_event.type = IO_EVENT_BEGAN;
-    //    io_event.position[0] = lastMovementPosition.x * global_state.content_scale;
-    //    io_event.position[1] = lastMovementPosition.y * global_state.content_scale;
-    //    io_event.button = 1;
-    //    IO_PushEvent(&io_event);
-    
-    //    io_event.type = IO_EVENT_ENDED;
-    //    io_event.position[0] = lastMovementPosition.x * global_state.content_scale;
-    //    io_event.position[1] = lastMovementPosition.y * global_state.content_scale;
-    //    io_event.button = 1;
-    //    IO_PushEvent(&io_event);
-    //
-    //    dragging = false;
+
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
-	// Handle touches canceled the same as as a touches ended event
     [self.view touchesEnded:touches withEvent:event];
 }
 
@@ -541,7 +485,6 @@ MainViewController *mainViewController;
     if (lastTapDate != nil) {
         double time_since_tap = [lastTapDate timeIntervalSinceNow] * -1000.0;
         
-        //NSLog(@"tapTimestamp: %f\n", tapTimestamp);
         NSLog(@"lastTapTimestap: %f\n", lastTapTimestamp);
         if (time_since_tap < 300) {
             taps = 2;
@@ -549,30 +492,25 @@ MainViewController *mainViewController;
     }
     
     lastTapDate = [NSDate date];
-    
-    //lastTapTimestamp = tapTimestamp;
-    
+
     for (i = 0; i < taps; i++) {
         io_event_t io_event;
         
         io_event.type = IO_EVENT_MOVED;
         io_event.position[0] = center.x * global_state.content_scale;
         io_event.position[1] = center.y * global_state.content_scale;
-        //io_event.position[1] = center.y * global_state.content_scale;
         io_event.button = 1;
         IO_PushEvent(&io_event);
         
         io_event.type = IO_EVENT_BEGAN;
         io_event.position[0] = center.x * global_state.content_scale;
         io_event.position[1] = center.y * global_state.content_scale;
-        //io_event.position[1] = center.y * global_state.content_scale;
         io_event.button = 1;
         IO_PushEvent(&io_event);
         
         io_event.type = IO_EVENT_ENDED;
         io_event.position[0] = center.x * global_state.content_scale;
         io_event.position[1] = center.y * global_state.content_scale;
-        //io_event.position[1] = center.y * global_state.content_scale;
         io_event.button = 1;
         IO_PushEvent(&io_event);
     }
@@ -648,12 +586,6 @@ MainViewController *mainViewController;
         lastMovementPosition.x = center.x * global_state.content_scale;
         lastMovementPosition.y = center.y * global_state.content_scale;
     }
-    //
-    //    io_event.type = IO_EVENT_ENDED;
-    //    io_event.position[0] = center.x * global_state.content_scale;
-    //    io_event.position[1] = center.y * global_state.content_scale;
-    //    io_event.button = 3;
-    //    IO_PushEvent(&io_event);
     
     if ([sender state] == UIGestureRecognizerStateEnded) {
         NSLog(@"longPress ended\n");
@@ -748,21 +680,6 @@ MainViewController *mainViewController;
             panTarget.y = pan_center.y;
         } else {
             pan_offset_x = panTarget.x - pan_center.x;
-            //            if (pan_offset_x > 0) {
-            //                if (panDirection == -1) {
-            //                    panDirection = 1;
-            //                    panTarget.x = pan_center.x;
-            //                    return;
-            //                }
-            //                panDirection = 1;
-            //            } else {
-            //                if (panDirection == 1) {
-            //                    panDirection = -1;
-            //                    panTarget.x = pan_center.x;
-            //                    return;
-            //                }
-            //                panDirection = -1;
-            //            }
             pan_offset_y = panTarget.y - pan_center.y;
         }
         
@@ -840,22 +757,13 @@ MainViewController *mainViewController;
     int button;
     
     CGPoint gestureVelocity = [sender velocityInView:self.view];
-    //        NSLog(@"gestureVelocity.x = %f\n", gestureVelocity.x);
-    //        NSLog(@"gestureVelocity.y = %f\n", gestureVelocity.y);
     NSLog(@"doublePanLastPoint.y = %f\n", doublePanLastPoint.y);
     NSLog(@"pan_center.y = %f\n", pan_center.y);
     
 
     if (doublePanOrientation == -1) {
-        /* Horizontal scroll is problematic with most Guests. */
-//        if (fabs(gestureVelocity.x) > fabs(gestureVelocity.y)) {
-//            doublePanOrientation = SCROLL_HORIZONTAL;
-//            doublePanLastPoint.x = pan_center.x;
-//        } else {
-            doublePanOrientation = SCROLL_VERTICAL;
-            doublePanLastPoint.y = pan_center.y;
-//        }
-
+        doublePanOrientation = SCROLL_VERTICAL;
+        doublePanLastPoint.y = pan_center.y;
         doublePanAccumMovement = 0;
     } else if (doublePanOrientation == SCROLL_HORIZONTAL) {
         if (gestureVelocity.x > 100) {
@@ -1037,13 +945,7 @@ MainViewController *mainViewController;
             }
         }
     }
-    
-    //    if ([pinchGestureRecognizer state] == UIGestureRecognizerStateEnded) {
-    //        pinchTarget.x = -1;
-    //        pinchTarget.y = -1;
-    //    }
-    
-    
+
     NSLog(@"Zoom=%f\n", global_state.zoom);
 }
 
@@ -1444,8 +1346,6 @@ void native_resolution_change(int changing) {
         NSString *body = [NSString stringWithFormat:
                           @"{\"hwaddress\": \"%@\", \"username\": \"%@\", \"password\": \"%@\", \"desktop\": \"%@\"}", launcherDevID, launcherUser, launcherPassword, launcherDesktop];
         
-        NSLog(@"body %@",body);
-        
         NSData *postData = [body dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
         [request setHTTPBody:postData];
         [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)body.length] forHTTPHeaderField:@"Content-Length"];
@@ -1453,7 +1353,6 @@ void native_resolution_change(int changing) {
         
         reconnectionState = R_LAUNCHER;
         NSURLConnection *connectionDesktop =[[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:NO];
-        NSLog(@"antes de connectionDesktop start");
         
         [connectionDesktop scheduleInRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
         [connectionDesktop start];
@@ -1461,16 +1360,11 @@ void native_resolution_change(int changing) {
         NSDictionary *responseDesktopDict = [NSJSONSerialization JSONObjectWithData:serverAnswer options:kNilOptions error:nil];
         serverAnswer = nil;
         
-        NSLog(@"response todo  %@",responseDesktopDict);
         NSString *status=[responseDesktopDict objectForKey:@"status"];
-        NSString *message=[responseDesktopDict objectForKey:@"message"];
-        NSLog(@"status  %@",status);
-        NSLog(@"message %@", message);
-        
         if([status isEqualToString:@"OK"]){
-            self.ip=[responseDesktopDict objectForKey:@"spice_address"];
-            self.pass=[responseDesktopDict objectForKey:@"spice_password"];
-            self.port=[responseDesktopDict objectForKey:@"spice_port"];
+            self.ip = [responseDesktopDict objectForKey:@"spice_address"];
+            self.pass = [responseDesktopDict objectForKey:@"spice_password"];
+            self.port = [responseDesktopDict objectForKey:@"spice_port"];
             NSNumber *useWS=(NSNumber *)[responseDesktopDict objectForKey: @"use_ws"];
             if ([useWS boolValue] == YES) {
                 self.use_ws = YES;
@@ -1494,15 +1388,11 @@ void native_resolution_change(int changing) {
             
             reconnectionState = R_SPICE;
         } else if ([status isEqualToString:@"Pending"]) {
-            NSLog(@"status Pending");
             reconnectionState = R_LAUNCHER_WAIT;
         } else {
-            NSLog(@"status NOK");
             reconnectionState = R_FAILED;
         }
     }
-    
-    NSLog(@"despues de todo=%d", reconnectionState);
 }
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
@@ -1539,10 +1429,6 @@ void native_resolution_change(int changing) {
         textView.text = @"dontlookatme";
         textViewRangeAutoChanged = true;
         textView.selectedRange = NSMakeRange(6, 0);
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            textView.text = @"dontlookatme";
-//            textView.selectedRange = NSMakeRange(6, 0);
-//        });
         return;
     }
     

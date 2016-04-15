@@ -24,12 +24,10 @@
 #import "spice.h"
 #import "draw.h"
 
-//#define DRAWCOLORS 1
 #define DRAWTEXTURE 1
 
 @implementation ES1Renderer
 
-// Create an OpenGL ES 1.1 context
 - (id)init
 {
     if ((self = [super init]))
@@ -54,7 +52,6 @@
         
         if (!context || ![EAGLContext setCurrentContext:context])
         {
-            //[self release];
             return nil;
         }
 		
@@ -75,9 +72,6 @@
         global_state.height = backingHeight;
         resolutionChangeRequested = false;
         engineInitialized = false;
-        //engine_init_buffer(global_state.width, global_state.height);
-        //engine_spice_connect();
-
     }
     
     return self;
@@ -85,20 +79,14 @@
 
 - (void)renderByRotatingAroundX:(float)xRotation rotatingAroundY:(float)yRotation;
 {
-    // This application only creates a single context which is already set current at this point.
-    // This call is redundant, but needed if dealing with multiple contexts.
     [EAGLContext setCurrentContext:context];
     
-    // This application only creates a single default framebuffer which is already bound at this point.
-    // This call is redundant, but needed if dealing with multiple framebuffers.
     glBindFramebufferOES(GL_FRAMEBUFFER_OES, defaultFramebuffer);
     glViewport(0, 0, backingWidth, backingHeight);
     
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-	//glOrthof(-2.0, 2.0, -2.0 * 480.0 / 320.0, 2.0 * 480.0 / 320.0, -3.0, 3.0);
     glOrthof(0, backingWidth, backingHeight, 0, 0, 1);
-    //glMatrixMode(GL_MODELVIEW);
     
     if (global_state.width != 0 &&
         global_state.height != 0) {
@@ -141,24 +129,6 @@
         if (result == -2) {
             engine_draw_disconnected(global_state.width, global_state.height);
         }
-
-//        if (result == -2 || resolution_mismatch) {
-//            if (!resolutionChangeRequested) {
-//                engine_spice_request_resolution(backingWidth, backingHeight);
-//                resolutionChangeRequested = true;
-//                resolutionChangeTimestamp = [NSDate date];
-//            }
-//        } else if (resolutionChangeRequested) {
-//            engine_spice_resolution_changed();
-//            resolutionChangeRequested = false;
-//        }
-//        
-//        if (resolutionChangeRequested) {
-//            double timeSinceRequest = [resolutionChangeTimestamp timeIntervalSinceNow] * -1000.0;
-//            if (timeSinceRequest > 5000.0) {
-//                resolutionChangeRequested = false;
-//            }
-//        }
     }
 
     glBindRenderbufferOES(GL_RENDERBUFFER_OES, colorRenderbuffer);
@@ -182,8 +152,6 @@
     glGenRenderbuffersOES(1, &colorRenderbuffer);
     glBindFramebufferOES(GL_FRAMEBUFFER_OES, defaultFramebuffer);
     glBindRenderbufferOES(GL_RENDERBUFFER_OES, colorRenderbuffer);
-    // Allocate color buffer backing based on the current layer size
-    //glBindRenderbufferOES(GL_RENDERBUFFER_OES, colorRenderbuffer);
     glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_RENDERBUFFER_OES, colorRenderbuffer);
     
     [context renderbufferStorage:GL_RENDERBUFFER_OES fromDrawable:layer];
@@ -225,11 +193,7 @@
     if ([EAGLContext currentContext] == context)
         [EAGLContext setCurrentContext:nil];
     
-    //[context release];
     context = nil;
-    
-	//[pvrTexture release];
-    //[super dealloc];
 }
 
 @end

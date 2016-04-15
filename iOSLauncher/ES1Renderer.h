@@ -34,7 +34,6 @@
     
 	PVRTexture *pvrTexture;
     
-    // The pixel dimensions of the CAEAGLLayer
     GLint backingWidth;
     GLint backingHeight;
     Boolean resolutionChangeRequested;
@@ -42,7 +41,6 @@
     Boolean resolutionTooBig;
     Boolean engineInitialized;
     
-    // The OpenGL ES names for the framebuffer and renderbuffer used to render to this view
     GLuint defaultFramebuffer, colorRenderbuffer;
 	
 	CATransform3D currentCalculatedMatrix;

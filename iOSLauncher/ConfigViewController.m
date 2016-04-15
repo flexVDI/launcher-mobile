@@ -30,16 +30,14 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
+
     return self;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+
     _txtIp.delegate = self;
     _txtPort.delegate = self;
     _txtDomain.delegate = self;
@@ -122,30 +120,8 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
-
-- (void)dealloc {
-//    [_txtIp release];
-//    [_txtPort release];
-//    [_switchHttps release];
-//    [_txtDomain release];
-//    [_btnSave release];
-//    [super dealloc];
-}
 #pragma mark -
 #pragma mark other methods
 - (IBAction)btnSaveAction:(id)sender {
@@ -200,9 +176,6 @@
     });
                    
     [[self view] makeToast:NSLocalizedString(@"settings_save_success", nil) duration:ToastDurationShort position:@"center"];
-                   
-    // To Access this value
-    NSLog(@"To Access this value %@",[prefs stringForKey:kFlexKeyServerIP]);
 }
 
 - (IBAction)backgroudTouched:(id)sender {
@@ -215,10 +188,7 @@
     [_txtIp resignFirstResponder];
     [_txtPort resignFirstResponder];
     [_txtDomain resignFirstResponder];
-//    if (_txtIp.text.length == 0 || _txtPort.text.length == 0) {
-//        [[self view] makeToast:NSLocalizedString(@"ask_server_data", nil) duration:ToastDurationShort position:@"center"];
-//        return;
-//    }
+
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     [prefs setObject:_txtIp.text forKey:kFlexKeyServerIP];
     [prefs setObject:_txtPort.text forKey:kFlexKeyServerPort];
@@ -256,6 +226,7 @@
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
 #pragma mark -
 #pragma mark UITextField methods delegate
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {

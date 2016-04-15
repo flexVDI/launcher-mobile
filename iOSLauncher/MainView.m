@@ -33,28 +33,16 @@ MainView *mainView;
 
 @implementation MainView
 
-// You must implement this method
 + (Class)layerClass
 {
     return [CAEAGLLayer class];
 }
 
-//The EAGL view is stored in the nib file. When it's unarchived it's sent -initWithCoder:
 - (id)initWithCoder:(NSCoder*)coder
 {
     if ((self = [super initWithCoder:coder]))
     {
         mainView = self;
-		// Set scaling to account for Retina display
-		//if ([self respondsToSelector:@selector(setContentScaleFactor:)])
-		//{
-		//	self.contentScaleFactor = [[UIScreen mainScreen] scale];
-		//}
-        
-        //UIScreen* mainscr = [UIScreen mainScreen];
-		//self.contentScaleFactor = [[UIScreen mainScreen] scale];
-        
-        // Get the layer
         CAEAGLLayer *eaglLayer = (CAEAGLLayer *)self.layer;
         eaglLayer.contentsScale = global_state.content_scale;
         
@@ -68,7 +56,6 @@ MainView *mainView;
             
             if (!renderer)
             {
-                //[self release];
                 return nil;
             }
         }
@@ -91,9 +78,6 @@ MainView *mainView;
 {
     [displayLink removeFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
     displayLink = nil;
-    //[renderer release];
-    
-    //[super dealloc];
 }
 
 - (void)stopRenderer

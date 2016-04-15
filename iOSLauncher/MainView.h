@@ -31,7 +31,6 @@
 @interface MainView : UIView
 {
 @private
-    //id <menuDelegate> menuDelegate;
     id <ESRenderer> renderer;
     CADisplayLink *displayLink;
 }

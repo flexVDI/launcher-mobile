@@ -51,7 +51,6 @@ enum connectionStates {
 @property (assign, nonatomic) BOOL genericSpice;
 @property (assign, nonatomic) int selectedDesktop;
 @property (strong, nonatomic) NSString *uniqueIdentifier;
-@property (retain, nonatomic) IBOutlet UITextField *pass;
 @property (retain, nonatomic) IBOutlet UITextField *txtUser;
 @property (retain, nonatomic) IBOutlet UITextField *txtPassword;
 @property (retain, nonatomic) IBOutlet UIView *viewLoading;
@@ -64,7 +63,6 @@ enum connectionStates {
 @property (strong, nonatomic) NSMutableArray *desktopsKeys;
 
 - (IBAction)connect:(id)sender;
-- (IBAction)btnInfoAction:(id)sender;
 - (IBAction)touchConfigAction:(id)sender;
 - (IBAction)backgroundTouched:(id)sender;
 - (IBAction)viewBackTableTouch:(id)sender;
