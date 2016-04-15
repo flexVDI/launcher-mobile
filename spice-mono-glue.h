@@ -13,13 +13,15 @@ void SpiceGlibGlueSetDisplayBuffer(uint32_t *display_buffer,
                                    int32_t width,
                                    int32_t height);
 
-int16_t SpiceGlibGlueLockDisplayBuffer(int32_t *width, int32_t *height, int force);
+int16_t SpiceGlibGlueLockDisplayBuffer(int32_t *width, int32_t *height);
 
 void SpiceGlibGlueUnlockDisplayBuffer();
 
 void SpiceGlibGlue_Disconnect(void);
 
 int16_t SpiceGlibGlue_isConnected(void);
+
+int16_t SpiceGlibGlue_getNumberOfChannels(void);
 
 int SpiceGlibRecalcGeometry(int x, int y, int w, int h);
 

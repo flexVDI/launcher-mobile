@@ -258,16 +258,37 @@ static void create_keyboard_texture(GLuint *texture)
 
 void engine_init_buffer(int width, int height)
 {
+    int32_t w, h;
+    
+    SpiceGlibGlueLockDisplayBuffer(&w, &h);
+    
     if (global_state.spice_display_buffer != NULL) {
         free(global_state.spice_display_buffer);
+        global_state.spice_display_buffer = NULL;
     }
     
     global_state.spice_display_buffer = malloc(width * height * 4);
     
     SpiceGlibGlueSetDisplayBuffer((uint32_t *) global_state.spice_display_buffer,
                                   width, height);
+    
+    SpiceGlibGlueUnlockDisplayBuffer();
 }
 
+void engine_free_buffer()
+{
+    int32_t w, h;
+    
+    SpiceGlibGlueLockDisplayBuffer(&w, &h);
+    
+    SpiceGlibGlueSetDisplayBuffer(NULL, 0, 0);
+    if (global_state.spice_display_buffer != NULL) {
+        free(global_state.spice_display_buffer);
+        global_state.spice_display_buffer = NULL;
+    }
+    
+    SpiceGlibGlueUnlockDisplayBuffer();
+}
 
 void engine_init_screen()
 {
@@ -328,14 +349,17 @@ int engine_draw(int max_width, int max_height)
         return engine_draw_disconnected(max_width, max_height);
     }
     
-    flags = engine_spice_update_display(global_state.spice_display_buffer, &width, &height);
+    flags = engine_spice_lock_display(global_state.spice_display_buffer, &width, &height);
     
     if (flags < 0) {
+        engine_spice_unlock_display();
         return flags;
     }
     
-    if (width == 0 || height == 0)
+    if (width == 0 || height == 0) {
+        engine_spice_unlock_display();
         return 0;
+    }
     
     if ((global_state.width + global_state.height) < (width + height)) {
         image_width = global_state.width;
@@ -362,6 +386,8 @@ int engine_draw(int max_width, int max_height)
         update_main_texture(global_state.spice_display_buffer,
                             image_width, image_height);
     }
+    
+    engine_spice_unlock_display();
     
     render_main_texture();
     render_keyboard_texture();

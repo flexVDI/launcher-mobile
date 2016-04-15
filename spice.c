@@ -89,7 +89,7 @@ int engine_spice_connect()
     if (global_state.conn_state == DISCONNECTED) {
         engine_spice_worker(NULL);
         
-        for (i = 0; i < 15; i++) {
+        for (i = 0; i < 10; i++) {
             if (engine_spice_is_connected()) {
                 global_state.display_state = CONNECTED;
                 global_state.conn_state = CONNECTED;
@@ -120,7 +120,10 @@ void engine_spice_disconnect()
 
 int engine_spice_is_connected()
 {
-    return (int) SpiceGlibGlue_isConnected();
+    if (SpiceGlibGlue_getNumberOfChannels() > 2) {
+        return 1;
+    }
+    return 0;
 }
 
 void engine_spice_request_resolution(int width, int height)
@@ -140,11 +143,10 @@ void engine_spice_resolution_changed()
     }
 }
 
-int engine_spice_update_display(char *display_buffer, int *width, int *height)
+int engine_spice_lock_display(char *display_buffer, int *width, int *height)
 {
     int invalidated = 0;
     int flags = 0;
-    int force_inval = 0;
     
     if (!global_state.input_initialized) {
         /* XXX - HACK! We send here a bogus input to ensure
@@ -153,19 +155,11 @@ int engine_spice_update_display(char *display_buffer, int *width, int *height)
         global_state.input_initialized = 1;
     }
 
-    if (global_state.first_frame < 5) {
-        force_inval = 1;
-    }
-    
-    //update_result = SpiceGlibGlueUpdateDisplayData(display_buffer, width, height);
-    invalidated = SpiceGlibGlueLockDisplayBuffer(width, height, force_inval);
+    invalidated = SpiceGlibGlueLockDisplayBuffer(width, height);
 
-    if (invalidated && force_inval) {
-        global_state.first_frame++;
-    }
-
-    if (invalidated) {
+    if (invalidated /*|| global_state.first_frame < 5*/) {
         flags |= DISPLAY_INVALIDATE;
+        //global_state.first_frame += 1;
     }
 
     if (*width != 0 &&
@@ -184,9 +178,12 @@ int engine_spice_update_display(char *display_buffer, int *width, int *height)
         flags |= DISPLAY_CHANGE_RESOLUTION;
     }
     
-    SpiceGlibGlueUnlockDisplayBuffer();
-
     return flags;
+}
+
+void engine_spice_unlock_display()
+{
+    SpiceGlibGlueUnlockDisplayBuffer();
 }
 
 void engine_spice_motion_event(int pos_x, int pos_y)

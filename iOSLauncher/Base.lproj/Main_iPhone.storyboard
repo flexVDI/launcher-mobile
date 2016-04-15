@@ -79,13 +79,13 @@
                                 <rect key="frame" x="0.0" y="-3" width="320" height="429"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
                             </imageView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="User" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" id="jv1-WR-81C" userLabel="txtUser">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="user" textAlignment="center" minimumFontSize="12" clearButtonMode="whileEditing" id="jv1-WR-81C" userLabel="txtUser">
                                 <rect key="frame" x="63" y="203" width="192" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="URL"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" id="J70-mi-eRn" userLabel="txtPassword">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="password" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" id="J70-mi-eRn" userLabel="txtPassword">
                                 <rect key="frame" x="64" y="236" width="192" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -103,7 +103,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
                                 <color key="backgroundColor" red="0.28627450980392155" green="0.33725490196078434" blue="0.36078431372549019" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                <state key="normal" title="Connect">
+                                <state key="normal" title="connect">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -284,6 +284,11 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="onTintColor" red="0.0039215686269999999" green="0.63137254899999995" blue="0.75686274509999996" alpha="1" colorSpace="deviceRGB"/>
                             </switch>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="gpD-ls-42r" userLabel="enableAudio">
+                                <rect key="frame" x="206" y="271" width="51" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="onTintColor" red="0.0039215686269999999" green="0.63137254899999995" blue="0.75686274509999996" alpha="1" colorSpace="deviceRGB"/>
+                            </switch>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="yEJ-Vf-Qwi" userLabel="btnConfig">
                                 <rect key="frame" x="265" y="4" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
@@ -294,6 +299,13 @@
                                     <action selector="btnBackAction:" destination="Nk6-Gb-ODB" eventType="touchDown" id="Ev1-cM-Snj"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Generic SPICE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cl1-Rg-455">
+                                <rect key="frame" x="64" y="277" width="134" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.25882352941176467" green="0.25098039215686274" blue="0.25490196078431371" alpha="1" colorSpace="deviceRGB"/>
                         <connections>
@@ -304,6 +316,7 @@
                     <connections>
                         <outlet property="enableAudio" destination="wEW-Cw-GWx" id="zXr-kn-HKN"/>
                         <outlet property="enableRetina" destination="UFZ-O5-xrv" id="xSS-lz-yoT"/>
+                        <outlet property="genericSpice" destination="gpD-ls-42r" id="mMJ-Q1-2RT"/>
                         <outlet property="lblVersion" destination="BZa-MA-iv9" id="Ddk-hp-HhT"/>
                         <outlet property="txtIp" destination="9Bm-HS-OFu" id="w3W-I6-OyM"/>
                         <outlet property="txtPort" destination="4ma-bL-GmC" id="78x-9L-qf9"/>

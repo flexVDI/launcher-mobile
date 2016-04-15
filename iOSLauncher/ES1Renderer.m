@@ -192,6 +192,8 @@
 
 - (void)dealloc
 {
+    engine_free_buffer();
+    
     // Tear down GL
     if (defaultFramebuffer)
     {

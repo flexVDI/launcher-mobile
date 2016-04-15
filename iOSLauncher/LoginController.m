@@ -91,10 +91,39 @@
         }
     }
     
+    _txtUser.enabled = TRUE;
+    _txtPassword.enabled = TRUE;
+    _btnConnect.enabled = TRUE;
+    
     const char *realpath = [fileManager fileSystemRepresentationWithPath:filename];
     engine_set_save_location(realpath);
     
+    self.enableAudio = [[NSUserDefaults standardUserDefaults] boolForKey:kFlexKeyEnableAudio];
+    self.enableRetina = [[NSUserDefaults standardUserDefaults] boolForKey:kFlexKeyEnableRetina];
+    self.silenceBeeper = [[NSUserDefaults standardUserDefaults] boolForKey:kFlexKeySilenceBeeper];
+    self.genericSpice = [[NSUserDefaults standardUserDefaults] boolForKey:kFlexKeyGenericSpice];
+    
+    if (self.enableRetina) {
+        global_state.content_scale = 2;
+    } else {
+        global_state.content_scale = 1;
+    }
+    
     NSString* serverIP = [[NSUserDefaults standardUserDefaults] stringForKey:kFlexKeyServerIP];
+    NSString* serverPort = [[NSUserDefaults standardUserDefaults] stringForKey:kFlexKeyServerPort];
+    
+    if (self.genericSpice) {
+        if ([_txtUser.text length] == 0) {
+            _txtUser.text = [NSString stringWithFormat:@"%@:%@", serverIP, serverPort];
+        }
+        _txtPassword.text = @"";
+        _txtUser.placeholder = NSLocalizedString(@"spice_server_port", nil);
+    } else {
+        _txtUser.text = @"";
+        _txtPassword.text = @"";
+        _txtUser.placeholder = NSLocalizedString(@"flexvdi_login_user", nil);
+    }
+    
     if(!serverIP || serverIP.length==0){
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         int defaultOrientationMask = UIInterfaceOrientationMaskLandscapeRight | UIInterfaceOrientationMaskPortrait;
@@ -104,34 +133,41 @@
         
         [self performSegueWithIdentifier:@"loginToConfig" sender:self];
     } else {
-        NSString* launcherUser = [[NSUserDefaults standardUserDefaults] stringForKey:kFlexKeyLauncherUser];
-        if(!launcherUser || launcherUser.length==0){
-            return;
+        if (self.genericSpice) {
+            NSString* spiceServer = [[NSUserDefaults standardUserDefaults] stringForKey:kFlexKeySpiceServer];
+            if (!spiceServer || spiceServer.length == 0) {
+                return;
+            }
+            
+            NSString* spiceServerPort = [[NSUserDefaults standardUserDefaults] stringForKey:kFlexKeySpiceServerPort];
+            if (!spiceServerPort || spiceServerPort.length == 0) {
+                return;
+            }
+            
+            NSString *spicePassword = [[NSUserDefaults standardUserDefaults] stringForKey:kFlexKeySpicePassword];
+            if (!spicePassword || spicePassword.length == 0) {
+                return;
+            }
+        } else {
+            NSString* launcherUser = [[NSUserDefaults standardUserDefaults] stringForKey:kFlexKeyLauncherUser];
+            if(!launcherUser || launcherUser.length==0){
+                return;
+            }
+            NSString* launcherPassword = [[NSUserDefaults standardUserDefaults] stringForKey:kFlexKeyLauncherPassword];
+            if(!launcherPassword || launcherPassword.length==0){
+                return;
+            }
+            NSString* launcherDesktop = [[NSUserDefaults standardUserDefaults] stringForKey:kFlexKeyLauncherDesktop];
+            if(!launcherDesktop || launcherDesktop.length==0){
+                launcherDesktop = @"";
+            }
+            NSString* launcherDevID = [[NSUserDefaults standardUserDefaults] stringForKey:kFlexKeyLauncherDevID];
+            if(!launcherDevID || launcherDevID.length==0){
+                return;
+            }
         }
-        NSString* launcherPassword = [[NSUserDefaults standardUserDefaults] stringForKey:kFlexKeyLauncherPassword];
-        if(!launcherPassword || launcherPassword.length==0){
-            return;
-        }
-        NSString* launcherDesktop = [[NSUserDefaults standardUserDefaults] stringForKey:kFlexKeyLauncherDesktop];
-        if(!launcherDesktop || launcherDesktop.length==0){
-            launcherDesktop = @"";
-        }
-        NSString* launcherDevID = [[NSUserDefaults standardUserDefaults] stringForKey:kFlexKeyLauncherDevID];
-        if(!launcherDevID || launcherDevID.length==0){
-            return;
-        }
-        
-        self.enableAudio = [[NSUserDefaults standardUserDefaults] boolForKey:kFlexKeyEnableAudio];
-        self.enableRetina = [[NSUserDefaults standardUserDefaults] boolForKey:kFlexKeyEnableRetina];
-        self.silenceBeeper = [[NSUserDefaults standardUserDefaults] boolForKey:kFlexKeySilenceBeeper];
         
         /* Autoreconnection */
-        if (self.enableRetina) {
-            global_state.content_scale = 2;
-        } else {
-            global_state.content_scale = 1;
-        }
-        
         global_state.conn_state = AUTOCONNECT;
         
         [self performSegueWithIdentifier:@"loginToView" sender:self];
@@ -174,6 +210,7 @@
         mainViewController.enableAudio = self.enableAudio;
         mainViewController.silenceBeeper = self.silenceBeeper;
         mainViewController.pass = self.spicePassword;
+        mainViewController.genericSpice = self.genericSpice;
         _viewBackTable.hidden=TRUE;
         _tblDesktop.hidden=TRUE;
     }
@@ -206,49 +243,102 @@
 }
 - (IBAction)connect:(id)sender {
     [_txtUser resignFirstResponder];
-    
     [_txtPassword resignFirstResponder];
-    self.selectedDesktop=-1;
-    BOOL valid=true;
-    if([_txtUser.text length]==0){
-        [[self view] makeToast:NSLocalizedString(@"login_username_empty", nil) duration:ToastDurationNormal position:@"center"];
-        valid=FALSE;
-    }else if(valid&&[_txtPassword.text length]==0){
-        [[self view] makeToast:NSLocalizedString(@"login_pass_empty", nil) duration:ToastDurationNormal position:@"center"];
-        valid=FALSE;
-    }
-    NSString* serverIP = [[NSUserDefaults standardUserDefaults] stringForKey:kFlexKeyServerIP];
-    if(!serverIP || serverIP.length==0){
-        [[self view] makeToast:NSLocalizedString(@"login_serverip_empty", nil) duration:ToastDurationNormal position:@"center"];
-        valid=FALSE;
-    }
-    NSString* serverPort = [[NSUserDefaults standardUserDefaults] stringForKey:kFlexKeyServerPort];
-    if(!serverPort || serverPort.length==0){
-        [[self view] makeToast:NSLocalizedString(@"login_serverport_empty", nil) duration:ToastDurationNormal position:@"center"];
-        valid=FALSE;
-    }
     
-    self.launcherDesktop = @"";
-    
-    NSString* serverProto =nil;
-    serverProto = @"https";
-    self.useHttps = TRUE;
-    self.enableAudio = [[NSUserDefaults standardUserDefaults] boolForKey:kFlexKeyEnableAudio];
-    self.enableRetina = [[NSUserDefaults standardUserDefaults] boolForKey:kFlexKeyEnableRetina];
-    self.silenceBeeper = [[NSUserDefaults standardUserDefaults] boolForKey:kFlexKeySilenceBeeper];
+    if (self.genericSpice) {
+        NSArray<NSString *> *args = [_txtUser.text componentsSeparatedByString:@":"];
+        if (args == nil || [args count] < 2) {
+            [[self view] makeToast:NSLocalizedString(@"spice_wrong_server", nil) duration:ToastDurationNormal position:@"center"];
+            return;
+        }
+        
+        if ([_txtPassword.text length] == 0) {
+            [[self view] makeToast:NSLocalizedString(@"login_pass_empty", nil) duration:ToastDurationNormal position:@"center"];
+            return;
+        }
+     
+        engine_spice_set_connection_data([args[0] UTF8String],
+                                         [args[1] UTF8String],
+                                         [@"-1" UTF8String],
+                                         [_txtPassword.text UTF8String],
+                                         self.enableAudio);
+        
 
-    if(valid){
-        self.strUrlAuthMode = [NSString stringWithFormat:@"%@://%@:%@/vdi/authmode", serverProto,serverIP,serverPort];
-        self.strUrlDesktop = [NSString stringWithFormat:@"%@://%@:%@/vdi/desktop", serverProto,serverIP,serverPort];
-        NSLog(@"todos los parametros son validos, continuar strUrlAuthMode %@ strUrlDesktop %@",self.strUrlAuthMode,self.strUrlDesktop );
+        _txtUser.enabled = FALSE;
+        _txtPassword.enabled = FALSE;
+        _btnConnect.enabled = FALSE;
         _activityIndicator.hidden = FALSE;
         [_activityIndicator startAnimating];
-        if(self.useHttps){
-            NSLog(@"por https ");
-            NSLog(@"por https host %@",[[NSURL URLWithString:self.strUrlAuthMode] host]);
+
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            int ret = engine_spice_connect();
+        
+            dispatch_async(dispatch_get_main_queue(), ^{
+                _activityIndicator.hidden = TRUE;
+                [_activityIndicator stopAnimating];
+                _txtUser.enabled = TRUE;
+                _txtPassword.enabled = TRUE;
+                _btnConnect.enabled = TRUE;
+            });
+
+            if (ret != 0) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [[self view] makeToast:NSLocalizedString(@"connection_failed", nil) duration:ToastDurationNormal position:@"center"];
+                });
+                return;
+            }
+            
+            NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+            [prefs setObject:args[0] forKey:kFlexKeySpiceServer];
+            [prefs setObject:args[1] forKey:kFlexKeySpiceServerPort];
+            [prefs setObject:_txtPassword.text forKey:kFlexKeySpicePassword];
+        
+            global_state.conn_state = CONNECTED;
+        
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self performSegueWithIdentifier:@"loginToView" sender:self];
+            });
+        });
+    } else {
+        self.selectedDesktop=-1;
+        BOOL valid=true;
+        if([_txtUser.text length]==0){
+            [[self view] makeToast:NSLocalizedString(@"login_username_empty", nil) duration:ToastDurationNormal position:@"center"];
+            valid=FALSE;
+        }else if(valid&&[_txtPassword.text length]==0){
+            [[self view] makeToast:NSLocalizedString(@"login_pass_empty", nil) duration:ToastDurationNormal position:@"center"];
+            valid=FALSE;
         }
-        connectionState = C_NONE;
-        [self launcherConnection:nil];
+        NSString* serverIP = [[NSUserDefaults standardUserDefaults] stringForKey:kFlexKeyServerIP];
+        if(!serverIP || serverIP.length==0){
+            [[self view] makeToast:NSLocalizedString(@"login_serverip_empty", nil) duration:ToastDurationNormal position:@"center"];
+            valid=FALSE;
+        }
+        NSString* serverPort = [[NSUserDefaults standardUserDefaults] stringForKey:kFlexKeyServerPort];
+        if(!serverPort || serverPort.length==0){
+            [[self view] makeToast:NSLocalizedString(@"login_serverport_empty", nil) duration:ToastDurationNormal position:@"center"];
+            valid=FALSE;
+        }
+        
+        self.launcherDesktop = @"";
+        
+        NSString* serverProto =nil;
+        serverProto = @"https";
+        self.useHttps = TRUE;
+        
+        if(valid){
+            self.strUrlAuthMode = [NSString stringWithFormat:@"%@://%@:%@/vdi/authmode", serverProto,serverIP,serverPort];
+            self.strUrlDesktop = [NSString stringWithFormat:@"%@://%@:%@/vdi/desktop", serverProto,serverIP,serverPort];
+            
+            _txtUser.enabled = FALSE;
+            _txtPassword.enabled = FALSE;
+            _btnConnect.enabled = FALSE;
+            _activityIndicator.hidden = FALSE;
+            [_activityIndicator startAnimating];
+
+            connectionState = C_NONE;
+            [self launcherConnection:nil];
+        }
     }
 }
 
@@ -305,6 +395,9 @@
         [connection cancel];
         _activityIndicator.hidden = TRUE;
         [_activityIndicator stopAnimating];
+        _txtUser.enabled = TRUE;
+        _txtPassword.enabled = TRUE;
+        _btnConnect.enabled = TRUE;
         
         
     }
@@ -331,6 +424,9 @@
     
     _activityIndicator.hidden = TRUE;
     [_activityIndicator stopAnimating];
+    _txtUser.enabled = TRUE;
+    _txtPassword.enabled = TRUE;
+    _btnConnect.enabled = TRUE;
 }
 
 - (void)connection:(NSURLConnection *)connection willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
@@ -386,6 +482,9 @@
         if([status isEqualToString:@"OK"]){
             NSLog(@"Es OK pedir ip strUrlDesktop %@",self.strUrlDesktop );
             
+            _txtUser.enabled = FALSE;
+            _txtPassword.enabled = FALSE;
+            _btnConnect.enabled = FALSE;
             _activityIndicator.hidden = FALSE;
             [_activityIndicator startAnimating];
             
@@ -411,9 +510,13 @@
             [[self view] makeToast:message duration:ToastDurationNormal position:@"center"];
             _activityIndicator.hidden = TRUE;
             [_activityIndicator stopAnimating];
+            _txtUser.enabled = TRUE;
+            _txtPassword.enabled = TRUE;
+            _btnConnect.enabled = TRUE;
         }
     } else if (connectionState == C_DESKTOP_POLICY){
         NSLog(@"C_DESKTOP_POLICY");
+        
         _activityIndicator.hidden = TRUE;
         [_activityIndicator stopAnimating];
         
@@ -470,7 +573,7 @@
                 self.use_ws = NO;
             }
             
-            if (self.enableRetina && UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad)
+            if (self.enableRetina /*&& UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad*/)
             {
                 global_state.content_scale = 2;
             } else {
@@ -526,26 +629,16 @@
     NSLog(@"didSelectRowAtIndexPath %ld",(long)indexPath.row);
     
     self.selectedDesktop=(int)indexPath.row;
-    NSLog(@"didSelectRowAtIndexPath self.selectedDesktop %d",self.selectedDesktop);
     NSString *desktop=[self.desktopsKeys objectAtIndex:self.selectedDesktop];
     
     self.launcherDesktop = desktop;
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     [prefs setObject:desktop forKey:kFlexKeyLauncherDesktop];
 
-    NSLog(@"didSelectRowAtIndexPath desktopsKeys %@",[self.desktopsKeys objectAtIndex:self.selectedDesktop]);
-    NSLog(@"didSelectRowAtIndexPath desktops%@",[self.desktops objectAtIndex:self.selectedDesktop]);
-    _activityIndicator.hidden=FALSE;
-    [_activityIndicator startAnimating];
-    
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:self.strUrlDesktop]];
     [request setHTTPMethod:@"POST"];
-    
-    //{"hwaddress": "78:2b:cb:e8:3a:57"}
+
     NSString *body = [NSString stringWithFormat:@"{\"hwaddress\": \"%@\", \"username\": \"%@\", \"password\": \"%@\", \"desktop\": \"%@\"}", _deviceID.text,_txtUser.text,_txtPassword.text,desktop];
-    
-    
-    NSLog(@"body %@",body);
     
     NSData *postData = [body dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
     [request setHTTPBody:postData];
@@ -553,8 +646,10 @@
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     
     NSURLConnection *connectionDesktop =[[NSURLConnection alloc] initWithRequest:request delegate:self];
-    NSLog(@"antes de connectionDesktop start");
-    //connectionState = C_DESKTOP_POLICY;
+
+    _txtUser.enabled = FALSE;
+    _txtPassword.enabled = FALSE;
+    _btnConnect.enabled = FALSE;
     _tblDesktop.hidden = TRUE;
     _activityIndicator.hidden = FALSE;
     [_activityIndicator startAnimating];

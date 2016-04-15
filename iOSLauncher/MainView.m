@@ -82,7 +82,7 @@ MainView *mainView;
     //[super dealloc];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
+- (void)stopRenderer
 {
     [displayLink removeFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
     displayLink = nil;

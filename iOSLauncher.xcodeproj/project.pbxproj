@@ -8,15 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		BE1A4AD01A0D1399002983C2 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = BE1A4ACF1A0D1399002983C2 /* Reachability.m */; };
+		BE21B5AC1CBFD958001B401B /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE21B5A71CBFD958001B401B /* libcrypto.a */; };
+		BE21B5AD1CBFD958001B401B /* libnopoll.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE21B5A81CBFD958001B401B /* libnopoll.a */; };
+		BE21B5AE1CBFD958001B401B /* libspice-client-glib-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE21B5A91CBFD958001B401B /* libspice-client-glib-2.0.a */; };
+		BE21B5AF1CBFD958001B401B /* libspiceglue.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE21B5AA1CBFD958001B401B /* libspiceglue.a */; };
+		BE21B5B01CBFD958001B401B /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE21B5AB1CBFD958001B401B /* libssl.a */; };
 		BE3013431BD67AF400EE5B7D /* GStreamer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE3013421BD67AF400EE5B7D /* GStreamer.framework */; };
 		BE3013461BD67BE900EE5B7D /* gst_ios_init.m in Sources */ = {isa = PBXBuildFile; fileRef = BE3013451BD67BE900EE5B7D /* gst_ios_init.m */; };
 		BE3013561BD7873700EE5B7D /* flexvdi_ios_central2.png in Resources */ = {isa = PBXBuildFile; fileRef = BE3013551BD7873700EE5B7D /* flexvdi_ios_central2.png */; };
 		BE3013581BD7907C00EE5B7D /* flexvdi_config_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = BE3013571BD7907C00EE5B7D /* flexvdi_config_logo.png */; };
-		BE3F13711BCEACBE00334757 /* libspice-mono-glue.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE3F13701BCEACBE00334757 /* libspice-mono-glue.a */; };
-		BE4AF8A71BC68033007022C3 /* libspice-client-glib-2.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE4AF8A61BC68033007022C3 /* libspice-client-glib-2.0.a */; };
-		BE4AF8A91BC68446007022C3 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE4AF8A81BC68446007022C3 /* libssl.a */; };
-		BE4AF8AB1BC68461007022C3 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE4AF8AA1BC68461007022C3 /* libcrypto.a */; };
-		BE4AF8AD1BC68481007022C3 /* libnopoll.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE4AF8AC1BC68481007022C3 /* libnopoll.a */; };
 		BE588B161A24EE4000ACED16 /* beep-timber.aif in Resources */ = {isa = PBXBuildFile; fileRef = BE588B151A24EE4000ACED16 /* beep-timber.aif */; };
 		BE5D39441A1233A7008C2094 /* config_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = BE5D39411A1233A7008C2094 /* config_icon.png */; };
 		BE5D39451A1233A7008C2094 /* flexvdi_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = BE5D39421A1233A7008C2094 /* flexvdi_icon.png */; };
@@ -56,6 +56,13 @@
 /* Begin PBXFileReference section */
 		BE1A4ACE1A0D1399002983C2 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		BE1A4ACF1A0D1399002983C2 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		BE21B5A71CBFD958001B401B /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = ../../cerbero/dist/ios_universal/lib/libcrypto.a; sourceTree = "<group>"; };
+		BE21B5A81CBFD958001B401B /* libnopoll.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libnopoll.a; path = ../../cerbero/dist/ios_universal/lib/libnopoll.a; sourceTree = "<group>"; };
+		BE21B5A91CBFD958001B401B /* libspice-client-glib-2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libspice-client-glib-2.0.a"; path = "../../cerbero/dist/ios_universal/lib/libspice-client-glib-2.0.a"; sourceTree = "<group>"; };
+		BE21B5AA1CBFD958001B401B /* libspiceglue.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libspiceglue.a; path = ../../cerbero/dist/ios_universal/lib/libspiceglue.a; sourceTree = "<group>"; };
+		BE21B5AB1CBFD958001B401B /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = ../../cerbero/dist/ios_universal/lib/libssl.a; sourceTree = "<group>"; };
+		BE21B5B21CBFE190001B401B /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main_iPad.strings; sourceTree = "<group>"; };
+		BE21B5B41CBFE1BD001B401B /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
 		BE3013421BD67AF400EE5B7D /* GStreamer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GStreamer.framework; path = ../../../../Library/Frameworks/GStreamer.framework; sourceTree = "<group>"; };
 		BE3013441BD67BC100EE5B7D /* gst_ios_init.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gst_ios_init.h; sourceTree = "<group>"; };
 		BE3013451BD67BE900EE5B7D /* gst_ios_init.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = gst_ios_init.m; sourceTree = "<group>"; };
@@ -67,17 +74,10 @@
 		BE3013511BD680FA00EE5B7D /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		BE3013551BD7873700EE5B7D /* flexvdi_ios_central2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flexvdi_ios_central2.png; sourceTree = "<group>"; };
 		BE3013571BD7907C00EE5B7D /* flexvdi_config_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flexvdi_config_logo.png; sourceTree = "<group>"; };
-		BE3F13701BCEACBE00334757 /* libspice-mono-glue.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libspice-mono-glue.a"; path = "../../cerbero/dist/ios_universal/lib/libspice-mono-glue.a"; sourceTree = "<group>"; };
-		BE4AF8A61BC68033007022C3 /* libspice-client-glib-2.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libspice-client-glib-2.0.a"; path = "../../cerbero/dist/ios_universal/lib/libspice-client-glib-2.0.a"; sourceTree = "<group>"; };
-		BE4AF8A81BC68446007022C3 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = ../../cerbero/dist/ios_universal/lib/libssl.a; sourceTree = "<group>"; };
-		BE4AF8AA1BC68461007022C3 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = ../../cerbero/dist/ios_universal/lib/libcrypto.a; sourceTree = "<group>"; };
-		BE4AF8AC1BC68481007022C3 /* libnopoll.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libnopoll.a; path = ../../cerbero/dist/ios_universal/lib/libnopoll.a; sourceTree = "<group>"; };
 		BE588B151A24EE4000ACED16 /* beep-timber.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = "beep-timber.aif"; sourceTree = "<group>"; };
 		BE5D39411A1233A7008C2094 /* config_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = config_icon.png; sourceTree = "<group>"; };
 		BE5D39421A1233A7008C2094 /* flexvdi_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flexvdi_icon.png; sourceTree = "<group>"; };
 		BE5D394C1A1255D2008C2094 /* barra_sup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = barra_sup.png; sourceTree = "<group>"; };
-		BE64382C1CBD07C900742F1B /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
-		BE64382D1CBD07C900742F1B /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main_iPad.strings; sourceTree = "<group>"; };
 		BE64382F1CBD096800742F1B /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		BE6438311CBD09BA00742F1B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		BE6438321CBD0CC500742F1B /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -139,6 +139,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE21B5AC1CBFD958001B401B /* libcrypto.a in Frameworks */,
+				BE21B5AD1CBFD958001B401B /* libnopoll.a in Frameworks */,
+				BE21B5AE1CBFD958001B401B /* libspice-client-glib-2.0.a in Frameworks */,
+				BE21B5AF1CBFD958001B401B /* libspiceglue.a in Frameworks */,
+				BE21B5B01CBFD958001B401B /* libssl.a in Frameworks */,
 				BEFD10BD1BD7C9E100223664 /* AssetsLibrary.framework in Frameworks */,
 				BEFD10BC1BD7C9D500223664 /* AVFoundation.framework in Frameworks */,
 				BEFD10BB1BD7C9BD00223664 /* CoreMedia.framework in Frameworks */,
@@ -151,11 +156,6 @@
 				D8FD56351A03A77A00292158 /* UIKit.framework in Frameworks */,
 				D8FD56371A03A77A00292158 /* GLKit.framework in Frameworks */,
 				D8FD56311A03A77A00292158 /* Foundation.framework in Frameworks */,
-				BE4AF8AB1BC68461007022C3 /* libcrypto.a in Frameworks */,
-				BE4AF8A91BC68446007022C3 /* libssl.a in Frameworks */,
-				BE4AF8AD1BC68481007022C3 /* libnopoll.a in Frameworks */,
-				BE4AF8A71BC68033007022C3 /* libspice-client-glib-2.0.a in Frameworks */,
-				BE3F13711BCEACBE00334757 /* libspice-mono-glue.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -199,6 +199,11 @@
 		D8FD562F1A03A77A00292158 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BE21B5A71CBFD958001B401B /* libcrypto.a */,
+				BE21B5A81CBFD958001B401B /* libnopoll.a */,
+				BE21B5A91CBFD958001B401B /* libspice-client-glib-2.0.a */,
+				BE21B5AA1CBFD958001B401B /* libspiceglue.a */,
+				BE21B5AB1CBFD958001B401B /* libssl.a */,
 				BEFD10B81BD7A9F700223664 /* AssetsLibrary.framework */,
 				BEFD10B61BD7A9ED00223664 /* AdSupport.framework */,
 				BE3013511BD680FA00EE5B7D /* VideoToolbox.framework */,
@@ -216,11 +221,6 @@
 				D8FD56361A03A77A00292158 /* GLKit.framework */,
 				D8FD56381A03A77A00292158 /* OpenGLES.framework */,
 				D8FD565A1A03A77A00292158 /* XCTest.framework */,
-				BE4AF8AA1BC68461007022C3 /* libcrypto.a */,
-				BE4AF8A81BC68446007022C3 /* libssl.a */,
-				BE4AF8AC1BC68481007022C3 /* libnopoll.a */,
-				BE4AF8A61BC68033007022C3 /* libspice-client-glib-2.0.a */,
-				BE3F13701BCEACBE00334757 /* libspice-mono-glue.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -438,7 +438,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				BEE6190A1A13696800448F71 /* Base */,
-				BE64382D1CBD07C900742F1B /* es */,
+				BE21B5B21CBFE190001B401B /* es */,
 			);
 			name = Main_iPad.storyboard;
 			sourceTree = "<group>";
@@ -455,7 +455,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				D8FD56471A03A77A00292158 /* Base */,
-				BE64382C1CBD07C900742F1B /* es */,
+				BE21B5B41CBFE1BD001B401B /* es */,
 			);
 			name = Main_iPhone.storyboard;
 			sourceTree = "<group>";
@@ -566,7 +566,7 @@
 				);
 				GCC_DYNAMIC_NO_PIC = YES;
 				GCC_LINK_WITH_DYNAMIC_LIBRARIES = YES;
-				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iOSLauncher/iOSLauncher-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
@@ -604,6 +604,7 @@
 				);
 				GCC_DYNAMIC_NO_PIC = YES;
 				GCC_LINK_WITH_DYNAMIC_LIBRARIES = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iOSLauncher/iOSLauncher-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "";

@@ -21,6 +21,11 @@
 #define kFlexKeyEnableRetina @"EnableRetina"
 #define kFlexKeySilenceBeeper @"SilenceBeeper"
 
+#define kFlexKeyGenericSpice @"GenericSpice"
+#define kFlexKeySpiceServer @"SpiceServer"
+#define kFlexKeySpiceServerPort @"SpiceServerPort"
+#define kFlexKeySpicePassword @"SpicePassword"
+
 #define kFlexKeyConnectionAuthMode @"ConnectionAuthMode"
 #define kFlexKeyConnectionDesktop @"ConnectionDesktop"
 

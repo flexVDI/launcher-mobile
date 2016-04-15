@@ -17,6 +17,7 @@
     Boolean fixOrientation;
     Boolean keyboardRequested;
 @private
+    MainView *mainView;
     UITapGestureRecognizer *tapRecognizer;
     UITapGestureRecognizer *doubleTapRecognizer;
     UILongPressGestureRecognizer *longPressRecognizer;
@@ -73,6 +74,7 @@ enum reconnectionStates {
 @property (nonatomic) BOOL use_ws;
 @property (nonatomic) BOOL enableAudio;
 @property (nonatomic) BOOL silenceBeeper;
+@property (nonatomic) BOOL genericSpice;
 
 @end
 

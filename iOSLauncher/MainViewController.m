@@ -117,6 +117,13 @@ MainViewController *mainViewController;
                                    userInfo:nil
                                     repeats:NO];
     }
+    
+    mainView = (MainView *) self.view;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [mainView stopRenderer];
 }
 
 - (void)didReceiveMemoryWarning
@@ -1110,6 +1117,10 @@ MainViewController *mainViewController;
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:kFlexKeyLauncherUser];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:kFlexKeyLauncherPassword];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:kFlexKeyLauncherDesktop];
+    
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kFlexKeySpiceServer];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kFlexKeySpiceServerPort];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kFlexKeySpicePassword];
 }
 
 -(void)waitForNetwork
@@ -1228,6 +1239,10 @@ MainViewController *mainViewController;
                         return;
                     }
                     
+                    if (self.genericSpice) {
+                        break;
+                    }
+                    
                     if (connDesiredState != CONNECTED) {
                         return;
                     }
@@ -1344,6 +1359,36 @@ void native_resolution_change(int changing) {
 {
     if (reconnectionState == R_NONE) {
         NSLog(@"R_NONE");
+        
+        if (self.genericSpice) {
+            NSString* spiceServer = [[NSUserDefaults standardUserDefaults] stringForKey:kFlexKeySpiceServer];
+            if (!spiceServer || spiceServer.length == 0) {
+                return;
+            }
+            
+            NSString* spiceServerPort = [[NSUserDefaults standardUserDefaults] stringForKey:kFlexKeySpiceServerPort];
+            if (!spiceServerPort || spiceServerPort.length == 0) {
+                return;
+            }
+            
+            NSString* spicePassword = [[NSUserDefaults standardUserDefaults] stringForKey:kFlexKeySpicePassword];
+            if (!spicePassword || spicePassword.length == 0) {
+                return;
+            }
+            
+            self.ip = spiceServer;
+            self.port = spiceServerPort;
+            self.pass = spicePassword;
+            
+            engine_spice_set_connection_data([self.ip UTF8String],
+                                             [self.port UTF8String],
+                                             [@"-1" UTF8String],
+                                             [self.pass UTF8String],
+                                             self.enableAudio);
+            
+            reconnectionState = R_SPICE;
+            return;
+        }
         
         NSString* launcherUser = [[NSUserDefaults standardUserDefaults] stringForKey:kFlexKeyLauncherUser];
         if(!launcherUser || launcherUser.length==0){

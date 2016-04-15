@@ -11,17 +11,20 @@
 /* Class = "UILabel"; text = "..."; ObjectID = "BZa-MA-iv9"; */
 "BZa-MA-iv9.text" = "...";
 
-/* Class = "UITextField"; placeholder = "Contraseña"; ObjectID = "J70-mi-eRn"; */
-"J70-mi-eRn.placeholder" = "Contraseña";
+/* Class = "UITextField"; placeholder = "contraseña"; ObjectID = "J70-mi-eRn"; */
+"J70-mi-eRn.placeholder" = "contraseña";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "KBI-yz-Hkc"; */
 "KBI-yz-Hkc.text" = "Label";
 
+/* Class = "UILabel"; text = "Generic SPICE"; ObjectID = "QfZ-BD-430"; */
+"QfZ-BD-430.text" = "SPICE Genérico";
+
 /* Class = "UILabel"; text = "Label"; ObjectID = "XFY-Zb-mjp"; */
 "XFY-Zb-mjp.text" = "Label";
 
-/* Class = "UIButton"; normalTitle = "Conectar"; ObjectID = "bL9-1o-vby"; */
-"bL9-1o-vby.normalTitle" = "Conectar";
+/* Class = "UIButton"; normalTitle = "conectar"; ObjectID = "bL9-1o-vby"; */
+"bL9-1o-vby.normalTitle" = "conectar";
 
 /* Class = "UILabel"; text = "..."; ObjectID = "brh-Xp-YRp"; */
 "brh-Xp-YRp.text" = "...";
@@ -32,8 +35,8 @@
 /* Class = "UILabel"; text = "identificador de terminal"; ObjectID = "fQE-V9-ogl"; */
 "fQE-V9-ogl.text" = "identificador de terminal";
 
-/* Class = "UITextField"; placeholder = "Usuario"; ObjectID = "jv1-WR-81C"; */
-"jv1-WR-81C.placeholder" = "Usuario";
+/* Class = "UITextField"; placeholder = "usuario"; ObjectID = "jv1-WR-81C"; */
+"jv1-WR-81C.placeholder" = "usuario";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "k5Z-5U-KhU"; */
 "k5Z-5U-KhU.text" = "Label";
@@ -46,3 +49,6 @@
 
 /* Class = "UILabel"; text = "Puerto"; ObjectID = "qp9-8a-x84"; */
 "qp9-8a-x84.text" = "Puerto";
+
+/* Class = "UILabel"; text = "Retina Mode"; ObjectID = "raO-Sy-7cn"; */
+"raO-Sy-7cn.text" = "Modo Retina";

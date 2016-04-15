@@ -46,39 +46,52 @@
     }
     
     NSString* serverIP = [[NSUserDefaults standardUserDefaults] stringForKey:kFlexKeyServerIP];
-    NSLog(@"serverIP %@",serverIP);
-    if(serverIP){
-        _txtIp.text=serverIP;
+    if (serverIP) {
+        _txtIp.text = serverIP;
     }
+    
     NSString* serverPort = [[NSUserDefaults standardUserDefaults] stringForKey:kFlexKeyServerPort];
-    NSLog(@"serverPort %@",serverPort);
-    if(serverPort){
-        _txtPort.text=serverPort;
+    if (serverPort) {
+        _txtPort.text = serverPort;
     } else {
-        _txtPort.text=@"443";
+        _txtPort.text = @"443";
     }
+    
     NSString *serverDomain = [[NSUserDefaults standardUserDefaults] stringForKey:kFlexKeyServerDomain];
-    NSLog(@"serverDomain %@",serverDomain);
-    if(serverDomain){
-        _txtDomain.text=serverDomain;
+    if (serverDomain) {
+        _txtDomain.text = serverDomain;
     }
     
-    if([[NSUserDefaults standardUserDefaults] boolForKey:kFlexKeyEnableAudio]==TRUE){;
-        _enableAudio.on=TRUE;
-    }else{
-        _enableAudio.on=FALSE;
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:kFlexKeyEnableAudio] == TRUE){;
+        _enableAudio.on = TRUE;
+    } else {
+        _enableAudio.on = FALSE;
     }
     
-    if([[NSUserDefaults standardUserDefaults] boolForKey:kFlexKeyEnableRetina]==TRUE){;
-        _enableRetina.on=TRUE;
-    }else{
-        _enableRetina.on=FALSE;
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:kFlexKeyEnableRetina] == nil) {
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+            _enableRetina.on = FALSE;
+        } else {
+            _enableRetina.on = TRUE;
+        }
+    } else {
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:kFlexKeyEnableRetina] == TRUE){
+            _enableRetina.on = TRUE;
+        } else {
+            _enableRetina.on = FALSE;
+        }
     }
     
-    if([[NSUserDefaults standardUserDefaults] boolForKey:kFlexKeySilenceBeeper]==TRUE){;
-        _silenceBeeper.on=TRUE;
-    }else{
-        _silenceBeeper.on=FALSE;
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:kFlexKeySilenceBeeper] == TRUE){
+        _silenceBeeper.on = TRUE;
+    } else {
+        _silenceBeeper.on = FALSE;
+    }
+    
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:kFlexKeyGenericSpice] == TRUE){
+        _genericSpice.on = TRUE;
+    } else {
+        _genericSpice.on = FALSE;
     }
     
     _btnSave.layer.cornerRadius = 10.0f;
@@ -157,6 +170,13 @@
         [prefs setBool:NO forKey:kFlexKeySilenceBeeper];
     }
     
+    if([_genericSpice isOn]){
+        [prefs setBool:TRUE forKey:kFlexKeyGenericSpice];
+        
+    }else{
+        [prefs setBool:NO forKey:kFlexKeyGenericSpice];
+    }
+    
     [prefs synchronize];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -210,6 +230,13 @@
         
     }else{
         [prefs setBool:NO forKey:kFlexKeySilenceBeeper];
+    }
+    
+    if([_genericSpice isOn]){
+        [prefs setBool:TRUE forKey:kFlexKeyGenericSpice];
+        
+    }else{
+        [prefs setBool:NO forKey:kFlexKeyGenericSpice];
     }
     
     [prefs synchronize];

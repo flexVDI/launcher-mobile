@@ -1,5 +1,7 @@
 void engine_init_buffer(int width, int height);
 
+void engine_free_buffer(void);
+
 void engine_init_screen(void);
 
 int engine_draw(int width, int height);

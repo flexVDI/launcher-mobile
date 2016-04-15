@@ -8,6 +8,9 @@
 
 "ask_server_data" = "Please, enter your server information";
 
+"spice_wrong_server" = "Invalid server:port string";
+"spice_server_port" = "server:port";
+"flexvdi_login_user" = "user";
 "login_username_empty" = "Please enter your username";
 "login_pass_empty" = "Please enter your password";
 

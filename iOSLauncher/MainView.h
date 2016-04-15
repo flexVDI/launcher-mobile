@@ -22,6 +22,8 @@
     CADisplayLink *displayLink;
 }
 
+- (void)stopRenderer;
+
 @property (nonatomic, weak) id<MenuDelegate> delegate;
 
 - (void)drawView:(id)sender;
