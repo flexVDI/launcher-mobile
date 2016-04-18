@@ -25,6 +25,269 @@
 #import "draw.h"
 #import "ctype.h"
 
+typedef struct {
+    char tc;
+    int prekey;
+    int special_prekey;
+    int special_key;
+    int key;
+} charToKeys;
+
+typedef struct {
+    char tc;
+    char ext1;
+    char ext2;
+    int prekey;
+    int special_prekey;
+    int special_key;
+    int key;
+} extCharToKeys;
+
+charToKeys *keyboardMap = NULL;
+extCharToKeys *extKeyboardMap = NULL;
+int keyboardMapSize = 0;
+int extKeyboardMapSize = 0;
+
+extCharToKeys pc104_es_ext[] = {
+    {194, 161, 0, 0x0, 0x0, 0x0, 0x0d}, // ¡
+    {194, 191, 0, 0x0, 0x0, 0x36, 0x0d}, // ¿
+    {194, 186, 0, 0x0, 0x0, 0x0, 0x29}, // º
+    {194, 170, 0, 0x0, 0x0, 0x36, 0x29}, // ª
+    {194, 169, 0, 0x0, 0x0, 0x1d, 0x2e}, // Ctrl + C
+    {194, 174, 0, 0x0, 0x0, 0x1d, 0x13},
+    
+    {195, 177, 0, 0x0, 0x0, 0x0, 0x27}, // ñ
+    {195, 145, 0, 0x0, 0x0, 0x36, 0x27}, // ñ
+    {195, 167, 0, 0x0, 0x0, 0x0, 0x2b}, // ç
+    {195, 135, 0, 0x0, 0x0, 0x36, 0x2b}, // Ç
+    {195, 161, 0, 0x28, 0x0, 0x0, 0x1e}, // á
+    {195, 169, 0, 0x28, 0x0, 0x0, 0x12}, // é
+    {195, 173, 0, 0x28, 0x0, 0x0, 0x17}, // í
+    {195, 179, 0, 0x28, 0x0, 0x0, 0x18}, // ó
+    {195, 186, 0, 0x28, 0x0, 0x0, 0x16}, // ú
+    {195, 188, 0, 0x28, 0x36, 0x0, 0x16}, // ü
+    {195, 129, 0, 0x28, 0x0, 0x36, 0x1e}, // Á
+    {195, 137, 0, 0x28, 0x0, 0x36, 0x12}, // É
+    {195, 141, 0, 0x28, 0x0, 0x36, 0x17}, // Í
+    {195, 147, 0, 0x28, 0x0, 0x36, 0x18}, // Ó
+    {195, 154, 0, 0x28, 0x0, 0x36, 0x16}, // Ú
+    {195, 156, 0, 0x28, 0x36, 0x36, 0x16}, // Ü
+    {195, 159, 0, 0x0, 0x0, 0x1d, 0x30}, // Ctrl + B
+    
+    {197, 147, 0, 0x0, 0x0, 0x38, 0x0f}, // Alt + Tab
+    
+    {198, 146, 0, 0x0, 0x0, 0x1d, 0x21}, // Ctrl + F
+    
+    {206, 169, 0, 0x0, 0x0, 0x1d, 0x2c}, // Ctrl + Z
+    
+    {226, 130, 172, 0x0, 0x0, 0x138, 0x12}, // Euro
+    {226, 137, 164, 0x0, 0x0, 0x138, 0x29}, // Backslash
+    {226, 136, 145, 0x0, 0x0, 0x1d, 0x2d}, // Ctrl + X
+    {226, 136, 154, 0x0, 0x0, 0x1d, 0x2f}, // Ctrl + V
+    {226, 136, 130, 0x0, 0x0, 0x1d, 0x20} // Ctrl + D
+};
+
+charToKeys pc104_es[] = {
+    {9, 0x0, 0x0, 0x0, 0xf}, // Tab
+    {'a', 0x0, 0x0, 0x0, 0x1e},
+    {'b', 0x0, 0x0, 0x0, 0x30},
+    {'c', 0x0, 0x0, 0x0, 0x2e},
+    {'d', 0x0, 0x0, 0x0, 0x20},
+    {'e', 0x0, 0x0, 0x0, 0x12},
+    {'f', 0x0, 0x0, 0x0, 0x21},
+    {'g', 0x0, 0x0, 0x0, 0x22},
+    {'h', 0x0, 0x0, 0x0, 0x23},
+    {'i', 0x0, 0x0, 0x0, 0x17},
+    {'j', 0x0, 0x0, 0x0, 0x24},
+    {'k', 0x0, 0x0, 0x0, 0x25},
+    {'l', 0x0, 0x0, 0x0, 0x26},
+    {'m', 0x0, 0x0, 0x0, 0x32},
+    {'n', 0x0, 0x0, 0x0, 0x31},
+    {'o', 0x0, 0x0, 0x0, 0x18},
+    {'p', 0x0, 0x0, 0x0, 0x19},
+    {'q', 0x0, 0x0, 0x0, 0x10},
+    {'r', 0x0, 0x0, 0x0, 0x13},
+    {'s', 0x0, 0x0, 0x0, 0x1f},
+    {'t', 0x0, 0x0, 0x0, 0x14},
+    {'u', 0x0, 0x0, 0x0, 0x16},
+    {'v', 0x0, 0x0, 0x0, 0x2f},
+    {'w', 0x0, 0x0, 0x0, 0x11},
+    {'x', 0x0, 0x0, 0x0, 0x2d},
+    {'y', 0x0, 0x0, 0x0, 0x15},
+    {'z', 0x0, 0x0, 0x0, 0x2c},
+    {'1', 0x0, 0x0, 0x0, 0x02},
+    {'2', 0x0, 0x0, 0x0, 0x03},
+    {'3', 0x0, 0x0, 0x0, 0x04},
+    {'4', 0x0, 0x0, 0x0, 0x05},
+    {'5', 0x0, 0x0, 0x0, 0x06},
+    {'6', 0x0, 0x0, 0x0, 0x07},
+    {'7', 0x0, 0x0, 0x0, 0x08},
+    {'8', 0x0, 0x0, 0x0, 0x09},
+    {'9', 0x0, 0x0, 0x0, 0x0a},
+    {'0', 0x0, 0x0, 0x0, 0x0b},
+    {' ', 0x0, 0x0, 0x0, 0x39},
+    {'!', 0x0, 0x0, 0x36, 0x02},
+    {'@', 0x0, 0x0, 0x138, 0x03},
+    {'"', 0x0, 0x0, 0x36, 0x03},
+    {'\'', 0x0, 0x0, 0x0, 0x0c},
+    {'#', 0x0, 0x0, 0x138, 0x04},
+    {'~', 0x0, 0x0, 0x138, 0x05},
+    {'$', 0x0, 0x0, 0x36, 0x05},
+    {'%', 0x0, 0x0, 0x36, 0x06},
+    {'&', 0x0, 0x0, 0x36, 0x07},
+    {'/', 0x0, 0x0, 0x36, 0x08},
+    {'(', 0x0, 0x0, 0x36, 0x09},
+    {')', 0x0, 0x0, 0x36, 0x0a},
+    {'=', 0x0, 0x0, 0x36, 0x0b},
+    {'?', 0x0, 0x0, 0x36, 0x0c},
+    {'-', 0x0, 0x0, 0x0, 0x35},
+    {'_', 0x0, 0x0, 0x36, 0x35},
+    {';', 0x0, 0x0, 0x36, 0x33},
+    {',', 0x0, 0x0, 0x0, 0x33},
+    {'.', 0x0, 0x0, 0x0, 0x34},
+    {':', 0x0, 0x0, 0x36, 0x34},
+    {'{', 0x0, 0x0, 0x138, 0x28},
+    {'}', 0x0, 0x0, 0x138, 0x2b},
+    {'[', 0x0, 0x0, 0x138, 0x1a},
+    {']', 0x0, 0x0, 0x138, 0x1b},
+    {'*', 0x0, 0x0, 0x36, 0x1b},
+    {'+', 0x0, 0x0, 0x0, 0x1b},
+    {'\\', 0x0, 0x0, 0x138, 0x29},
+    {'|', 0x0, 0x0, 0x138, 0x02},
+    {'^', 0x0, 0x0, 0x36, 0x1a},
+    {'`', 0x0, 0x0, 0x0, 0x1a},
+    {'<', 0x0, 0x0, 0x0, 0x56},
+    {'>', 0x0, 0x0, 0x36, 0x56},
+    {'\n', 0x0, 0x0, 0x0, 0x1c},
+};
+
+extCharToKeys pc104_us_ext[] = {
+    {195, 167, 0, 0x0, 0x0, 0x1d, 0x2e}, // Ctrl + C
+    {197, 147, 0, 0x0, 0x0, 0x38, 0x0f}, // Alt + Tab
+    {198, 146, 0, 0x0, 0x0, 0x1d, 0x21}, // Ctrl + F
+    {206, 169, 0, 0x0, 0x0, 0x1d, 0x2c}, // Ctrl + Z
+    {226, 137, 136, 0x0, 0x0, 0x1d, 0x2d}, // Ctrl + X
+    {226, 136, 154, 0x0, 0x0, 0x1d, 0x2f}, // Ctrl + V
+    {226, 136, 171, 0x0, 0x0, 0x1d, 0x30}, // Ctrl + B
+    {226, 136, 130, 0x0, 0x0, 0x1d, 0x20} // Ctrl + D
+};
+
+charToKeys pc104_us[] = {
+    {9, 0x0, 0x0, 0x0, 0xf}, // Tab
+    {'a', 0x0, 0x0, 0x0, 0x1e},
+    {'b', 0x0, 0x0, 0x0, 0x30},
+    {'c', 0x0, 0x0, 0x0, 0x2e},
+    {'d', 0x0, 0x0, 0x0, 0x20},
+    {'e', 0x0, 0x0, 0x0, 0x12},
+    {'f', 0x0, 0x0, 0x0, 0x21},
+    {'g', 0x0, 0x0, 0x0, 0x22},
+    {'h', 0x0, 0x0, 0x0, 0x23},
+    {'i', 0x0, 0x0, 0x0, 0x17},
+    {'j', 0x0, 0x0, 0x0, 0x24},
+    {'k', 0x0, 0x0, 0x0, 0x25},
+    {'l', 0x0, 0x0, 0x0, 0x26},
+    {'m', 0x0, 0x0, 0x0, 0x32},
+    {'n', 0x0, 0x0, 0x0, 0x31},
+    {'o', 0x0, 0x0, 0x0, 0x18},
+    {'p', 0x0, 0x0, 0x0, 0x19},
+    {'q', 0x0, 0x0, 0x0, 0x10},
+    {'r', 0x0, 0x0, 0x0, 0x13},
+    {'s', 0x0, 0x0, 0x0, 0x1f},
+    {'t', 0x0, 0x0, 0x0, 0x14},
+    {'u', 0x0, 0x0, 0x0, 0x16},
+    {'v', 0x0, 0x0, 0x0, 0x2f},
+    {'w', 0x0, 0x0, 0x0, 0x11},
+    {'x', 0x0, 0x0, 0x0, 0x2d},
+    {'y', 0x0, 0x0, 0x0, 0x15},
+    {'z', 0x0, 0x0, 0x0, 0x2c},
+    {'1', 0x0, 0x0, 0x0, 0x02},
+    {'2', 0x0, 0x0, 0x0, 0x03},
+    {'3', 0x0, 0x0, 0x0, 0x04},
+    {'4', 0x0, 0x0, 0x0, 0x05},
+    {'5', 0x0, 0x0, 0x0, 0x06},
+    {'6', 0x0, 0x0, 0x0, 0x07},
+    {'7', 0x0, 0x0, 0x0, 0x08},
+    {'8', 0x0, 0x0, 0x0, 0x09},
+    {'9', 0x0, 0x0, 0x0, 0x0a},
+    {'0', 0x0, 0x0, 0x0, 0x0b},
+    {' ', 0x0, 0x0, 0x0, 0x39},
+    {'!', 0x0, 0x0, 0x36, 0x02},
+    {'@', 0x0, 0x0, 0x36, 0x03},
+    {'"', 0x0, 0x0, 0x36, 0x28},
+    {'\'', 0x0, 0x0, 0x0, 0x28},
+    {'#', 0x0, 0x0, 0x36, 0x04},
+    {'~', 0x0, 0x0, 0x36, 0x29},
+    {'$', 0x0, 0x0, 0x36, 0x05},
+    {'%', 0x0, 0x0, 0x36, 0x06},
+    {'&', 0x0, 0x0, 0x36, 0x08},
+    {'/', 0x0, 0x0, 0x0, 0x35},
+    {'(', 0x0, 0x0, 0x36, 0x0a},
+    {')', 0x0, 0x0, 0x36, 0x0b},
+    {'=', 0x0, 0x0, 0x0, 0x0d},
+    {'+', 0x0, 0x0, 0x36, 0x0d},
+    {'?', 0x0, 0x0, 0x36, 0x35},
+    {'-', 0x0, 0x0, 0x0, 0x0c},
+    {'_', 0x0, 0x0, 0x36, 0x0c},
+    {';', 0x0, 0x0, 0x36, 0x27},
+    {',', 0x0, 0x0, 0x0, 0x33},
+    {'.', 0x0, 0x0, 0x0, 0x34},
+    {':', 0x0, 0x0, 0x0, 0x27},
+    {'{', 0x0, 0x0, 0x36, 0x1a},
+    {'}', 0x0, 0x0, 0x36, 0x1b},
+    {'[', 0x0, 0x0, 0x0, 0x1a},
+    {']', 0x0, 0x0, 0x0, 0x1b},
+    {'*', 0x0, 0x0, 0x36, 0x09},
+    {'+', 0x0, 0x0, 0x0, 0x1b},
+    {'\\', 0x0, 0x0, 0x0, 0x2b},
+    {'|', 0x0, 0x0, 0x36, 0x2b},
+    {'^', 0x0, 0x0, 0x36, 0x07},
+    {'`', 0x0, 0x0, 0x0, 0x29},
+    {'<', 0x0, 0x0, 0x36, 0x33},
+    {'>', 0x0, 0x0, 0x36, 0x34},
+    {'\n', 0x0, 0x0, 0x0, 0x1c},
+};
+
+int getIndexForChar(char tc)
+{
+    int i;
+    
+    for (i = 0; i < keyboardMapSize; i++) {
+        if (tc == keyboardMap[i].tc) {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
+int getIndexForExtChar(char tc, char ext1)
+{
+    int i;
+    
+    for (i = 0; i < extKeyboardMapSize; i++) {
+        if (tc == extKeyboardMap[i].tc &&
+            ext1 == extKeyboardMap[i].ext1) {
+            return i;
+        }
+    }
+    
+    return -1;
+}
+
+int getIndexForExt2Char(char tc, char ext1, char ext2)
+{
+    int i;
+    
+    for (i = 0; i < extKeyboardMapSize; i++) {
+        if (tc == extKeyboardMap[i].tc &&
+            ext1 == extKeyboardMap[i].ext1 &&
+            ext2 == extKeyboardMap[i].ext2) {
+            return i;
+        }
+    }
+    
+    return -1;
+}
 
 @implementation KeyboardView
 
@@ -39,22 +302,37 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
         self.keyboardVisible = false;
     }
+    
+    NSString *language = [[NSLocale preferredLanguages] objectAtIndex:0];
+    
+    if ([language isEqual: @"es-ES"]) {
+        keyboardMap = pc104_es;
+        keyboardMapSize = sizeof(pc104_es);
+        extKeyboardMap = pc104_es_ext;
+        extKeyboardMapSize = sizeof(pc104_es_ext);
+    } else {
+        keyboardMap = pc104_us;
+        keyboardMapSize = sizeof(pc104_us);
+        extKeyboardMap = pc104_us_ext;
+        extKeyboardMapSize = sizeof(pc104_us_ext);
+    }
+    
     return self;
 }
 
 -(void)insertText:(NSString *)text {
     NSLog(@"insertText: %@, length=%lu", text, (unsigned long)text.length);
     const char *ctext=[text UTF8String];
-    NSLog(@"ctext length=%lu\n", strlen(ctext));
+    unsigned long ctext_len = strlen(ctext);
+    NSLog(@"ctext length=%lu\n", ctext_len);
     unsigned char tc = ctext[0];
-    unsigned char extchar;
-    unsigned char extchar2;
-    NSLog(@"char=%d\n", tc);
+
     int keycode = 0;
     int special = 0;
     int prekey = 0;
     int prekey_special = 0;
     int is_upper = false;
+    int index = -1;
     
     if (isalpha(tc)) {
         if (isupper(tc)) {
@@ -63,403 +341,37 @@
         }
     }
     
-    switch (tc) {
-        case 9:
-            /* tab */
-            keycode = 0x0f;
-            break;
-        case 194:
-            extchar = ctext[1];
-            NSLog(@"extchar=%d\n", extchar);
-            if (extchar == 161) {
-                /* "¡" */
-                keycode = 0x0d;
-            } else if (extchar == 191) {
-                /* "¿" */
-                keycode = 0x0d;
-                special = 0x36;
-            } else if (extchar == 186) {
-                /* º */
-                keycode = 0x29;
-            } else if (extchar == 170) {
-                /* ª */
-                keycode = 0x29;
-                special = 0x36;
-            } else if (extchar == 169) {
-                /* Ctrl + C */
-                keycode = 0x2e;
-                special = 0x1d;
-            } else if (extchar == 174) {
-                keycode = 0x13;
-                special = 0x1d;
+    switch (ctext_len) {
+        case 1:
+            NSLog(@"char=%d\n", tc);
+            index = getIndexForChar(tc);
+            if (index != -1) {
+                keycode = keyboardMap[index].key;
+                special = keyboardMap[index].special_key;
             }
             break;
-        case 195:
-            extchar = ctext[1];
-            NSLog(@"extchar=%d\n", extchar);
-            if (extchar == 177) {
-                /* ñ */
-                keycode = 0x27;
-            } else if (extchar == 145) {
-                /* Ñ */
-                keycode = 0x27;
-                special = 0x36;
-            } else if (extchar == 167) {
-                /* ç */
-                keycode = 0x2b;
-            } else if (extchar == 135) {
-                /* Ç */
-                keycode = 0x2b;
-                special = 0x36;
-            } else if (extchar == 161) {
-                /* á */
-                keycode = 0x1e;
-                prekey = 0x28;
-            } else if (extchar == 169) {
-                /* é */
-                keycode = 0x12;
-                prekey = 0x28;
-            } else if (extchar == 173) {
-                /* í */
-                keycode = 0x17;
-                prekey = 0x28;
-            } else if (extchar == 179) {
-                /* ó */
-                keycode = 0x18;
-                prekey = 0x28;
-            } else if (extchar == 186) {
-                /* ú */
-                keycode = 0x16;
-                prekey = 0x28;
-            } else if (extchar == 188) {
-                /* ü */
-                keycode = 0x16;
-                prekey = 0x28;
-                prekey_special = 0x36;
-            } else if (extchar == 129) {
-                /* Á */
-                keycode = 0x1e;
-                special = 0x36;
-                prekey = 0x28;
-            } else if (extchar == 137) {
-                /* É */
-                keycode = 0x12;
-                special = 0x36;
-                prekey = 0x28;
-            } else if (extchar == 141) {
-                /* Í */
-                keycode = 0x17;
-                special = 0x36;
-                prekey = 0x28;
-            } else if (extchar == 147) {
-                /* Ó */
-                keycode = 0x18;
-                special = 0x36;
-                prekey = 0x28;
-            } else if (extchar == 154) {
-                /* Ú */
-                keycode = 0x16;
-                special = 0x36;
-                prekey = 0x28;
-            } else if (extchar == 156) {
-                /* Ü */
-                keycode = 0x16;
-                special = 0x36;
-                prekey = 0x28;
-                prekey_special = 0x36;
-            } else if (extchar == 159) {
-                keycode = 0x30;
-                special = 0x1d;
+        case 2:
+            NSLog(@"char=%d\n", tc);
+            NSLog(@"ext1=%d\n", (unsigned char) ctext[1]);
+            index = getIndexForExtChar(tc, ctext[1]);
+            if (index != -1) {
+                keycode = extKeyboardMap[index].key;
+                special = extKeyboardMap[index].special_key;
+                prekey = extKeyboardMap[index].prekey;
+                prekey_special = extKeyboardMap[index].special_prekey;
             }
             break;
-        case 197:
-            extchar = ctext[1];
-            NSLog(@"extchar=%d\n", extchar);
-            if (extchar == 147) {
-                /* alt + tab */
-                keycode = 0x0f;
-                special = 0x38;
+        case 3:
+            NSLog(@"char=%d\n", tc);
+            NSLog(@"ext1=%d\n", (unsigned char) ctext[1]);
+            NSLog(@"ext2=%d\n", (unsigned char) ctext[2]);
+            index = getIndexForExt2Char(tc, ctext[1], ctext[2]);
+            if (index != -1) {
+                keycode = extKeyboardMap[index].key;
+                special = extKeyboardMap[index].special_key;
+                prekey = extKeyboardMap[index].prekey;
+                prekey_special = extKeyboardMap[index].special_prekey;
             }
-            break;
-        case 198:
-            extchar = ctext[1];
-            NSLog(@"extchar=%d\n", extchar);
-            if (extchar == 146) {
-                /* Ctrl + F */
-                keycode = 0x21;
-                special = 0x1d;
-            }
-            break;
-        case 206:
-            extchar = ctext[1];
-            NSLog(@"extchar=%d\n", extchar);
-            if (extchar == 169) {
-                /* Ctrl + Z */
-                keycode = 0x2c;
-                special = 0x1d;
-            }
-            break;
-        case 226:
-            extchar = ctext[1];
-            extchar2 = ctext[2];
-            NSLog(@"extchar=%d\n", extchar);
-            NSLog(@"extchar2=%d\n", extchar2);
-            if (extchar == 130 && extchar2 == 172) {
-                /* euro */
-                keycode = 0x12;
-                special = 0x138;
-            } else if (extchar == 137 && extchar2 == 164) {
-                /* backslash */
-                keycode = 0x29;
-                special = 0x138;
-            } else if (extchar == 136 && extchar2 == 145) {
-                /* Ctrl + X */
-                keycode = 0x2d;
-                special = 0x1d;
-            } else if (extchar == 136 && extchar2 == 154) {
-                /* Ctrl + V */
-                keycode = 0x2f;
-                special = 0x1d;
-            } else if (extchar == 136 && extchar2 == 130) {
-                /* Ctrl + B */
-                keycode = 0x20;
-                special = 0x1d;
-            }
-            break;
-        case 'a':
-            keycode = 0x1E;
-            break;
-        case 'b':
-            keycode = 0x30;
-            break;
-        case 'c':
-            keycode = 0x2E;
-            break;
-        case 'd':
-            keycode = 0x20;
-            break;
-        case 'e':
-            keycode = 0x12;
-            break;
-        case 'f':
-            keycode = 0x21;
-            break;
-        case 'g':
-            keycode = 0x22;
-            break;
-        case 'h':
-            keycode = 0x23;
-            break;
-        case 'i':
-            keycode = 0x17;
-            break;
-        case 'j':
-            keycode = 0x24;
-            break;
-        case 'k':
-            keycode = 0x25;
-            break;
-        case 'l':
-            keycode = 0x26;
-            break;
-        case 'm':
-            keycode = 0x32;
-            break;
-        case 'n':
-            keycode = 0x31;
-            break;
-        case 'o':
-            keycode = 0x18;
-            break;
-        case 'p':
-            keycode = 0x19;
-            break;
-        case 'q':
-            keycode = 0x10;
-            break;
-        case 'r':
-            keycode = 0x13;
-            break;
-        case 's':
-            keycode = 0x1F;
-            break;
-        case 't':
-            keycode = 0x14;
-            break;
-        case 'u':
-            keycode = 0x16;
-            break;
-        case 'v':
-            keycode = 0x2F;
-            break;
-        case 'w':
-            keycode = 0x11;
-            break;
-        case 'x':
-            keycode = 0x2D;
-            break;
-        case 'y':
-            keycode = 0x15;
-            break;
-        case 'z':
-            keycode = 0x2C;
-            break;
-        case '1':
-            keycode = 0x02;
-            break;
-        case '2':
-            keycode = 0x03;
-            break;
-        case '3':
-            keycode = 0x04;
-            break;
-        case '4':
-            keycode = 0x05;
-            break;
-        case '5':
-            keycode = 0x06;
-            break;
-        case '6':
-            keycode = 0x07;
-            break;
-        case '7':
-            keycode = 0x08;
-            break;
-        case '8':
-            keycode = 0x09;
-            break;
-        case '9':
-            keycode = 0x0A;
-            break;
-        case '0':
-            keycode = 0x0B;
-            break;
-        case ' ':
-            keycode = 0x39;
-            break;
-        case '!':
-            keycode = 0x02;
-            special = 0x36;
-            break;
-        case '@':
-            keycode = 0x03;
-            special = 0x138;
-            break;
-        case '"':
-            keycode = 0x03;
-            special = 0x36;
-            break;
-        case '\'':
-            keycode = 0x0c;
-            break;
-        case '#':
-            keycode = 0x04;
-            special = 0x138;
-            break;
-        case '~':
-            keycode = 0x05;
-            special = 0x138;
-            break;
-        case '$':
-            keycode = 0x05;
-            special = 0x36;
-            break;
-        case '%':
-            keycode = 0x06;
-            special = 0x36;
-            break;
-        case '&':
-            keycode = 0x07;
-            special = 0x36;
-            break;
-        case '/':
-            keycode = 0x08;
-            special = 0x36;
-            break;
-        case '(':
-            keycode = 0x09;
-            special = 0x36;
-            break;
-        case ')':
-            keycode = 0x0a;
-            special = 0x36;
-            break;
-        case '=':
-            keycode = 0x0b;
-            special = 0x36;
-            break;
-        case '?':
-            keycode = 0x0c;
-            special = 0x36;
-            break;
-        case '-':
-            keycode = 0x35;
-            break;
-        case '_':
-            keycode = 0x35;
-            special = 0x36;
-            break;
-        case ';':
-            keycode = 0x33;
-            special = 0x36;
-            break;
-        case ',':
-            keycode = 0x33;
-            break;
-        case '.':
-            keycode = 0x34;
-            break;
-        case ':':
-            keycode = 0x34;
-            special = 0x36;
-            break;
-        case '{':
-            keycode = 0x28;
-            special = 0x138;
-            break;
-        case '}':
-            keycode = 0x2B;
-            special = 0x138;
-            break;
-        case '[':
-            keycode = 0x1A;
-            special = 0x138;
-            break;
-        case ']':
-            keycode = 0x1B;
-            special = 0x138;
-            break;
-        case '*':
-            keycode = 0x1B;
-            special = 0x36;
-            break;
-        case '+':
-            keycode = 0x1B;
-            break;
-        case '\\':
-            keycode = 0x29;
-            special = 0x138;
-            break;
-        case '|':
-            keycode = 0x02;
-            special = 0x138;
-            break;
-        case '^':
-            keycode = 0x1a;
-            special = 0x36;
-            break;
-        case '`':
-            keycode = 0x1a;
-            break;
-        case '<':
-            keycode = 0x56;
-            break;
-        case '>':
-            keycode = 0x56;
-            special = 0x36;
-            break;
-        case '\n':
-            keycode = 0x1C;
             break;
     }
     
