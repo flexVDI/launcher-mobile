@@ -43,16 +43,16 @@
                     android:layout_weight="1">
 
                     <EditText
-                        android:id="@+id/textIP"
+                        android:id="@+id/textUser"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:ems="10"
-                        android:hint="Usuario"
                         android:inputType="textNoSuggestions|textVisiblePassword"
                         android:nextFocusDown="@+id/textPORT"
                         android:singleLine="true"
-                        android:textAppearance="?android:attr/textAppearanceMediumInverse" >
+                        android:textAppearance="?android:attr/textAppearanceMediumInverse"
+                        android:hint="@string/user">
 
                         <requestFocus />
                     </EditText>
@@ -69,11 +69,11 @@
                     android:layout_weight="1">
 
                     <EditText
-                        android:id="@+id/textPASSWORD"
+                        android:id="@+id/textPassword"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:hint="Contraseña"
+                        android:hint="@string/password"
                         android:inputType="textNoSuggestions|textPassword"
                         android:password="true"
                         android:singleLine="true"
@@ -95,7 +95,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/connect_button"
                     android:textColor="#ffffff"
-                    android:text="conectar" />
+                    android:text="@string/connect" />
 
             </TableRow>
 
@@ -111,8 +111,9 @@
                     android:id="@+id/checkBoxAdvancedSettings"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Mostrar opciones avanzadas"
-                    android:textColor="#777777" />
+                    android:text="@string/show_options"
+                    android:textColor="#777777"
+                    android:checked="false" />
 
             </TableRow>
         </TableLayout>
@@ -125,14 +126,14 @@
             android:orientation="vertical"
             android:paddingLeft="25dp"
             android:paddingRight="25dp"
-            android:visibility="gone" >
+            android:visibility="visible" >
 
             <EditText
-                android:id="@+id/flexServerName"
+                android:id="@+id/textServer"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Servidor de flexVDI"
+                android:hint="@string/flexvdi_server"
                 android:inputType="textNoSuggestions|textVisiblePassword"
                 android:nextFocusDown="@+id/textPORT"
                 android:singleLine="true"
@@ -148,7 +149,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Limitar resolución nativa"
+                    android:text="@string/limit_resolution"
                     android:textColor="#777777" />
 
                 <CheckBox
@@ -156,7 +157,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Habilitar sonido"
+                    android:text="@string/enable_sound"
+                    android:textColor="#777777" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxGenericSpice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/generic_spice"
                     android:textColor="#777777" />
 
             </LinearLayout>

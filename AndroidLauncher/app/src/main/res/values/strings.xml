@@ -1,3 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">flexVDI</string>
+    <string name="user">user</string>
+    <string name="password">password</string>
+    <string name="connect">connect</string>
+    <string name="show_options">Show advanced options</string>
+    <string name="flexvdi_server">flexVDI server</string>
+    <string name="limit_resolution">Limit native resolution</string>
+    <string name="enable_sound">Enable sound</string>
+    <string name="generic_spice">Generic SPICE</string>
+    <string name="spice_server">Default server (server:port)</string>
+    <string name="spice_server_port">server:port</string>
+
+    <string name="empty_flexvdi_server">flexVDI Server field can\'t be empty</string>
+    <string name="empty_credentials">Please enter your user credentials</string>
+    <string name="no_network">There are no network connections available</string>
+
+    <string name="choose_desktop">Select your Desktop</string>
+    <string name="desktop_pending">Preparing your Desktop. Please wait a moment</string>
+    <string name="invalid_answer">Invalid answer from server</string>
+    <string name="invalid_credentials">Wrong user or password</string>
+
+    <string name="connection_error">Error connecting to server</string>
+    <string name="connection_error_ip">Error connecting to IP: </string>
+    <string name="parse_error">Error parsing server data</string>
+    <string name="reconnection_error">Couldn\'t reconnect to your Desktop</string>
+
+    <string name="close_session">Close Session</string>
+    <string name="send">Send</string>
+    <string name="menu_general">General</string>
+
+    <string name="request_resolution">Requesting resolution adjustment</string>
+    <string name="increase_device_resolution">Increasing device resolution</string>
+    <string name="invalid_resolution">Invalid Desktop resolution</string>
+    <string name="connecting_desktop">Connecting to your Desktop</string>
 </resources>

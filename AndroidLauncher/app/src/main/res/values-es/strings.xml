@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="user">usuario</string>
+    <string name="password">contraseña</string>
+    <string name="connect">conectar</string>
+    <string name="show_options">Mostrar opciones avanzadas</string>
+    <string name="flexvdi_server">Servidor de flexVDI</string>
+    <string name="limit_resolution">Limitar resolución nativa</string>
+    <string name="enable_sound">Habilitar sonido</string>
+    <string name="generic_spice">SPICE Genérico</string>
+    <string name="spice_server">Servidor por defecto (servidor:puerto)</string>
+    <string name="spice_server_port">servidor:puerto</string>
+
+    <string name="empty_flexvdi_server">El campo "Servidor de flexVDI" está vacío</string>
+    <string name="empty_credentials">Introduzca su nombre de usuario y contraseña</string>
+    <string name="no_network">No hay ninguna conexión de red disponible</string>
+
+    <string name="choose_desktop">Seleccione su Escritorio</string>
+    <string name="desktop_pending">Su escritorio se está preparando. Por favor, espere unos instantes</string>
+    <string name="invalid_answer">Respuesta inválida del servidor</string>
+    <string name="invalid_credentials">Usuario o contraseña incorrectos</string>
+
+    <string name="connection_error">Error conectando con el servidor</string>
+    <string name="connection_error_ip">Error en la conexión con la IP: </string>
+    <string name="parse_error">Error procesando los datos</string>
+    <string name="reconnection_error">No fue posible reconectar con su Escritorio</string>
+
+    <string name="close_session">Cerrar sesión</string>
+    <string name="send">Enviar</string>
+    <string name="menu_general">General</string>
+
+    <string name="request_resolution">Solicitando ajuste de resolución</string>
+    <string name="increase_device_resolution">Incrementando la resolución del dispositivo</string>
+    <string name="invalid_resolution">La resolución del escritorio no es válida</string>
+    <string name="connecting_desktop">Conectando a su Escritorio</string>
+</resources>

@@ -11,8 +11,9 @@ libgstreamer-1.0.a
 libiconv.a
 libintl.a
 libjpeg.a
+libopus.a
 libnopoll.a
 libpixman-1.a
 libspice-client-glib-2.0.a
-libspice-mono-glue.a
+libspiceglue.a
 libssl.a

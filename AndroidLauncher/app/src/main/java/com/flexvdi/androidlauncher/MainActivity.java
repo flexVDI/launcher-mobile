@@ -378,21 +378,21 @@ public class MainActivity extends Activity implements View.OnTouchListener {
 
     private void showPopup() {
         String[] actions = new String[]{
-                "Cerrar sesión",
-                "Enviar Ctrl+C",
-                "Enviar Ctrl+X",
-                "Enviar Ctrl+V",
-                "Enviar Ctrl+Z",
-                "Enviar Esc",
-                "Enviar Alt+F4",
-                "Enviar Ctrl+Alt+Supr",
-                "Enviar Ctrl+Shift+Esc",
-                "Enviar Ctrl+Alt+F1",
-                "Enviar Ctrl+Alt+F2",
-                "Enviar Ctrl+Alt+F6",
-                "Enviar Ctrl+Alt+F7"};
+                getResources().getString(R.string.close_session),
+                getResources().getString(R.string.send) + " Ctrl+C",
+                getResources().getString(R.string.send) + " Ctrl+X",
+                getResources().getString(R.string.send) + " Ctrl+V",
+                getResources().getString(R.string.send) + " Ctrl+Z",
+                getResources().getString(R.string.send) + " Esc",
+                getResources().getString(R.string.send) + " Alt+F4",
+                getResources().getString(R.string.send) + " Ctrl+Alt+Del",
+                getResources().getString(R.string.send) + " Ctrl+Shift+Esc",
+                getResources().getString(R.string.send) + " Ctrl+Alt+F1",
+                getResources().getString(R.string.send) + " Ctrl+Alt+F2",
+                getResources().getString(R.string.send) + " Ctrl+Alt+F6",
+                getResources().getString(R.string.send) + " Ctrl+Alt+F7"};
         Dialog d = new AlertDialog.Builder(this)
-                .setTitle("Menú General")
+                .setTitle(getResources().getString(R.string.menu_general))
                 .setNegativeButton("Cancel", null)
                 .setItems(actions, new DialogInterface.OnClickListener(){
                     @Override
@@ -492,7 +492,9 @@ public class MainActivity extends Activity implements View.OnTouchListener {
                     mMainActivity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(mMainActivity, "No hay ninguna conexión de red disponible", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(mMainActivity,
+                                    getResources().getString(R.string.no_network),
+                                    Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -535,7 +537,9 @@ public class MainActivity extends Activity implements View.OnTouchListener {
                         mMainActivity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(mMainActivity, "No fue posible reconectar con su escritorio", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(mMainActivity,
+                                        getResources().getString(R.string.reconnection_error),
+                                        Toast.LENGTH_SHORT).show();
                             }
                         });
                     }

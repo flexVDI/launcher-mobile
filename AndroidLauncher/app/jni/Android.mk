@@ -1,8 +1,8 @@
 LOCAL_PRELINK_MODULE := false
 LOCAL_PATH := $(call my-dir)
 
-LOCAL_MODULE := spice-mono-glue
-LOCAL_SRC_FILES := deps/$(TARGET_ARCH_ABI)/libspice-mono-glue.a
+LOCAL_MODULE := spiceglue
+LOCAL_SRC_FILES := deps/$(TARGET_ARCH_ABI)/libspiceglue.a
 include $(PREBUILT_STATIC_LIBRARY)
 include $(CLEAR_VARS)
 
@@ -71,6 +71,10 @@ LOCAL_SRC_FILES := deps/$(TARGET_ARCH_ABI)/libjpeg.a
 include $(PREBUILT_STATIC_LIBRARY)
 include $(CLEAR_VARS)
 
+LOCAL_MODULE := opus
+LOCAL_SRC_FILES := deps/$(TARGET_ARCH_ABI)/libopus.a
+include $(PREBUILT_STATIC_LIBRARY)
+include $(CLEAR_VARS)
 
 LOCAL_MODULE := flexdp-jni
 LOCAL_MODULE_FILENAME := libflexdp-jni
@@ -89,7 +93,7 @@ $(LOCAL_PATH)/../../..
 LOCAL_LDFLAGS += -L/Users/slopez/Fuentes/launcher-mobile/AndroidLauncher/app/obj/local/$(TARGET_ARCH_ABI)/
 LOCAL_LDLIBS := -llog -lz -lGLESv1_CM -lgstreamer_android
 
-LOCAL_STATIC_LIBRARIES := spice-mono-glue spice-client-glib-2.0 gio-2.0 gmodule-2.0 gobject-2.0 ffi pixman-1 jpeg nopoll ssl crypto glib-2.0 intl iconv
+LOCAL_STATIC_LIBRARIES := spiceglue spice-client-glib-2.0 gio-2.0 gmodule-2.0 gobject-2.0 ffi pixman-1 opus jpeg nopoll ssl crypto glib-2.0 intl iconv
 
 LOCAL_SRC_FILES := \
 ../../../draw.c \

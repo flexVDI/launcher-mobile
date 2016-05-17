@@ -15,9 +15,12 @@ tasks.withType(JavaCompile) {
 }
 
 android {
+    signingConfigs {
+        config {
+        }
+    }
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
-
     defaultConfig {
         applicationId "com.flexvdi.androidlauncher"
         minSdkVersion 15

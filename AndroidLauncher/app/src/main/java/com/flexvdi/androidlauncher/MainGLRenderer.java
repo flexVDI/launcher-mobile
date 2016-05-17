@@ -21,6 +21,7 @@
 
 package com.flexvdi.androidlauncher;
 
+import android.app.Activity;
 import android.content.Context;
 import android.opengl.GLSurfaceView;
 import android.util.Log;
@@ -104,7 +105,9 @@ public class MainGLRenderer implements GLSurfaceView.Renderer {
                             @Override
                             public void run() {
                                 statusToast.cancel();
-                                statusToast.makeText(mainActivity, "Solicitando cambio de resolución", Toast.LENGTH_SHORT).show();
+                                statusToast.makeText(mainActivity,
+                                        mainActivity.getResources().getString(R.string.request_resolution),
+                                        Toast.LENGTH_SHORT).show();
                             }
                         });
                         flexJNI.requestResolution(engineWidth, engineHeight);
@@ -115,7 +118,9 @@ public class MainGLRenderer implements GLSurfaceView.Renderer {
                                 @Override
                                 public void run() {
                                     statusToast.cancel();
-                                    statusToast.makeText(mainActivity, "Incrementando la resolución del dispositivo", Toast.LENGTH_SHORT).show();
+                                    statusToast.makeText(mainActivity,
+                                            mainActivity.getResources().getString(R.string.increase_device_resolution),
+                                            Toast.LENGTH_SHORT).show();
                                 }
                             });
                             mouseScale = 1.0;
@@ -129,7 +134,9 @@ public class MainGLRenderer implements GLSurfaceView.Renderer {
                                 @Override
                                 public void run() {
                                     statusToast.cancel();
-                                    statusToast.makeText(mainActivity, "Resolución de escritorio inválida", Toast.LENGTH_SHORT).show();
+                                    statusToast.makeText(mainActivity,
+                                            mainActivity.getResources().getString(R.string.invalid_resolution),
+                                            Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }
@@ -155,7 +162,9 @@ public class MainGLRenderer implements GLSurfaceView.Renderer {
                     @Override
                     public void run() {
                         statusToast.cancel();
-                        statusToast.makeText(mainActivity, "Conectando a su escritorio", Toast.LENGTH_SHORT).show();
+                        statusToast.makeText(mainActivity,
+                                mainActivity.getResources().getString(R.string.connecting_desktop),
+                                Toast.LENGTH_SHORT).show();
                     }
                 });
                 lastToastShown = now;

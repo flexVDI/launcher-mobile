@@ -74,14 +74,15 @@ public class LoginActivity extends Activity {
     private final static String TAG = "flexVDI";
     private SharedPreferences settings;
     private SharedPreferences.Editor settingsEditor;
-    private EditText ipText;
-    private EditText flexServerName;
-    private EditText passwordText;
+    private EditText textUser;
+    private EditText textServer;
+    private EditText textPassword;
     private Button goButton;
     private LinearLayout layoutAdvancedOptions;
     private CheckBox checkBoxAdvancedOptions;
     private CheckBox checkBoxEnableSound;
     private CheckBox checkBoxStaticResolution;
+    private CheckBox checkBoxGenericSpice;
     private String deviceID;
     private TextView textViewDeviceID;
     private boolean showPending;
@@ -113,9 +114,9 @@ public class LoginActivity extends Activity {
 
         setContentView(R.layout.activity_login);
 
-        ipText = (EditText) findViewById(R.id.textIP);
-        flexServerName = (EditText) findViewById(R.id.flexServerName);
-        passwordText = (EditText) findViewById(R.id.textPASSWORD);
+        textUser = (EditText) findViewById(R.id.textUser);
+        textServer = (EditText) findViewById(R.id.textServer);
+        textPassword = (EditText) findViewById(R.id.textPassword);
 
         //ipText.setText("flexvdi");
         //passwordText.setText("flexvdi");
@@ -124,9 +125,10 @@ public class LoginActivity extends Activity {
         goButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (flexServerName.getText().length() == 0) {
+                if (textServer.getText().length() == 0) {
                     Toast.makeText(view.getContext(),
-                            "El campo \"Servidor de flexVDI\" está vacío", Toast.LENGTH_LONG)
+                            getResources().getString(R.string.empty_flexvdi_server),
+                            Toast.LENGTH_LONG)
                             .show();
                 } else {
                     ConnectivityManager cm =
@@ -137,21 +139,23 @@ public class LoginActivity extends Activity {
                             activeNetwork.isConnectedOrConnecting();
 
                     if (isConnected) {
-                        if (ipText.getText().length() != 0
-                                && passwordText.getText().length() != 0) {
+                        if (textUser.getText().length() != 0
+                                && textPassword.getText().length() != 0) {
                             new RequestTask().execute(
                                     "authmode",
-                                    flexServerName.getText().toString(),
-                                    ipText.getText().toString(),
-                                    passwordText.getText().toString(),
+                                    textServer.getText().toString(),
+                                    textUser.getText().toString(),
+                                    textPassword.getText().toString(),
                                     "");
                         } else
                             Toast.makeText(view.getContext(),
-                                    "Introduzca su nombre de usuario y contraseña", Toast.LENGTH_LONG)
+                                    getResources().getString(R.string.empty_credentials),
+                                    Toast.LENGTH_LONG)
                                     .show();
                     } else {
                         Toast.makeText(view.getContext(),
-                                "No hay ninguna conexión de red disponible", Toast.LENGTH_LONG)
+                                getResources().getString(R.string.no_network),
+                                Toast.LENGTH_LONG)
                                 .show();
                     }
                 }
@@ -200,17 +204,62 @@ public class LoginActivity extends Activity {
             checkBoxStaticResolution.setChecked(false);
         }
 
+        checkBoxGenericSpice = (CheckBox) findViewById(R.id.checkBoxGenericSpice);
+        if (settings.getBoolean("genericSpice", false)) {
+            checkBoxGenericSpice.setChecked(true);
+        } else {
+            checkBoxGenericSpice.setChecked(false);
+        }
+
+        checkBoxGenericSpice.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton arg0,
+                                         boolean checked) {
+                if (checked) {
+                    textServer.setHint(getResources().getString(R.string.spice_server));
+                    textUser.setHint(getResources().getString(R.string.spice_server_port));
+                    String server = textServer.getText().toString();
+                    if (server.length() != 0) {
+                        if (server.contains(":")) {
+                            textUser.setText(server);
+                        } else {
+                            textUser.setText(server + ":5900");
+                            textServer.setText(server + ":5900");
+                        }
+                    }
+                } else {
+                    textServer.setHint(getResources().getString(R.string.flexvdi_server));
+                    String server = textServer.getText().toString();
+                    if (server.length() != 0 && server.contains(":")) {
+                        textServer.setText(server.substring(0, server.indexOf(":")));
+                    }
+                    textUser.setText("");
+                    textUser.setHint(getResources().getString(R.string.user));
+                }
+            }
+        });
+
         deviceID = Settings.Secure.getString(mContext.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
 
         textViewDeviceID = (TextView) findViewById(R.id.textViewDeviceID);
         textViewDeviceID.setText("ID: " + deviceID + " (v2.2.8)");
 
-        if (settings.contains("flexServerName")) {
-            flexServerName.setText(settings.getString("flexServerName", ""));
-        } else {
-            flexServerName.setText("manager.flexvdi.com");
+        if (checkBoxGenericSpice.isChecked()) {
             checkBoxAdvancedOptions.setChecked(true);
+
+            if (settings.contains("spiceServerPort")) {
+                textServer.setText(settings.getString("spiceServerPort", ""));
+            } else {
+                textServer.setText("");
+            }
+        } else {
+            if (settings.contains("flexServerName")) {
+                textServer.setText(settings.getString("flexServerName", ""));
+            } else {
+                textServer.setText("manager.flexvdi.com");
+                checkBoxAdvancedOptions.setChecked(true);
+            }
         }
 
         try {
@@ -231,19 +280,19 @@ public class LoginActivity extends Activity {
     }
 
     private void disableEntryFields() {
-        ipText.setEnabled(false);
-        passwordText.setEnabled(false);
+        textUser.setEnabled(false);
+        textPassword.setEnabled(false);
         goButton.setEnabled(false);
-        flexServerName.setEnabled(false);
+        textServer.setEnabled(false);
         checkBoxStaticResolution.setEnabled(false);
         checkBoxEnableSound.setEnabled(false);
     }
 
     private void enableEntryFields() {
-        ipText.setEnabled(true);
-        passwordText.setEnabled(true);
+        textUser.setEnabled(true);
+        textPassword.setEnabled(true);
         goButton.setEnabled(true);
-        flexServerName.setEnabled(true);
+        textServer.setEnabled(true);
         checkBoxStaticResolution.setEnabled(true);
         checkBoxEnableSound.setEnabled(true);
     }
@@ -254,7 +303,7 @@ public class LoginActivity extends Activity {
 
     private void showPopup(final String[] desktopList, final String[] descriptionList) {
         Dialog d = new AlertDialog.Builder(this)
-                .setTitle("Seleccione su Escritorio")
+                .setTitle(getResources().getString(R.string.choose_desktop))
                 .setNegativeButton("Cancel", null)
                 .setItems(descriptionList, new DialogInterface.OnClickListener(){
                     @Override
@@ -262,9 +311,9 @@ public class LoginActivity extends Activity {
                         selectedDesktop = desktopList[position];
                         new RequestTask().execute(
                                 "desktop",
-                                flexServerName.getText().toString(),
-                                ipText.getText().toString(),
-                                passwordText.getText().toString(),
+                                textServer.getText().toString(),
+                                textUser.getText().toString(),
+                                textPassword.getText().toString(),
                                 selectedDesktop);
                     }
                 })
@@ -287,21 +336,21 @@ public class LoginActivity extends Activity {
             if (result.equals("desktop")) {
                 new RequestTask().execute(
                         "desktop",
-                        flexServerName.getText().toString(),
-                        ipText.getText().toString(),
-                        passwordText.getText().toString(),
+                        textServer.getText().toString(),
+                        textUser.getText().toString(),
+                        textPassword.getText().toString(),
                         "");
             } else if (result.equals("pending")) {
                 if (showPending) {
-                    showError("Su escritorio se está preparando. Por favor, espere unos instantes.");
+                    showError(getResources().getString(R.string.desktop_pending));
                     showPending = false;
                 }
 
                 new RequestTask().execute(
                         "pending",
-                        flexServerName.getText().toString(),
-                        ipText.getText().toString(),
-                        passwordText.getText().toString(),
+                        textServer.getText().toString(),
+                        textUser.getText().toString(),
+                        textPassword.getText().toString(),
                         selectedDesktop);
             } else if (result.contains("selectdesktop")) {
                 try {
@@ -326,13 +375,13 @@ public class LoginActivity extends Activity {
                 } catch (Exception e) {
                     e.printStackTrace();
                     Log.e(TAG, e.getMessage());
-                    showError("Respuesta inválida del servidor");
+                    showError(getResources().getString(R.string.invalid_answer));
                 }
             } else if (result.equals("ready")) {
                 settingsEditor.putBoolean("enableSound", checkBoxEnableSound.isChecked());
                 settingsEditor.putBoolean("staticResolution", checkBoxStaticResolution.isChecked());
 
-                settingsEditor.putString("flexServerName", flexServerName.getText().toString());
+                settingsEditor.putString("flexServerName", textServer.getText().toString());
                 settingsEditor.apply();
                 settingsEditor.commit();
                 showPending = true;
@@ -341,7 +390,7 @@ public class LoginActivity extends Activity {
             } else {
                 showPending = true;
                 if (result.contains("Usuario o con")) {
-                    showError("Usuario o contraseña incorrectos");
+                    showError(getResources().getString(R.string.invalid_credentials));
                 } else {
                     showError(result);
                 }
@@ -391,15 +440,15 @@ public class LoginActivity extends Activity {
                     }
                 } else {
                     Log.e(TAG, conn.getResponseMessage());
-                    result = "Error conectando con el servidor";
+                    result = getResources().getString(R.string.connection_error);
                 }
                 conn.disconnect();
             } catch (IOException ioe) {
                 Log.e(TAG, ioe.getMessage());
-                result = "Error en la conexion con IP: " + host;
+                result = getResources().getString(R.string.connection_error_ip) + host;
             } catch (JSONException je) {
                 Log.e(TAG, je.getMessage());
-                result = "Error parseando los datos";
+                result = getResources().getString(R.string.parse_error);
             }
 
             return result;
@@ -456,15 +505,15 @@ public class LoginActivity extends Activity {
                     }
                 } else {
                     Log.e(TAG, conn.getResponseMessage());
-                    result = "Error conectando con el servidor";
+                    result = getResources().getString(R.string.connection_error);
                 }
                 conn.disconnect();
             } catch (IOException ioe) {
                 Log.e(TAG, ioe.getMessage());
-                result = "Error en la conexion con IP: " + host;
+                result = getResources().getString(R.string.connection_error_ip) + host;
             } catch (JSONException je) {
                 Log.e(TAG, je.getMessage());
-                result = "Error parseando los datos";
+                result = getResources().getString(R.string.parse_error);
             }
 
             return result;
