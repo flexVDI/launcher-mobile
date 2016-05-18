@@ -32,6 +32,7 @@ import android.graphics.Point;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
@@ -307,7 +308,7 @@ public class LoginActivity extends Activity {
                 Settings.Secure.ANDROID_ID);
 
         textViewDeviceID = (TextView) findViewById(R.id.textViewDeviceID);
-        textViewDeviceID.setText("ID: " + deviceID + " (v2.2.8)");
+        textViewDeviceID.setText("ID: " + deviceID + " (" + BuildConfig.VERSION_NAME + ")");
 
         try {
             HttpsURLConnection.setDefaultHostnameVerifier(new NullHostNameVerifier());
