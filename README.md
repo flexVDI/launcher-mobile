@@ -52,11 +52,11 @@ cd cerbero
 
 ### Limitations
 
- * This client assumes that the **SPICE Guest Tools* are installed in the Guest, and that this one is able to adjust the screen resolution properly. If that's not the case, the screen is only shown if the device resolution is higher than the one currently configured in the Guest.
+ * This client assumes that the **SPICE Guest Tools** are installed in the Guest, and that this one is able to adjust the screen resolution properly. If that's not the case, the screen is only shown if the device resolution is higher than the one currently configured in the Guest.
 
  * Though support for multiple keyboard maps is implemented, currently only the American (en_US) and the Spanish (es_ES) ones are implemented. Configure your Guest to use one of those.
    * This doesn't apply to Android with a physical keybaord, as in that case, scan codes are sent directly without processing.
-   * P.D: You're more than welcome to submit a PR with an additional keymap ;-)
+   * You're more than welcome to submit a PR with an additional keymap ;-)
  
 ### License
 
