@@ -521,7 +521,7 @@ public class MainActivity extends Activity implements View.OnTouchListener {
                         flexJNI.setConnectionData(spice_address, spice_port, tunnel_port, spice_password, enableSound);
                         flexJNI.connect();
 
-                        for (connTries = 0; connTries < 3; connTries++) {
+                        for (connTries = 0; connTries < 2; connTries++) {
                             try {
                                 Thread.sleep(3000);
                             } catch (Exception e) {

@@ -118,27 +118,69 @@ public class LoginActivity extends Activity {
         textServer = (EditText) findViewById(R.id.textServer);
         textPassword = (EditText) findViewById(R.id.textPassword);
 
-        //ipText.setText("flexvdi");
-        //passwordText.setText("flexvdi");
-
         goButton = (Button) findViewById(R.id.buttonGO);
         goButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (textServer.getText().length() == 0) {
+                ConnectivityManager cm =
+                        (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+                NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+                boolean isConnected = activeNetwork != null &&
+                        activeNetwork.isConnectedOrConnecting();
+
+                if (!isConnected) {
                     Toast.makeText(view.getContext(),
-                            getResources().getString(R.string.empty_flexvdi_server),
+                            getResources().getString(R.string.no_network),
                             Toast.LENGTH_LONG)
                             .show();
+                    return;
+                }
+
+                if (checkBoxGenericSpice.isChecked()) {
+                    String userField = textUser.getText().toString();
+                    if (userField.length() == 0 || !userField.contains(":")) {
+                        Toast.makeText(view.getContext(),
+                                getResources().getString(R.string.invalid_spice_server),
+                                Toast.LENGTH_LONG)
+                                .show();
+                        return;
+                    }
+
+                    String spiceAddress = userField.substring(0, userField.indexOf(":"));
+                    String spicePort = userField.substring(userField.indexOf(":") + 1);
+
+                    if (spiceAddress.length() == 0 || spicePort.length() == 0) {
+                        Toast.makeText(view.getContext(),
+                                getResources().getString(R.string.invalid_spice_server),
+                                Toast.LENGTH_LONG)
+                                .show();
+                        return;
+                    }
+
+                    String spicePassword = textPassword.getText().toString();
+
+                    settingsEditor.putBoolean("enableSound", checkBoxEnableSound.isChecked());
+                    settingsEditor.putBoolean("staticResolution", checkBoxStaticResolution.isChecked());
+                    settingsEditor.putBoolean("genericSpice", checkBoxGenericSpice.isChecked());
+                    settingsEditor.putString("flexServerName", textServer.getText().toString());
+
+                    settingsEditor.putString("spice_address", spiceAddress);
+                    settingsEditor.putString("spice_port", spicePort);
+                    settingsEditor.putString("spice_password", spicePassword);
+                    settingsEditor.putBoolean("use_ws", false);
+
+                    settingsEditor.apply();
+                    settingsEditor.commit();
+
+                    startMainActivity();
                 } else {
-                    ConnectivityManager cm =
-                            (ConnectivityManager)mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-                    NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-                    boolean isConnected = activeNetwork != null &&
-                            activeNetwork.isConnectedOrConnecting();
-
-                    if (isConnected) {
+                    if (textServer.getText().length() == 0) {
+                        Toast.makeText(view.getContext(),
+                                getResources().getString(R.string.empty_flexvdi_server),
+                                Toast.LENGTH_LONG)
+                                .show();
+                    } else {
                         if (textUser.getText().length() != 0
                                 && textPassword.getText().length() != 0) {
                             new RequestTask().execute(
@@ -152,11 +194,6 @@ public class LoginActivity extends Activity {
                                     getResources().getString(R.string.empty_credentials),
                                     Toast.LENGTH_LONG)
                                     .show();
-                    } else {
-                        Toast.makeText(view.getContext(),
-                                getResources().getString(R.string.no_network),
-                                Toast.LENGTH_LONG)
-                                .show();
                     }
                 }
             }
@@ -173,6 +210,17 @@ public class LoginActivity extends Activity {
                     layoutAdvancedOptions.setVisibility(View.VISIBLE);
                 else
                     layoutAdvancedOptions.setVisibility(View.GONE);
+            }
+        });
+
+        textServer.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View field, boolean hasFocus) {
+                if (!hasFocus && checkBoxGenericSpice.isChecked()) {
+                    if (textUser.getText().toString().length() == 0) {
+                        textUser.setText(textServer.getText());
+                    }
+                }
             }
         });
 
@@ -207,8 +255,24 @@ public class LoginActivity extends Activity {
         checkBoxGenericSpice = (CheckBox) findViewById(R.id.checkBoxGenericSpice);
         if (settings.getBoolean("genericSpice", false)) {
             checkBoxGenericSpice.setChecked(true);
+            checkBoxAdvancedOptions.setChecked(true);
+            layoutAdvancedOptions.setVisibility(View.VISIBLE);
+
+            if (settings.contains("flexServerName")) {
+                textServer.setText(settings.getString("flexServerName", ""));
+                textUser.setText(settings.getString("flexServerName", ""));
+                textServer.setHint(getResources().getString(R.string.spice_server));
+                textUser.setHint(getResources().getString(R.string.spice_server_port));
+            }
         } else {
             checkBoxGenericSpice.setChecked(false);
+            if (settings.contains("flexServerName")) {
+                textServer.setText(settings.getString("flexServerName", ""));
+                layoutAdvancedOptions.setVisibility(View.GONE);
+            } else {
+                textServer.setText("manager.flexvdi.com");
+                checkBoxAdvancedOptions.setChecked(true);
+            }
         }
 
         checkBoxGenericSpice.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -245,23 +309,6 @@ public class LoginActivity extends Activity {
         textViewDeviceID = (TextView) findViewById(R.id.textViewDeviceID);
         textViewDeviceID.setText("ID: " + deviceID + " (v2.2.8)");
 
-        if (checkBoxGenericSpice.isChecked()) {
-            checkBoxAdvancedOptions.setChecked(true);
-
-            if (settings.contains("spiceServerPort")) {
-                textServer.setText(settings.getString("spiceServerPort", ""));
-            } else {
-                textServer.setText("");
-            }
-        } else {
-            if (settings.contains("flexServerName")) {
-                textServer.setText(settings.getString("flexServerName", ""));
-            } else {
-                textServer.setText("manager.flexvdi.com");
-                checkBoxAdvancedOptions.setChecked(true);
-            }
-        }
-
         try {
             HttpsURLConnection.setDefaultHostnameVerifier(new NullHostNameVerifier());
             SSLContext context = SSLContext.getInstance("TLS");
@@ -286,6 +333,7 @@ public class LoginActivity extends Activity {
         textServer.setEnabled(false);
         checkBoxStaticResolution.setEnabled(false);
         checkBoxEnableSound.setEnabled(false);
+        checkBoxGenericSpice.setEnabled(false);
     }
 
     private void enableEntryFields() {
@@ -295,6 +343,7 @@ public class LoginActivity extends Activity {
         textServer.setEnabled(true);
         checkBoxStaticResolution.setEnabled(true);
         checkBoxEnableSound.setEnabled(true);
+        checkBoxGenericSpice.setEnabled(true);
     }
 
     private void showError(String result) {
@@ -380,6 +429,7 @@ public class LoginActivity extends Activity {
             } else if (result.equals("ready")) {
                 settingsEditor.putBoolean("enableSound", checkBoxEnableSound.isChecked());
                 settingsEditor.putBoolean("staticResolution", checkBoxStaticResolution.isChecked());
+                settingsEditor.putBoolean("genericSpice", checkBoxGenericSpice.isChecked());
 
                 settingsEditor.putString("flexServerName", textServer.getText().toString());
                 settingsEditor.apply();

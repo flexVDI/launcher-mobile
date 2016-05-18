@@ -33,4 +33,6 @@
     <string name="increase_device_resolution">Increasing device resolution</string>
     <string name="invalid_resolution">Invalid Desktop resolution</string>
     <string name="connecting_desktop">Connecting to your Desktop</string>
+
+    <string name="invalid_spice_server">Invalid SPICE server string format</string>
 </resources>

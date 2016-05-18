@@ -33,4 +33,6 @@
     <string name="increase_device_resolution">Incrementando la resolución del dispositivo</string>
     <string name="invalid_resolution">La resolución del escritorio no es válida</string>
     <string name="connecting_desktop">Conectando a su Escritorio</string>
+
+    <string name="invalid_spice_server">El valor introducido como Servidor de SPICE no es válido</string>
 </resources>
