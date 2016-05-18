@@ -4,9 +4,9 @@
 
 This application is available in binary form as **flexVDI Client** at both the **App Store** and the **Play Store**:
 
-[![Play Store](https://depot.flexvdi.com/sources/badge_google_play.png)](https://play.google.com/store/apps/details?id=com.flexvdi.androidlauncher)
-
 [![App Store](http://depot.flexvdi.com/sources/Download_on_the_App_Store_Badge_US-UK_135x40.svg)](https://itunes.apple.com/us/app/flexvdi-client/id1051361263?mt=8)
+
+[![Play Store](https://depot.flexvdi.com/sources/badge_google_play.png)](https://play.google.com/store/apps/details?id=com.flexvdi.androidlauncher)
 
 ### Building
 
