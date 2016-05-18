@@ -23,7 +23,223 @@ package com.flexvdi.androidlauncher;
 
 import android.util.Log;
 
+import java.util.HashMap;
+
 public class KeyboardUtils {
+    private static HashMap<Integer, KeySequence> activeKeyMap;
+
+    public static class KeySequence {
+        public int prekey;
+        public int special_prekey;
+        public int special_key;
+        public int key;
+
+        public KeySequence(int p, int sp, int sk, int k) {
+            prekey = p;
+            special_prekey = sp;
+            special_key = sk;
+            key = k;
+        }
+    }
+
+    public enum KeyboardMap {
+        PC104_ES, PC104_US
+    }
+
+    private static HashMap<Integer, KeySequence> BuildMap_pc104es() {
+        HashMap<Integer, KeySequence> keyMap = new HashMap<>();
+
+        keyMap.put((int) '€', new KeySequence(0, 0, 0x138, 0x12));
+        keyMap.put((int) '¡', new KeySequence(0, 0, 0, 0x0d));
+        keyMap.put((int) '¿', new KeySequence(0, 0, 0x36, 0x0d));
+        keyMap.put((int) 'º', new KeySequence(0, 0, 0, 0x29));
+        keyMap.put((int) 'ª', new KeySequence(0, 0, 0x36, 0x29));
+        keyMap.put((int) 'ñ', new KeySequence(0, 0, 0, 0x27));
+        keyMap.put((int) 'Ñ', new KeySequence(0, 0, 0x36, 0x27));
+        keyMap.put((int) 'ç', new KeySequence(0, 0, 0, 0x2b));
+        keyMap.put((int) 'Ç', new KeySequence(0, 0, 0x36, 0x2b));
+
+        keyMap.put((int) 'á', new KeySequence(0x28, 0, 0, 0x1e));
+        keyMap.put((int) 'é', new KeySequence(0x28, 0, 0, 0x12));
+        keyMap.put((int) 'í', new KeySequence(0x28, 0, 0, 0x17));
+        keyMap.put((int) 'ó', new KeySequence(0x28, 0, 0, 0x18));
+        keyMap.put((int) 'ú', new KeySequence(0x28, 0, 0, 0x16));
+        keyMap.put((int) 'ü', new KeySequence(0x28, 0x36, 0, 0x16));
+
+        keyMap.put((int) 'Á', new KeySequence(0x28, 0, 0x36, 0x1e));
+        keyMap.put((int) 'é', new KeySequence(0x28, 0, 0x36, 0x12));
+        keyMap.put((int) 'í', new KeySequence(0x28, 0, 0x36, 0x17));
+        keyMap.put((int) 'ó', new KeySequence(0x28, 0, 0x36, 0x18));
+        keyMap.put((int) 'ú', new KeySequence(0x28, 0, 0x36, 0x16));
+        keyMap.put((int) 'ü', new KeySequence(0x28, 0x36, 0x36, 0x16));
+
+        keyMap.put(9, new KeySequence(0, 0, 0, 0x0f)); // Tab
+
+        keyMap.put((int) 'a', new KeySequence(0, 0, 0, 0x1E));
+        keyMap.put((int) 'b', new KeySequence(0, 0, 0, 0x30));
+        keyMap.put((int) 'c', new KeySequence(0, 0, 0, 0x2E));
+        keyMap.put((int) 'd', new KeySequence(0, 0, 0, 0x20));
+        keyMap.put((int) 'e', new KeySequence(0, 0, 0, 0x12));
+        keyMap.put((int) 'f', new KeySequence(0, 0, 0, 0x21));
+        keyMap.put((int) 'g', new KeySequence(0, 0, 0, 0x22));
+        keyMap.put((int) 'h', new KeySequence(0, 0, 0, 0x23));
+        keyMap.put((int) 'i', new KeySequence(0, 0, 0, 0x17));
+        keyMap.put((int) 'j', new KeySequence(0, 0, 0, 0x24));
+        keyMap.put((int) 'k', new KeySequence(0, 0, 0, 0x25));
+        keyMap.put((int) 'l', new KeySequence(0, 0, 0, 0x26));
+        keyMap.put((int) 'm', new KeySequence(0, 0, 0, 0x32));
+        keyMap.put((int) 'n', new KeySequence(0, 0, 0, 0x31));
+        keyMap.put((int) 'o', new KeySequence(0, 0, 0, 0x18));
+        keyMap.put((int) 'p', new KeySequence(0, 0, 0, 0x19));
+        keyMap.put((int) 'q', new KeySequence(0, 0, 0, 0x10));
+        keyMap.put((int) 'r', new KeySequence(0, 0, 0, 0x13));
+        keyMap.put((int) 's', new KeySequence(0, 0, 0, 0x1F));
+        keyMap.put((int) 't', new KeySequence(0, 0, 0, 0x14));
+        keyMap.put((int) 'u', new KeySequence(0, 0, 0, 0x16));
+        keyMap.put((int) 'v', new KeySequence(0, 0, 0, 0x2F));
+        keyMap.put((int) 'w', new KeySequence(0, 0, 0, 0x11));
+        keyMap.put((int) 'x', new KeySequence(0, 0, 0, 0x2D));
+        keyMap.put((int) 'y', new KeySequence(0, 0, 0, 0x15));
+        keyMap.put((int) 'z', new KeySequence(0, 0, 0, 0x2C));
+        keyMap.put((int) '1', new KeySequence(0, 0, 0, 0x02));
+        keyMap.put((int) '2', new KeySequence(0, 0, 0, 0x03));
+        keyMap.put((int) '3', new KeySequence(0, 0, 0, 0x04));
+        keyMap.put((int) '4', new KeySequence(0, 0, 0, 0x05));
+        keyMap.put((int) '5', new KeySequence(0, 0, 0, 0x06));
+        keyMap.put((int) '6', new KeySequence(0, 0, 0, 0x07));
+        keyMap.put((int) '7', new KeySequence(0, 0, 0, 0x08));
+        keyMap.put((int) '8', new KeySequence(0, 0, 0, 0x09));
+        keyMap.put((int) '9', new KeySequence(0, 0, 0, 0x0A));
+        keyMap.put((int) '0', new KeySequence(0, 0, 0, 0x0B));
+        keyMap.put((int) ' ', new KeySequence(0, 0, 0, 0x39));
+
+        keyMap.put((int) '!', new KeySequence(0, 0, 0x36, 0x02));
+        keyMap.put((int) '@', new KeySequence(0, 0, 0x138, 0x03));
+        keyMap.put((int) '"', new KeySequence(0, 0, 0x36, 0x03));
+        keyMap.put((int) '\'', new KeySequence(0, 0, 0, 0x0c));
+        keyMap.put((int) '#', new KeySequence(0, 0, 0x138, 0x04));
+        keyMap.put((int) '~', new KeySequence(0, 0, 0x138, 0x05));
+        keyMap.put((int) '$', new KeySequence(0, 0, 0x36, 0x05));
+        keyMap.put((int) '%', new KeySequence(0, 0, 0x36, 0x06));
+        keyMap.put((int) '&', new KeySequence(0, 0, 0x36, 0x07));
+        keyMap.put((int) '/', new KeySequence(0, 0, 0x36, 0x08));
+        keyMap.put((int) '(', new KeySequence(0, 0, 0x36, 0x09));
+        keyMap.put((int) ')', new KeySequence(0, 0, 0x36, 0x0a));
+        keyMap.put((int) '=', new KeySequence(0, 0, 0x36, 0x0b));
+        keyMap.put((int) '?', new KeySequence(0, 0, 0x36, 0x0c));
+        keyMap.put((int) '-', new KeySequence(0, 0, 0, 0x35));
+        keyMap.put((int) '_', new KeySequence(0, 0, 0x36, 0x35));
+        keyMap.put((int) ';', new KeySequence(0, 0, 0x36, 0x33));
+        keyMap.put((int) ',', new KeySequence(0, 0, 0, 0x33));
+        keyMap.put((int) '.', new KeySequence(0, 0, 0, 0x34));
+        keyMap.put((int) ':', new KeySequence(0, 0, 0x36, 0x34));
+        keyMap.put((int) '{', new KeySequence(0, 0, 0x138, 0x28));
+        keyMap.put((int) '}', new KeySequence(0, 0, 0x138, 0x2B));
+        keyMap.put((int) '[', new KeySequence(0, 0, 0x138, 0x1A));
+        keyMap.put((int) ']', new KeySequence(0, 0, 0x138, 0x1B));
+        keyMap.put((int) '*', new KeySequence(0, 0, 0x36, 0x1B));
+        keyMap.put((int) '+', new KeySequence(0, 0, 0, 0x1B));
+        keyMap.put((int) '\\', new KeySequence(0, 0, 0x138, 0x29));
+        keyMap.put((int) '|', new KeySequence(0, 0, 0x138, 0x02));
+        keyMap.put((int) '^', new KeySequence(0, 0, 0x36, 0x1a));
+        keyMap.put((int) '`', new KeySequence(0, 0, 0, 0x1a));
+        keyMap.put((int) '<', new KeySequence(0, 0, 0, 0x56));
+        keyMap.put((int) '>', new KeySequence(0, 0, 0x36, 0x56));
+        keyMap.put((int) '\n', new KeySequence(0, 0, 0, 0x1C));
+
+        return keyMap;
+    }
+
+    private static HashMap<Integer, KeySequence> BuildMap_pc104us() {
+        HashMap<Integer, KeySequence> keyMap = new HashMap<>();
+
+        keyMap.put(9, new KeySequence(0, 0, 0, 0x0f)); // Tab
+
+        keyMap.put((int) 'a', new KeySequence(0, 0, 0, 0x1E));
+        keyMap.put((int) 'b', new KeySequence(0, 0, 0, 0x30));
+        keyMap.put((int) 'c', new KeySequence(0, 0, 0, 0x2E));
+        keyMap.put((int) 'd', new KeySequence(0, 0, 0, 0x20));
+        keyMap.put((int) 'e', new KeySequence(0, 0, 0, 0x12));
+        keyMap.put((int) 'f', new KeySequence(0, 0, 0, 0x21));
+        keyMap.put((int) 'g', new KeySequence(0, 0, 0, 0x22));
+        keyMap.put((int) 'h', new KeySequence(0, 0, 0, 0x23));
+        keyMap.put((int) 'i', new KeySequence(0, 0, 0, 0x17));
+        keyMap.put((int) 'j', new KeySequence(0, 0, 0, 0x24));
+        keyMap.put((int) 'k', new KeySequence(0, 0, 0, 0x25));
+        keyMap.put((int) 'l', new KeySequence(0, 0, 0, 0x26));
+        keyMap.put((int) 'm', new KeySequence(0, 0, 0, 0x32));
+        keyMap.put((int) 'n', new KeySequence(0, 0, 0, 0x31));
+        keyMap.put((int) 'o', new KeySequence(0, 0, 0, 0x18));
+        keyMap.put((int) 'p', new KeySequence(0, 0, 0, 0x19));
+        keyMap.put((int) 'q', new KeySequence(0, 0, 0, 0x10));
+        keyMap.put((int) 'r', new KeySequence(0, 0, 0, 0x13));
+        keyMap.put((int) 's', new KeySequence(0, 0, 0, 0x1F));
+        keyMap.put((int) 't', new KeySequence(0, 0, 0, 0x14));
+        keyMap.put((int) 'u', new KeySequence(0, 0, 0, 0x16));
+        keyMap.put((int) 'v', new KeySequence(0, 0, 0, 0x2F));
+        keyMap.put((int) 'w', new KeySequence(0, 0, 0, 0x11));
+        keyMap.put((int) 'x', new KeySequence(0, 0, 0, 0x2D));
+        keyMap.put((int) 'y', new KeySequence(0, 0, 0, 0x15));
+        keyMap.put((int) 'z', new KeySequence(0, 0, 0, 0x2C));
+        keyMap.put((int) '1', new KeySequence(0, 0, 0, 0x02));
+        keyMap.put((int) '2', new KeySequence(0, 0, 0, 0x03));
+        keyMap.put((int) '3', new KeySequence(0, 0, 0, 0x04));
+        keyMap.put((int) '4', new KeySequence(0, 0, 0, 0x05));
+        keyMap.put((int) '5', new KeySequence(0, 0, 0, 0x06));
+        keyMap.put((int) '6', new KeySequence(0, 0, 0, 0x07));
+        keyMap.put((int) '7', new KeySequence(0, 0, 0, 0x08));
+        keyMap.put((int) '8', new KeySequence(0, 0, 0, 0x09));
+        keyMap.put((int) '9', new KeySequence(0, 0, 0, 0x0A));
+        keyMap.put((int) '0', new KeySequence(0, 0, 0, 0x0B));
+        keyMap.put((int) ' ', new KeySequence(0, 0, 0, 0x39));
+
+        keyMap.put((int) '!', new KeySequence(0, 0, 0x36, 0x02));
+        keyMap.put((int) '@', new KeySequence(0, 0, 0x36, 0x03));
+        keyMap.put((int) '"', new KeySequence(0, 0, 0x36, 0x28));
+        keyMap.put((int) '\'', new KeySequence(0, 0, 0, 0x28));
+        keyMap.put((int) '#', new KeySequence(0, 0, 0x36, 0x04));
+        keyMap.put((int) '~', new KeySequence(0, 0, 0x36, 0x29));
+        keyMap.put((int) '$', new KeySequence(0, 0, 0x36, 0x05));
+        keyMap.put((int) '%', new KeySequence(0, 0, 0x36, 0x06));
+        keyMap.put((int) '&', new KeySequence(0, 0, 0x36, 0x08));
+        keyMap.put((int) '/', new KeySequence(0, 0, 0, 0x35));
+        keyMap.put((int) '(', new KeySequence(0, 0, 0x36, 0x0a));
+        keyMap.put((int) ')', new KeySequence(0, 0, 0x36, 0x0b));
+        keyMap.put((int) '=', new KeySequence(0, 0, 0, 0x0d));
+        keyMap.put((int) '?', new KeySequence(0, 0, 0x36, 0x35));
+        keyMap.put((int) '-', new KeySequence(0, 0, 0, 0x0c));
+        keyMap.put((int) '_', new KeySequence(0, 0, 0x36, 0x0c));
+        keyMap.put((int) ';', new KeySequence(0, 0, 0x36, 0x27));
+        keyMap.put((int) ',', new KeySequence(0, 0, 0, 0x33));
+        keyMap.put((int) '.', new KeySequence(0, 0, 0, 0x34));
+        keyMap.put((int) ':', new KeySequence(0, 0, 0, 0x27));
+        keyMap.put((int) '{', new KeySequence(0, 0, 0x36, 0x1a));
+        keyMap.put((int) '}', new KeySequence(0, 0, 0x36, 0x1b));
+        keyMap.put((int) '[', new KeySequence(0, 0, 0, 0x1a));
+        keyMap.put((int) ']', new KeySequence(0, 0, 0, 0x1b));
+        keyMap.put((int) '*', new KeySequence(0, 0, 0x36, 0x09));
+        keyMap.put((int) '+', new KeySequence(0, 0, 0x36, 0x0d));
+        keyMap.put((int) '\\', new KeySequence(0, 0, 0, 0x2b));
+        keyMap.put((int) '|', new KeySequence(0, 0, 0x36, 0x2b));
+        keyMap.put((int) '^', new KeySequence(0, 0, 0x36, 0x07));
+        keyMap.put((int) '`', new KeySequence(0, 0, 0, 0x29));
+        keyMap.put((int) '<', new KeySequence(0, 0, 0x36, 0x33));
+        keyMap.put((int) '>', new KeySequence(0, 0, 0x36, 0x34));
+        keyMap.put((int) '\n', new KeySequence(0, 0, 0, 0x1c));
+
+        return keyMap;
+    }
+
+    public static void initMap(KeyboardMap map) {
+        switch (map) {
+            case PC104_ES:
+                activeKeyMap = BuildMap_pc104es();
+                break;
+            default:
+                activeKeyMap = BuildMap_pc104us();
+        }
+    }
+
     public static boolean sendSpecialKeyCode(int keyCode) {
         if (keyCode == 67) {
             flexJNI.sendKeyEvent(0x0E, 1);
@@ -34,10 +250,6 @@ public class KeyboardUtils {
     }
 
     public static boolean sendPrintableKeyCode(int uChar) {
-        int keycode = 0;
-        int special = 0;
-        int prekey = 0;
-        int prekey_special = 0;
         boolean is_upper = false;
 
         if (Character.isLetter(uChar) && Character.isUpperCase(uChar)) {
@@ -45,339 +257,13 @@ public class KeyboardUtils {
             uChar = Character.toLowerCase(uChar);
         }
 
-        switch (uChar) {
-            case '€':
-                keycode = 0x12;
-                special = 0x138;
-                break;
-            case '¡':
-                keycode = 0x0d;
-                break;
-            case '¿':
-                keycode = 0x0d;
-                special = 0x36;
-                break;
-            case 'º':
-                keycode = 0x29;
-                break;
-            case 'ª':
-                keycode = 0x29;
-                special = 0x36;
-                break;
-            case 'ñ':
-                keycode = 0x27;
-                break;
-            case 'Ñ':
-                keycode = 0x27;
-                special = 0x36;
-                break;
-            case 'ç':
-                keycode = 0x2b;
-                break;
-            case 'Ç':
-                keycode = 0x2b;
-                special = 0x36;
-                break;
-            case 'á':
-                keycode = 0x1e;
-                prekey = 0x28;
-                break;
-            case 'é':
-                keycode = 0x12;
-                prekey = 0x28;
-                break;
-            case 'í':
-                keycode = 0x17;
-                prekey = 0x28;
-                break;
-            case 'ó':
-                keycode = 0x18;
-                prekey = 0x28;
-                break;
-            case 'ú':
-                keycode = 0x16;
-                prekey = 0x28;
-                break;
-            case 'ü':
-                keycode = 0x16;
-                prekey = 0x28;
-                prekey_special = 0x36;
-                break;
-            case 'Á':
-                keycode = 0x1e;
-                special = 0x36;
-                prekey = 0x28;
-                break;
-            case 'É':
-                keycode = 0x12;
-                special = 0x36;
-                prekey = 0x28;
-                break;
-            case 'Í':
-                keycode = 0x17;
-                special = 0x36;
-                prekey = 0x28;
-                break;
-            case 'Ó':
-                keycode = 0x18;
-                special = 0x36;
-                prekey = 0x28;
-                break;
-            case 'Ú':
-                keycode = 0x16;
-                special = 0x36;
-                prekey = 0x28;
-                break;
-            case 'Ü':
-                keycode = 0x16;
-                special = 0x36;
-                prekey = 0x28;
-                prekey_special = 0x36;
-                break;
-            case 9:
-            /* tab */
-                keycode = 0x0f;
-                break;
-            case 'a':
-                keycode = 0x1E;
-                break;
-            case 'b':
-                keycode = 0x30;
-                break;
-            case 'c':
-                keycode = 0x2E;
-                break;
-            case 'd':
-                keycode = 0x20;
-                break;
-            case 'e':
-                keycode = 0x12;
-                break;
-            case 'f':
-                keycode = 0x21;
-                break;
-            case 'g':
-                keycode = 0x22;
-                break;
-            case 'h':
-                keycode = 0x23;
-                break;
-            case 'i':
-                keycode = 0x17;
-                break;
-            case 'j':
-                keycode = 0x24;
-                break;
-            case 'k':
-                keycode = 0x25;
-                break;
-            case 'l':
-                keycode = 0x26;
-                break;
-            case 'm':
-                keycode = 0x32;
-                break;
-            case 'n':
-                keycode = 0x31;
-                break;
-            case 'o':
-                keycode = 0x18;
-                break;
-            case 'p':
-                keycode = 0x19;
-                break;
-            case 'q':
-                keycode = 0x10;
-                break;
-            case 'r':
-                keycode = 0x13;
-                break;
-            case 's':
-                keycode = 0x1F;
-                break;
-            case 't':
-                keycode = 0x14;
-                break;
-            case 'u':
-                keycode = 0x16;
-                break;
-            case 'v':
-                keycode = 0x2F;
-                break;
-            case 'w':
-                keycode = 0x11;
-                break;
-            case 'x':
-                keycode = 0x2D;
-                break;
-            case 'y':
-                keycode = 0x15;
-                break;
-            case 'z':
-                keycode = 0x2C;
-                break;
-            case '1':
-                keycode = 0x02;
-                break;
-            case '2':
-                keycode = 0x03;
-                break;
-            case '3':
-                keycode = 0x04;
-                break;
-            case '4':
-                keycode = 0x05;
-                break;
-            case '5':
-                keycode = 0x06;
-                break;
-            case '6':
-                keycode = 0x07;
-                break;
-            case '7':
-                keycode = 0x08;
-                break;
-            case '8':
-                keycode = 0x09;
-                break;
-            case '9':
-                keycode = 0x0A;
-                break;
-            case '0':
-                keycode = 0x0B;
-                break;
-            case ' ':
-                keycode = 0x39;
-                break;
-            case '!':
-                keycode = 0x02;
-                special = 0x36;
-                break;
-            case '@':
-                keycode = 0x03;
-                special = 0x138;
-                break;
-            case '"':
-                keycode = 0x03;
-                special = 0x36;
-                break;
-            case '\'':
-                keycode = 0x0c;
-                break;
-            case '#':
-                keycode = 0x04;
-                special = 0x138;
-                break;
-            case '~':
-                keycode = 0x05;
-                special = 0x138;
-                break;
-            case '$':
-                keycode = 0x05;
-                special = 0x36;
-                break;
-            case '%':
-                keycode = 0x06;
-                special = 0x36;
-                break;
+        if (activeKeyMap.containsKey(uChar)) {
+            KeySequence keySeq = activeKeyMap.get(uChar);
+            sendKeyCombination(keySeq.key, is_upper,
+                    keySeq.special_key,
+                    keySeq.prekey,
+                    keySeq.special_prekey);
 
-            case '&':
-                keycode = 0x07;
-                special = 0x36;
-                break;
-            case '/':
-                keycode = 0x08;
-                special = 0x36;
-                break;
-            case '(':
-                keycode = 0x09;
-                special = 0x36;
-                break;
-            case ')':
-                keycode = 0x0a;
-                special = 0x36;
-                break;
-            case '=':
-                keycode = 0x0b;
-                special = 0x36;
-                break;
-            case '?':
-                keycode = 0x0c;
-                special = 0x36;
-                break;
-            case '-':
-                keycode = 0x35;
-                break;
-            case '_':
-                keycode = 0x35;
-                special = 0x36;
-                break;
-            case ';':
-                keycode = 0x33;
-                special = 0x36;
-                break;
-            case ',':
-                keycode = 0x33;
-                break;
-            case '.':
-                keycode = 0x34;
-                break;
-            case ':':
-                keycode = 0x34;
-                special = 0x36;
-                break;
-            case '{':
-                keycode = 0x28;
-                special = 0x138;
-                break;
-            case '}':
-                keycode = 0x2B;
-                special = 0x138;
-                break;
-            case '[':
-                keycode = 0x1A;
-                special = 0x138;
-                break;
-            case ']':
-                keycode = 0x1B;
-                special = 0x138;
-                break;
-            case '*':
-                keycode = 0x1B;
-                special = 0x36;
-                break;
-            case '+':
-                keycode = 0x1B;
-                break;
-            case '\\':
-                keycode = 0x29;
-                special = 0x138;
-                break;
-            case '|':
-                keycode = 0x02;
-                special = 0x138;
-                break;
-            case '^':
-                keycode = 0x1a;
-                special = 0x36;
-                break;
-            case '`':
-                keycode = 0x1a;
-                break;
-            case '<':
-                keycode = 0x56;
-                break;
-            case '>':
-                keycode = 0x56;
-                special = 0x36;
-                break;
-            case '\n':
-                keycode = 0x1C;
-                break;
-        }
-
-        if (keycode != 0) {
-            sendKeyCombination(keycode, is_upper, special, prekey, prekey_special);
             return true;
         }
 

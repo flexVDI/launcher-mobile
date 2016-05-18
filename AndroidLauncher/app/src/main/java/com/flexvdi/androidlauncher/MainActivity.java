@@ -47,6 +47,8 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import java.util.Locale;
+
 public class MainActivity extends Activity implements View.OnTouchListener {
     private final static String TAG = "flexVDI";
     private GLSurfaceView mGLView;
@@ -87,12 +89,17 @@ public class MainActivity extends Activity implements View.OnTouchListener {
             contentScale = 1.0;
         }
 
+        if (Locale.getDefault().toString().equals("es_ES")) {
+            KeyboardUtils.initMap(KeyboardUtils.KeyboardMap.PC104_ES);
+        } else {
+            KeyboardUtils.initMap(KeyboardUtils.KeyboardMap.PC104_US);
+        }
+
         mGLView = new MainGLSurfaceView(this, mouseScale, contentScale);
         mGLView.setOnTouchListener(this);
 
         editText = new EditText(this);
         editText.setText("dontlookatme");
-        editText.setSelection(6);
         editText.setSingleLine(false);
         editText.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI | EditorInfo.IME_FLAG_NO_ENTER_ACTION);
         editText.setInputType(EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS | EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
@@ -119,6 +126,7 @@ public class MainActivity extends Activity implements View.OnTouchListener {
             public void afterTextChanged(Editable arg0) {
             }
         });
+        editText.setSelection(6);
 
         RelativeLayout relativeLayout = new RelativeLayout(this);
         relativeLayout.addView(editText);
